@@ -15,27 +15,4 @@ export class Media {
 
   constructor(public http: Http) {}
 
-  setUser = (user) => {
-    this.user = user;
-  }
-
-  login = () => {
-    this.http.post(this.url + '/login', this.user)
-      .subscribe(
-        resp => {
-          const dataFromServer = resp.json()
-          //save user data to local storage
-          this.user = dataFromServer.user;
-          this.user.token = dataFromServer.token;
-          console.log(this.user);
-          localStorage.setItem('user', JSON.stringify(this.user));
-
-        },
-        //error handler
-        err => {
-          console.log(err);
-        }
-      );
-  }
-
 }

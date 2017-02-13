@@ -1,4 +1,5 @@
 import { WelcomePage } from './../pages/welcome/welcome';
+import { TabsPage } from './../pages/tabs/tabs';
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
@@ -7,7 +8,7 @@ import { StatusBar, Splashscreen } from 'ionic-native';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = WelcomePage;
+  rootPage: any;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
@@ -15,6 +16,15 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       Splashscreen.hide();
+      this.checkAuthentication();
     });
+  }
+  
+  checkAuthentication(){
+    if(!localStorage.getItem("user")) {
+      this.rootPage = WelcomePage;
+    }else{
+      this.rootPage = TabsPage;
+    }
   }
 }
