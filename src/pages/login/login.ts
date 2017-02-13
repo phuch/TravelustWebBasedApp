@@ -1,6 +1,6 @@
+import { LoginService } from './../../providers/login-service';
 import { TabsPage } from './../tabs/tabs';
-import { Media } from './../../providers/media';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 /*
@@ -12,28 +12,39 @@ import { NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [Media]
+  providers: [LoginService]
 })
-export class LoginPage {
-  private username: string = '';
-  private password: string = '';
-  constructor(public navCtrl: NavController, public navParams: NavParams, private mediaservice: Media) {}
+export class LoginPage implements OnInit {
+  private user: any = {};
+  constructor(public navCtrl: NavController, public navParams: NavParams, private loginService: LoginService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
-
-  login = () => {
-    const user = {
-      username: this.username,
-      password: this.password
+  ngOnInit() {
+    if(localStorage.getItem("user") !== null) {
+      this.loginService.setUser(JSON.parse(localStorage.getItem("user")));
+      this.loginService.isLogged = true;
+      this.navCtrl.push(TabsPage);
+    } else if (this.loginService.getUser().password !== undefined){
+      this.loginService.login();
     }
-
-    this.mediaservice.setUser(user);
-    this.mediaservice.login();
-    this.navCtrl.push(TabsPage);
   }
 
 
+
+  login = (value: any) => {
+
+      this.loginService.setUser(value);
+      console.log(this.loginService.login());
+      // if(this.loginService.login()){
+      //   this.navCtrl.push(TabsPage);
+      // }else{
+      //   console.log("You haven't registered or your password does not match");
+      // }
+
+
+
+  }
 }
