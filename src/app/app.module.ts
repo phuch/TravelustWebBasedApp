@@ -1,3 +1,4 @@
+import { RegisterPage } from './../pages/register/register';
 import { WelcomePage } from './../pages/welcome/welcome';
 import { LoginPage } from './../pages/login/login';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -17,11 +18,19 @@ import { TabsPage } from '../pages/tabs/tabs';
     HomePage,
     TabsPage,
     LoginPage,
-    WelcomePage
+    WelcomePage,
+    RegisterPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
-  ],
+    IonicModule.forRoot(MyApp, {
+      backButtonText: '',
+      iconMode: 'ios',
+      modalEnter: 'modal-slide-in',
+      modalLeave: 'modal-slide-out',
+      tabsPlacement: 'bottom',
+      pageTransition: 'ios'
+    }, {}
+  )],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
@@ -30,7 +39,8 @@ import { TabsPage } from '../pages/tabs/tabs';
     HomePage,
     TabsPage,
     LoginPage,
-    WelcomePage
+    WelcomePage,
+    RegisterPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

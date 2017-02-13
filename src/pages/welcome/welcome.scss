@@ -4,6 +4,12 @@ $title-font: 'Josefin Sans', sans-serif;
 $text-font: 'Source Code Pro', monospace;
 
   page-welcome {
+    .navbar {
+      .toolbar-background {
+        background: linear-gradient(to left, #4CB8C4 , #3CD3AD);
+        border: none;
+      }
+    }
 
     h2 {
       font-size: 35px;
@@ -16,7 +22,7 @@ $text-font: 'Source Code Pro', monospace;
       background: linear-gradient(to left, #4CB8C4 , #3CD3AD);
       width: 100%;
       height: 100%;
-      padding-top: 80px;
+      padding-top: 60px;
     }
 
     ion-row {

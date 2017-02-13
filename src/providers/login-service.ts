@@ -26,7 +26,7 @@ export class LoginService {
   }
 
   login = () => {
-     return this.http.post(this.url + '/login', this.user).map(res => res.json())
+     return this.http.post(this.url + '/login', this.user).map(res => res.json());
   }
 
   isLoggedIn(){
@@ -39,13 +39,7 @@ export class LoginService {
 
   register = () => {
     return this.http.post(this.url + '/users', this.user)
-      .subscribe(
-        resp => {
-          this.user.user_id = resp.json().user_id;
-          console.log(this.user);
-          this.login();
-        }
-      )
+      .map(resp => resp.json());
   }
 
 }
