@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class LoginService {
-  isLogged: boolean;
+  private isLogged: boolean;
   private url: string = 'http://media.mw.metropolia.fi/wbma';
   private user: any = {}
   constructor(public http: Http) {
@@ -26,25 +26,15 @@ export class LoginService {
   }
 
   login = () => {
-     this.http.post(this.url + '/login', this.user)
-      .subscribe(
-        resp => {
-          const dataFromServer = resp.json();
-          //save user data to local storage
-          this.user = dataFromServer.user;
-          this.user.token = dataFromServer.token;
-          console.log(this.user);
-          localStorage.setItem('user', JSON.stringify(this.user));
-          this.isLogged = true;
-        },
-        //error handler
-        err => {
-          if(err._body.message == "Authentication failed due bad username" || err._body.message == "Authentication failed due bad password"){
-            this.isLogged = false;
-          }
-        }
-      ).unsubscribe();
-      return this.isLogged;
+     return this.http.post(this.url + '/login', this.user).map(res => res.json())
+  }
+
+  isLoggedIn(){
+    return this.isLogged;
+  }
+
+  setLoggedIn(status: boolean){
+    this.isLogged = status;
   }
 
 }
