@@ -37,4 +37,15 @@ export class LoginService {
     this.isLogged = status;
   }
 
+  register = () => {
+    return this.http.post(this.url + '/users', this.user)
+      .subscribe(
+        resp => {
+          this.user.user_id = resp.json().user_id;
+          console.log(this.user);
+          this.login();
+        }
+      )
+  }
+
 }
