@@ -1,5 +1,6 @@
+import { LoginService } from './login-service';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 /*
@@ -13,8 +14,7 @@ export class MediaService {
 
   private url: string = 'http://media.mw.metropolia.fi/wbma';
 
-
-  constructor(public http: Http) {
+  constructor(public http: Http, private loginService: LoginService) {
     console.log('Hello MediaService Provider');
   }
 
@@ -25,6 +25,12 @@ export class MediaService {
       );
   }
 
-
+  uploadMedia = (image: any) => {
+    console.log(this.loginService.getUser().token);
+    return this.http.post(this.url + '/media?token=' + this.loginService.getUser().token, image)
+      .map(
+        resp => resp.json()
+      );
+  }
 
 }
