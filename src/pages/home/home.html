@@ -6,16 +6,23 @@
 
 <ion-content class="cards-bg">
 
-  <ion-card>
+  <ion-card *ngFor="let media of medias">
 
-    <img src="images/vienna.jpg"/>
+    <img *ngIf="media.media_type == 'image'" [src]="url + media.filename">
+
+      <video *ngIf="media.media_type == 'video'" width="320" height="240" controls>
+        <source [src]="url + media.filename" type="video/mp4">
+      </video>
+
+      <img *ngIf="media.media_type == 'audio'" src="../../assets/img/audio_icon.jpg" width="300px">
+
 
     <ion-card-content>
       <ion-card-title>
-        Nine Inch Nails Live
+        {{media.title}}
       </ion-card-title>
       <p>
-        The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
+        {{media.description}}
       </p>
     </ion-card-content>
 
@@ -37,174 +44,11 @@
 
   </ion-card>
 
-  <ion-card>
-
-    <div>
-      <img src="images/turkey.jpg"/>
-    </div>
-
-    <ion-card-content>
-      <ion-card-title>
-        Erykah Badu
-      </ion-card-title>
-      <p>
-      American singer-songwriter, record producer, activist, and actress, Badu's style is a prime example of neo-soul.
-      </p>
-    </ion-card-content>
-
-      <ion-row no-padding>
-        <ion-col>
-          <button ion-button clear small color="danger" icon-left>
-            <ion-icon name='heart'></ion-icon>
-            Like
-          </button>
-        </ion-col>
-
-        <ion-col text-right>
-          <button ion-button clear small color="primary" icon-left>
-            <ion-icon name='pin'></ion-icon>
-            Istanbul
-          </button>
-        </ion-col>
-      </ion-row>
-
-  </ion-card>
-
-  <ion-card>
-
-    <div>
-      <img src="images/helsinki.jpg"/>
-    </div>
-
-    <ion-card-content>
-      <ion-card-title>
-        Queen
-      </ion-card-title>
-      <p>
-        The British rock band formed in London in 1970, and is considered one of the biggest stadium rock bands in the world.
-      </p>
-    </ion-card-content>
-
-    <ion-row no-padding>
-      <ion-col>
-        <button ion-button clear small color="danger" icon-left>
-          <ion-icon name='heart'></ion-icon>
-          Like
-        </button>
-      </ion-col>
-
-      <ion-col text-right>
-        <button ion-button clear small color="primary" icon-left>
-          <ion-icon name='pin'></ion-icon>
-          Helsinki
-        </button>
-      </ion-col>
-    </ion-row>
-
-  </ion-card>
-
-  <ion-card>
-
-    <div>
-      <img src="images/tokyo.jpg"/>
-    </div>
-
-    <ion-card-content>
-      <ion-card-title>
-        Run-D.M.C.
-      </ion-card-title>
-      <p>
-        The American hip hop group widely acknowledged as one of the most influential acts in the history of hip hop.
-      </p>
-    </ion-card-content>
-
-    <ion-row no-padding>
-      <ion-col>
-        <button ion-button clear small color="danger" icon-left>
-          <ion-icon name='heart'></ion-icon>
-          Like
-        </button>
-      </ion-col>
-
-      <ion-col text-right>
-        <button ion-button clear small color="primary" icon-left>
-          <ion-icon name='pin'></ion-icon>
-          Tokyo
-        </button>
-      </ion-col>
-    </ion-row>
-  </ion-card>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+   <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more medias...">
+   </ion-infinite-scroll-content>
+ </ion-infinite-scroll>
 
 </ion-content>
-<!--<ion-content class="cards-bg">
-  <section class="journal-grid">
-
-    <h2>New journals</h2>
-
-    <hr>
-
-    <section class="container dynamic-grid" id="wrapper">
-
-        <article class="grid-item content-box">
-
-                <div class="content">
-
-                    <img class="thumb" src="images/vienna.jpg">
-                    <a class="header" href="#"><h1>Picture 1</h1></a>
-                    <p class="description">'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil voluptatibus aliquam asperiores, cum distinctio aliquid recusandae velit beatae. Reprehenderit in eum, expedita, alias explicabo iure amet. Assumenda consequuntur vitae fugit.'</p>
-                    <div class="location">
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <span>Location</span>
-                    </div>
-
-                </div>
-        </article>
-
-        <article class="grid-item content-box">
-
-                <div class="content">
-
-                    <img class="thumb" src="images/tokyo.jpg">
-                    <a class="header" href="#"><h1>Picture 1</h1></a>
-                    <p class="description">'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil voluptatibus aliquam asperiores, cum distinctio aliquid recusandae velit beatae. Reprehenderit in eum, expedita, alias explicabo iure amet. Assumenda consequuntur vitae fugit.'</p>
-                    <div class="location">
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <span>Location</span>
-                    </div>
-
-                </div>
-        </article>
-
-        <article class="grid-item content-box">
-
-                <div class="content">
-
-                    <img class="thumb" src="images/helsinki.jpg">
-                    <a class="header" href="#"><h1>Picture 1</h1></a>
-                    <p class="description">'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil voluptatibus aliquam asperiores, cum distinctio aliquid recusandae velit beatae. Reprehenderit in eum, expedita, alias explicabo iure amet. Assumenda consequuntur vitae fugit.'</p>
-                    <div class="location">
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <span>Location</span>
-                    </div>
-
-                </div>
-        </article>
-
-        <article class="grid-item content-box">
-
-                <div class="content">
-
-                    <img class="thumb" src="images/newyork.jpg">
-                    <a class="header" href="#"><h1>Picture 1</h1></a>
-                    <p class="description">'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil voluptatibus aliquam asperiores, cum distinctio aliquid recusandae velit beatae. Reprehenderit in eum, expedita, alias explicabo iure amet. Assumenda consequuntur vitae fugit.'</p>
-                    <div class="location">
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <span>Location</span>
-                    </div>
-
-                </div>
-        </article>
-
-    </section>
-  </section>
-</ion-content>-->

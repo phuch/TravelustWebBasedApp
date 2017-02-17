@@ -24,13 +24,6 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-    // if(localStorage.getItem("user") !== null) {
-    //   this.loginService.setUser(JSON.parse(localStorage.getItem("user")));
-    //   this.loginService.isLogged = true;
-    //   this.navCtrl.push(TabsPage);
-    // } else if (this.loginService.getUser().password !== undefined){
-    //   this.loginService.login();
-    // }
   }
 
   login = (value: any) => {
