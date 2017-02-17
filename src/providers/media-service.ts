@@ -19,11 +19,7 @@ export class MediaService {
   //base url
   private url: string = 'http://media.mw.metropolia.fi/wbma';
 
-<<<<<<< HEAD
-  constructor(public http: Http, private loginService: LoginService) {
-=======
   constructor(public http: Http, private userService: UserService) {
->>>>>>> 86d3dc46d09fbc4da97b3a7315ad05808dfa329e
     console.log('Hello MediaService Provider');
   }
 
@@ -35,13 +31,15 @@ export class MediaService {
       );
   }
 
-<<<<<<< HEAD
+
   uploadMedia = (image: any) => {
     console.log(this.loginService.getUser().token);
     return this.http.post(this.url + '/media?token=' + this.loginService.getUser().token, image)
       .map(
         resp => resp.json()
-=======
+        )
+  }
+
   //Get a single media file based on file id
   getSingleMedia = (fileId: any) => {
     return this.http.get(this.url + '/media/' + fileId)
@@ -80,7 +78,6 @@ export class MediaService {
       .map(
         res =>
           res.json()
->>>>>>> 86d3dc46d09fbc4da97b3a7315ad05808dfa329e
       );
   }
 

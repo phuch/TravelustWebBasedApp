@@ -7,11 +7,7 @@ import { UserService } from './../../providers/user-service';
 
 @Component({
   templateUrl: 'tabs.html',
-<<<<<<< HEAD
-  providers: [LoginService]
-=======
-  providers: [UserService]
->>>>>>> 86d3dc46d09fbc4da97b3a7315ad05808dfa329e
+  providers: [UserService, LoginService]
 })
 export class TabsPage {
   // this tells the tabs component which Pages
