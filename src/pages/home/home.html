@@ -7,16 +7,18 @@
 <ion-content class="cards-bg">
 
   <ion-card *ngFor="let media of medias">
-
-    <img *ngIf="media.media_type == 'image'" [src]="url + media.filename">
+    <!-- IMAGE SECTION -->
+    <div (click)="navigateToDetail(media.file_id)">
+      <img *ngIf="media.media_type == 'image'" [src]="url + media.filename">
 
       <video *ngIf="media.media_type == 'video'" width="320" height="240" controls>
         <source [src]="url + media.filename" type="video/mp4">
       </video>
 
       <img *ngIf="media.media_type == 'audio'" src="../../assets/img/audio_icon.jpg" width="300px">
+    </div>
 
-
+    <!-- INFO SECTION -->
     <ion-card-content>
       <ion-card-title>
         {{media.title}}

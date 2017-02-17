@@ -13,6 +13,7 @@ export class LoginService {
   private isLogged: boolean;
   private url: string = 'http://media.mw.metropolia.fi/wbma';
   private user: any = {}
+
   constructor(public http: Http) {
     console.log('Hello LoginService Provider');
   }
@@ -21,11 +22,14 @@ export class LoginService {
     this.user = user;
   }
 
+<<<<<<< HEAD
   getUser = () => {
     console.log(this.user);
     return this.user;
   }
 
+=======
+>>>>>>> 86d3dc46d09fbc4da97b3a7315ad05808dfa329e
   login = () => {
      return this.http.post(this.url + '/login', this.user).map(res => res.json());
   }
