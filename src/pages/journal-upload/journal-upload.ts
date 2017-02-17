@@ -1,3 +1,4 @@
+import { HomePage } from './../home/home';
 import { MediaService } from './../../providers/media-service';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
@@ -32,7 +33,8 @@ export class JournalUploadPage {
 
     this.mediaService.uploadMedia(formData).subscribe(
       data => {
-        console.log(data)
+        console.log(data);
+        this.navCtrl.push(HomePage);
       }
     )
   }

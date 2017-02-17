@@ -1,11 +1,6 @@
-import { LoginService } from './login-service';
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
-import { Http, Headers, RequestOptions } from '@angular/http';
-=======
-import {Http, Headers, RequestOptions} from "@angular/http";
+import { Http, Headers, RequestOptions} from "@angular/http";
 import { UserService } from './user-service';
->>>>>>> 86d3dc46d09fbc4da97b3a7315ad05808dfa329e
 import 'rxjs/add/operator/map';
 
 /*
@@ -33,8 +28,7 @@ export class MediaService {
 
 
   uploadMedia = (image: any) => {
-    console.log(this.loginService.getUser().token);
-    return this.http.post(this.url + '/media?token=' + this.loginService.getUser().token, image)
+    return this.http.post(this.url + '/media?token=' + this.userService.getUserFromLocal().token, image)
       .map(
         resp => resp.json()
         )
