@@ -13,16 +13,13 @@ export class LoginService {
   private isLogged: boolean;
   private url: string = 'http://media.mw.metropolia.fi/wbma';
   private user: any = {}
+
   constructor(public http: Http) {
     console.log('Hello LoginService Provider');
   }
 
   setUser = (user) => {
     this.user = user;
-  }
-
-  getUser = () => {
-    return this.user;
   }
 
   login = () => {
