@@ -1,6 +1,7 @@
 import { MediaService } from './../../providers/media-service';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { DetailViewPage } from './../detail-view/detail-view';
 
 @Component({
   selector: 'page-home',
@@ -40,6 +41,10 @@ export class HomePage implements OnInit {
       infiniteScroll.complete();
     }, 1000);
 
+  }
+
+  navigateToDetail = (fileId: any) => {
+    this.navCtrl.push(DetailViewPage, {fileId: fileId});
   }
 
 }

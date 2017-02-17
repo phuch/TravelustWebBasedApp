@@ -2,9 +2,11 @@ import { JournalUploadPage } from './../journal-upload/journal-upload';
 import { Component } from '@angular/core';
 import { HomePage } from '../home/home';
 import { ContactPage } from '../contact/contact';
+import { UserService } from './../../providers/user-service';
 
 @Component({
-  templateUrl: 'tabs.html'
+  templateUrl: 'tabs.html',
+  providers: [UserService]
 })
 export class TabsPage {
   // this tells the tabs component which Pages
