@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers, RequestOptions} from "@angular/http";
+import { Http, Headers, RequestOptions} from "@angular/http";
 import { UserService } from './user-service';
 import 'rxjs/add/operator/map';
 
@@ -24,6 +24,14 @@ export class MediaService {
       .map(
         resp => resp.json()
       );
+  }
+
+
+  uploadMedia = (image: any) => {
+    return this.http.post(this.url + '/media?token=' + this.userService.getUserFromLocal().token, image)
+      .map(
+        resp => resp.json()
+        )
   }
 
   //Get a single media file based on file id

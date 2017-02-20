@@ -1,3 +1,4 @@
+import { UserAccountPage } from './../pages/user-account/user-account';
 import { JournalUploadPage } from './../pages/journal-upload/journal-upload';
 import { RegisterPage } from './../pages/register/register';
 import { WelcomePage } from './../pages/welcome/welcome';
@@ -5,7 +6,6 @@ import { LoginPage } from './../pages/login/login';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { DetailViewPage } from '../pages/detail-view/detail-view';
@@ -14,14 +14,14 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
 @NgModule({
   declarations: [
     MyApp,
-    ContactPage,
     HomePage,
     TabsPage,
     LoginPage,
     WelcomePage,
     RegisterPage,
     JournalUploadPage,
-    DetailViewPage
+    DetailViewPage,
+    UserAccountPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -36,14 +36,14 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    ContactPage,
     HomePage,
     TabsPage,
     LoginPage,
     WelcomePage,
     RegisterPage,
     JournalUploadPage,
-    DetailViewPage
+    DetailViewPage,
+    UserAccountPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

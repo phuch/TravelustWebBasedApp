@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>detail-view</ion-title>
+    <ion-title>Travelust</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -30,11 +30,11 @@
       <p>Description: {{file.description}}</p>
       <h5>Uploaded by {{owner}}</h5>
       <p>{{likes}} {{likeStr}}
-    
+
         <span *ngFor="let user of users; let i = index; trackBy:trackByUsers">
           {{user}} <span> {{(i+1) < users.length? ', ' : ''}} </span>
         </span>
-      
+
       </p>
       <input type="button" value="{{button}}" (click)="onClick()">
     </div>
