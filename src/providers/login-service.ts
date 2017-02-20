@@ -39,4 +39,8 @@ export class LoginService {
       .map(resp => resp.json());
   }
 
+  logout = () => {
+    localStorage.removeItem('user');
+  }
+
 }
