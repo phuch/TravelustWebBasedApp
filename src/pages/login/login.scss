@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans|Source+Code+Pro');
+$text-color: #FFFFFF;
+$title-font: 'Josefin Sans', sans-serif;
+$text-font: 'Source Code Pro', monospace;
+
+  page-login {
+    .navbar {
+      .toolbar-background {
+        background: linear-gradient(to left, #4CB8C4 , #3CD3AD);
+        border: none;
+      }
+      .bar-button {
+        color: $text-color;
+      }
+    }
+
+    h2 {
+      font-size: 35px;
+      color: $text-color;
+      font-family: $title-font;
+      margin-bottom: 20px;
+    }
+
+    #login-form {
+      background: linear-gradient(to left, #4CB8C4 , #3CD3AD);
+      width: 100%;
+      height: 100%;
+      padding-top: 70px;
+    }
+
+    ion-row {
+      align-items: center;
+      text-align: center;
+    }
+    .list-ios > .item-block:first-child {
+      border-top: none;
+    }
+
+    .list-ios .item-block .item-inner {
+      border-bottom:  0.55px solid white;
+    }
+
+    .list-ios > .item-block:last-child .item-inner, .list-ios > .item-wrapper:last-child .item-block .item-inner{
+      border-bottom: 0.55px solid white;
+    }
+
+    .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block{
+      border-bottom: none;
+    }
+
+    .item-ios {
+      background-color: transparent;
+      padding-left: 10px;
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: $text-color;
+    }
+
+    ion-list {
+      margin: 0;
+    }
+
+    .button {
+      width: 45%;
+      height: 40px;
+      border-radius: 18px;
+      border: 2px solid white;
+      font-family: $text-font;
+      font-size: 18px;
+      background-color: transparent;
+    }
+
+  }
+
+

@@ -1,17 +1,56 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+  <ion-navbar hideBackButton>
+    <ion-title>Travelust</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content class="cards-bg">
+
+  <ion-card *ngFor="let media of medias">
+    <!-- IMAGE SECTION -->
+    <div (click)="navigateToDetail(media.file_id)">
+      <img *ngIf="media.media_type == 'image'" [src]="url + media.filename">
+
+      <video *ngIf="media.media_type == 'video'" width="320" height="240" controls>
+        <source [src]="url + media.filename" type="video/mp4">
+      </video>
+
+      <img *ngIf="media.media_type == 'audio'" src="../../assets/img/audio_icon.jpg" width="300px">
+    </div>
+
+    <!-- INFO SECTION -->
+    <ion-card-content>
+      <ion-card-title>
+        {{media.title}}
+      </ion-card-title>
+      <p>
+        {{media.description}}
+      </p>
+    </ion-card-content>
+
+    <ion-row no-padding>
+      <ion-col>
+        <button ion-button clear small color="danger" icon-left>
+          <ion-icon name='heart'></ion-icon>
+          Like
+        </button>
+      </ion-col>
+
+      <ion-col text-right>
+        <button ion-button clear small color="primary" icon-left>
+          <ion-icon name='pin'></ion-icon>
+          Vienna
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+   <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more medias...">
+   </ion-infinite-scroll-content>
+ </ion-infinite-scroll>
+
 </ion-content>
