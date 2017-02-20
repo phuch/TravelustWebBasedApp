@@ -1,7 +1,7 @@
 import { RegisterPage } from './../register/register';
 import { LoginPage } from './../login/login';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams} from 'ionic-angular';
 
 
 /*
