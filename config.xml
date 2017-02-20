@@ -18,6 +18,12 @@
   <platform name="ios">
     <allow-intent href="itms:*"/>
     <allow-intent href="itms-apps:*"/>
+    <config-file parent="NSPhotoLibraryUsageDescription" platform="ios" target="*-Info.plist">
+      <string>This app needs access to your Photo Library to upload photos</string>
+    </config-file>
+    <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
+      <string>Allow to scan member's pass</string>
+    </config-file>
   </platform>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
