@@ -15,4 +15,31 @@
 
 <ion-content padding>
 
+  <ion-row>
+      <ion-col>
+        <form #uploadForm="ngForm" (ngSubmit) = "uploadMedia($event, uploadForm.value)">
+            <ion-list>
+              <ion-item>
+                  <label>File:</label>
+                  <input type="file" name="file" accept="image/*" ngModel>
+              </ion-item>
+
+              <ion-item>
+                  <ion-label>Title:</ion-label>
+                  <ion-input type="text" name="title" ngModel required></ion-input>
+              </ion-item>
+
+              <ion-item>
+                  <ion-textarea type="text" name="description" rows="6" placeholder="Description..." ngModel ></ion-textarea>
+              </ion-item>
+            </ion-list>
+            <ion-row>
+                <ion-col>
+                    <button ion-button class="button" type="submit" [disabled]="!uploadForm.valid">Upload</button>
+                </ion-col>
+            </ion-row>
+        </form>
+      </ion-col>
+    </ion-row>
+
 </ion-content>
