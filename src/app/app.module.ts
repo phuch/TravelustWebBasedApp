@@ -1,3 +1,4 @@
+import { JournalPage } from './../pages/journal/journal';
 import { UserAccountPage } from './../pages/user-account/user-account';
 import { JournalUploadPage } from './../pages/journal-upload/journal-upload';
 import { RegisterPage } from './../pages/register/register';
@@ -21,7 +22,8 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     RegisterPage,
     JournalUploadPage,
     DetailViewPage,
-    UserAccountPage
+    UserAccountPage,
+    JournalPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -43,7 +45,8 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     RegisterPage,
     JournalUploadPage,
     DetailViewPage,
-    UserAccountPage
+    UserAccountPage,
+    JournalPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
