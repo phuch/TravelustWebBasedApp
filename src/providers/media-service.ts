@@ -28,7 +28,9 @@ export class MediaService {
 
 
   uploadMedia = (image: any) => {
-    return this.http.post(this.url + '/media?token=' + this.userService.getUserFromLocal().token, image)
+    const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
+    const options = new RequestOptions({headers : headers})
+    return this.http.post(this.url + '/media', image, options)
       .map(
         resp => resp.json()
         )
