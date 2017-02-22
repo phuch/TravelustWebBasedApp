@@ -1,3 +1,4 @@
+import { UserService } from './../../providers/user-service';
 import { MediaService } from './../../providers/media-service';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
@@ -14,7 +15,7 @@ export class HomePage implements OnInit {
   private medias: any = [];
 
   url: string = 'http://media.mw.metropolia.fi/wbma/uploads/'
-  constructor(public navCtrl: NavController, private mediaService: MediaService) {
+  constructor(public navCtrl: NavController, private mediaService: MediaService, private userService: UserService) {
   }
 
   ngOnInit () {
@@ -26,6 +27,12 @@ export class HomePage implements OnInit {
       resp => {
         for( let data of resp) {
           this.medias.push(data);
+          data.dayPosted = data.time_added.substring(0, data.time_added.indexOf('T'));
+          this.userService.getUserInfo(data.user_id).subscribe(
+            resp => {
+              data.author = resp.username;
+            }
+          );
         }
         console.log(this.medias);
       }

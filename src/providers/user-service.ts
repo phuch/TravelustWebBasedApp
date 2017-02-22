@@ -20,7 +20,7 @@ export class UserService {
   getUserFromLocal(){
     return JSON.parse(localStorage.getItem("user"));
   }
-  
+
   //Get info of a user based on user id
   getUserInfo = (userId: any) => {
      const headers = new Headers({'x-access-token': this.getUserFromLocal().token})
