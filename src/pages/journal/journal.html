@@ -12,7 +12,52 @@
 
 </ion-header>
 
-
 <ion-content padding>
+  <h1>Title</h1>
+  <p>by Hendsem Mann</p>
+  <p>
+    <ion-icon name='pin'></ion-icon>
+    Location
+  </p>
+
+  <button ion-button icon-left [class.liked-button] = "isLiked" (click)= "isLiked = !isLiked">
+    <ion-icon name="heart"></ion-icon>
+    245
+  </button>
+
+  <button ion-button icon-left [class.saved-journal]= "isSaved" (click)= "isSaved = !isSaved">
+    <ion-icon name="bookmark"></ion-icon>
+    Save journal
+  </button>
+
+
+  <div class="dynamic-grid">
+
+    <article class="grid-item">
+      <img src="././assets/img/tokyo.jpg">
+    </article>
+
+    <article class="grid-item">
+      <img src="././assets/img/helsinki.jpg">
+    </article>
+
+    <article class="grid-item">
+      <img src="././assets/img/vienna.jpg">
+    </article>
+
+    <article class="grid-item">
+      <img src="././assets/img/newyork.jpg">
+    </article>
+
+    <article class="grid-item">
+      <img src="././assets/img/venice.jpg">
+    </article>
+
+    <article class="grid-item">
+      <img src="././assets/img/santorini.jpg">
+    </article>
+
+
+  </div>
 
 </ion-content>

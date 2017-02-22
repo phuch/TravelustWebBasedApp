@@ -5,9 +5,15 @@
 </ion-header>
 
 <ion-content class="cards-bg">
-
   <ion-card *ngFor="let media of medias">
-    <!-- IMAGE SECTION -->
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="https://api.adorable.io/avatars/285/longvu.png">
+      </ion-avatar>
+      <h2>{{media.author}}</h2>
+      <p>Location . hours ago</p>
+    </ion-item>
+
     <div (click)="navigateToDetail(media.file_id)">
       <img *ngIf="media.media_type == 'image'" [src]="url + media.filename">
 
@@ -18,31 +24,29 @@
       <img *ngIf="media.media_type == 'audio'" src="././assets/img/audio_icon.jpg" width="300px" type="audio/mpeg">
     </div>
 
-    <!-- INFO SECTION -->
-    <ion-card-content>
+    <!--<ion-card-content>
       <ion-card-title>
         {{media.title}}
       </ion-card-title>
       <p>
         {{media.description}}
       </p>
-    </ion-card-content>
+    </ion-card-content>-->
 
-    <ion-row no-padding>
+    <!--<ion-row no-padding>
       <ion-col>
         <button ion-button clear small color="danger" icon-left>
           <ion-icon name='heart'></ion-icon>
           Like
         </button>
       </ion-col>
-
       <ion-col text-right>
         <button ion-button clear small color="primary" icon-left>
           <ion-icon name='pin'></ion-icon>
           Vienna
         </button>
       </ion-col>
-    </ion-row>
+    </ion-row>-->
 
   </ion-card>
 
