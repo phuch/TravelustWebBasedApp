@@ -40,7 +40,7 @@ export class HomePage implements OnInit {
   }
 
   doInfinite (infiniteScroll: any) {
-    console.log('start is currently' + this.start);
+    console.log('start is currently ' + this.start);
 
     setTimeout(() => {
       this.start += 10;

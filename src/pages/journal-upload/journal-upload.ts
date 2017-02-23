@@ -25,6 +25,7 @@ export class JournalUploadPage {
   uploadMedia = (event: any, value: any) => {
     const fileElement = event.target.querySelector('input[type=file]');
     const file = fileElement.files[0];
+    console.log(file);
 
     const formData = new FormData();
     formData.append('file', file);
