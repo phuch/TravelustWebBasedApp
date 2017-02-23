@@ -51,10 +51,10 @@
 
   </ion-card>
 
-  <ion-infinite-scroll *ngIf="!isOver" (ionInfinite)="doInfinite($event)">
+  <ion-infinite-scroll *ngIf="shouldEnable" (ionInfinite)="doInfinite($event)">
    <ion-infinite-scroll-content
       loadingSpinner="bubbles"
-      loadingText="Loading more medias...">
+      loadingText="Loading more media...">
    </ion-infinite-scroll-content>
  </ion-infinite-scroll>
 

@@ -1,6 +1,6 @@
 import { UserService } from './../../providers/user-service';
 import { MediaService } from './../../providers/media-service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { DetailViewPage } from './../detail-view/detail-view';
 import { Observable } from 'rxjs/Rx'
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Rx'
   providers: [MediaService]
 })
 export class HomePage implements OnInit {
-  private isOver: boolean = false;
+  private shouldEnable: boolean = true;
   private start: number = 0;
   private medias: any = [];
 
@@ -28,7 +28,7 @@ export class HomePage implements OnInit {
     this.mediaService.getMedia(this.start).subscribe(
         resp => {
           if (resp.length == 0)
-              this.isOver = true;
+              this.shouldEnable = false;
           for(let data of resp) {
               //Check whether this file is a journal and belongs to Travelust
               this.mediaService.getTagByFileId(data.file_id).subscribe(
@@ -60,8 +60,6 @@ export class HomePage implements OnInit {
   }
 
   doInfinite (infiniteScroll: any) {
-    console.log('start is currently' + this.start);
-
     setTimeout(() => {
       this.start += 10;
       this.getMedia();
