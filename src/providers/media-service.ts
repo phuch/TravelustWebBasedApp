@@ -18,6 +18,7 @@ export class MediaService {
     console.log('Hello MediaService Provider');
   }
 
+  /*-------------------- MEDIA --------------------*/
   //Get number of media files providing a starting number
   getMedia = (start: any) => {
     return this.http.get(this.url + '/media?start=' + start + '&limit=10')
@@ -26,7 +27,7 @@ export class MediaService {
       );
   }
 
-
+  //Upload a media file
   uploadMedia = (image: any) => {
     const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
     const options = new RequestOptions({headers : headers})
@@ -45,6 +46,7 @@ export class MediaService {
     );
   }
 
+  /*-------------------- FAVOURITE --------------------*/
   //Get all favourites of a file based on file id
   getFileFavorite = (fileId: any) => {
       return this.http.get(this.url + '/favourites/file/' + fileId)
@@ -75,6 +77,36 @@ export class MediaService {
         res =>
           res.json()
       );
+  }
+
+  //Create tag for a file
+  createFileTag = (tag: any) => {
+      const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
+      const options = new RequestOptions({headers: headers})
+      return this.http.post(this.url + '/tags', tag, options)
+      .map(
+        res =>
+          res.json()
+      );
+  }
+
+  /*-------------------- TAG --------------------*/
+  //Get tag by file id
+  getTagByFileId = (fileId: any) => {
+      return this.http.get(this.url + '/tags/file/' + fileId)
+        .map(
+          res =>
+            res.json()
+        );
+  }
+
+  //Get file by tag
+  getFileByTag = (tag: any) => {
+      return this.http.get(this.url + '/tags/' + tag)
+        .map(
+          res =>
+            res.json()
+        );
   }
 
 }
