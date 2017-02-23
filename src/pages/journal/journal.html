@@ -7,7 +7,15 @@
 <ion-header>
 
   <ion-navbar>
+
     <ion-title>Journal</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
@@ -20,14 +28,14 @@
     Location
   </p>
 
-  <button ion-button icon-left [class.liked-button] = "isLiked" (click)= "isLiked = !isLiked">
-    <ion-icon name="heart"></ion-icon>
+  <button ion-button clear icon-left [class.liked-button] = "isLiked" (click) = "likedJournal()">
+    <ion-icon name={{heartIcon}}></ion-icon>
     245
   </button>
 
-  <button ion-button icon-left [class.saved-journal]= "isSaved" (click)= "isSaved = !isSaved">
-    <ion-icon name="bookmark"></ion-icon>
-    Save journal
+  <button ion-button clear icon-left [class.saved-journal]= "isSaved" (click)= "savedJournal()">
+    <ion-icon name={{saveIcon}}></ion-icon>
+    {{saveText}}
   </button>
 
 

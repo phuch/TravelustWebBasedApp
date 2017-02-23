@@ -1,6 +1,14 @@
 $image-height: 120px;
+$liked-button: #FF4F4F;
+$saved-button: #3EC6A7;
+$dim: #808181;
 
 page-journal {
+  ion-navbar {
+    ion-icon {
+      color: $dim
+    }
+  };
   ion-content {
     text-align: center;
   }
@@ -12,9 +20,9 @@ page-journal {
   -webkit-columns: 120px 2;
      -moz-columns: 120px 2;
           columns: 120px 2;
-  -webkit-column-gap: 10px;
-     -moz-column-gap: 10px;
-          column-gap: 10px;
+  -webkit-column-gap: 5px;
+     -moz-column-gap: 5px;
+          column-gap: 5px;
   }
 
   .grid-item {
@@ -27,19 +35,22 @@ page-journal {
     break-inside: avoid;
   }
 
+  img {
+    border-radius: 5px;
+  }
+
   .button-ios {
-    background-color: white;
-    color: #808181;
+    color: $dim;
     -webkit-transition: all 0.2s linear;
 	  -o-transition: all 0.2s linear;
 	  transition: all 0.2s linear;
   }
 
   .liked-button {
-    color: #FF4F4F;
+    color: $liked-button;
   }
 
   .saved-journal {
-    color: #3EC6A7;
+    color: $saved-button;
   }
 }

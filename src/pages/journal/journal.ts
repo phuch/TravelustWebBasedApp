@@ -1,5 +1,6 @@
+import { PopoverPage } from './popover/popover';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, PopoverController} from 'ionic-angular';
 
 /*
   Generated class for the Journal page.
@@ -13,13 +14,45 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class JournalPage {
 
-  isLiked: false;
-  isSaved: false;
+  isLiked: boolean = false;
+  heartIcon: string = "heart-outline";
+  isSaved: boolean = false;
+  saveText: string = "Save journal";
+  saveIcon: string = "bookmark";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl: PopoverController) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad JournalPage');
+  }
+
+  likedJournal = () => {
+    this.isLiked = !this.isLiked;
+    if(this.isLiked){
+      this.heartIcon =  "heart";
+    }else {
+      this.heartIcon = "heart-outline";
+    }
+  }
+
+  savedJournal = () => {
+    this.isSaved = !this.isSaved;
+    if(this.isSaved){
+      this.saveIcon = "md-checkmark";
+      this.saveText = "Journal saved";
+    }else {
+      this.saveIcon = "bookmark";
+      this.saveText = "Save journal";
+    }
+
+  }
+
+  presentPopover = (ev) => {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present({
+      ev: ev
+    });
   }
 
 }
