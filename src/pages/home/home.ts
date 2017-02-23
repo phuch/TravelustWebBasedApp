@@ -1,8 +1,9 @@
 import { UserService } from './../../providers/user-service';
 import { MediaService } from './../../providers/media-service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { DetailViewPage } from './../detail-view/detail-view';
+import { Observable } from 'rxjs/Rx'
 
 @Component({
   selector: 'page-home',
@@ -10,7 +11,7 @@ import { DetailViewPage } from './../detail-view/detail-view';
   providers: [MediaService]
 })
 export class HomePage implements OnInit {
-
+  private shouldEnable: boolean = true;
   private start: number = 0;
   private medias: any = [];
 
@@ -19,35 +20,51 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit () {
+    localStorage.setItem("lastMedia", "229");
     this.getMedia();
   }
 
   getMedia = () =>{
     this.mediaService.getMedia(this.start).subscribe(
-      resp => {
-        for( let data of resp) {
-          this.medias.push(data);
-          data.dayPosted = data.time_added.substring(0, data.time_added.indexOf('T'));
-          this.userService.getUserInfo(data.user_id).subscribe(
-            resp => {
-              data.author = resp.username;
-            }
-          );
+        resp => {
+          if (resp.length == 0)
+              this.shouldEnable = false;
+          for(let data of resp) {
+              //Check whether this file is a journal and belongs to Travelust
+              this.mediaService.getTagByFileId(data.file_id).subscribe(
+                  respTag => {
+                      var check: boolean = false;
+                      for (let tag of respTag){
+                          var correctTag = "#travelust_journal_beta_" + data.file_id;
+                          if (tag.tag === correctTag){
+                              check = true;
+                              break;
+                          }
+                      }
+                    
+                      //If it is, add to list of media files
+                      if (check){
+                          this.medias.push(data);
+                          data.dayPosted = data.time_added.substring(0, data.time_added.indexOf('T'));
+                          this.userService.getUserInfo(data.user_id).subscribe(
+                            resp => {
+                              data.author = resp.username;
+                            }
+                          );
+                      }
+                  }
+              )
+          }
         }
-        console.log(this.medias);
-      }
     );
   }
 
   doInfinite (infiniteScroll: any) {
-    console.log('start is currently ' + this.start);
-
     setTimeout(() => {
       this.start += 10;
       this.getMedia();
       infiniteScroll.complete();
     }, 1000);
-
   }
 
   navigateToDetail = (fileId: any) => {
