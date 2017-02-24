@@ -14,7 +14,7 @@
       <p>Location . hours ago</p>
     </ion-item>
 
-    <div (click)="navigateToDetail(media.file_id)">
+    <div (click)="navigateToJournal(media)">
       <img *ngIf="media.media_type == 'image'" [src]="url + media.filename">
 
       <video *ngIf="media.media_type == 'video'" width="320" height="240" controls>

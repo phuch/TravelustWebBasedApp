@@ -21,19 +21,19 @@
 </ion-header>
 
 <ion-content padding>
-  <h1>Title</h1>
-  <p>by Hendsem Mann</p>
+  <h1>{{ media.title }}</h1>
+  <p>by {{ media.author }}</p>
   <p>
     <ion-icon name='pin'></ion-icon>
     Location
   </p>
 
-  <button ion-button clear icon-left [class.liked-button] = "isLiked" (click) = "likedJournal()">
+  <button ion-button clear icon-left [class.liked-button] = "isLiked" (click) = "likeJournal()">
     <ion-icon name={{heartIcon}}></ion-icon>
-    245
+    {{ media.numberOfLikes }}
   </button>
 
-  <button ion-button clear icon-left [class.saved-journal]= "isSaved" (click)= "savedJournal()">
+  <button ion-button clear icon-left [class.saved-journal]= "isSaved" (click)= "saveJournal()">
     <ion-icon name={{saveIcon}}></ion-icon>
     {{saveText}}
   </button>

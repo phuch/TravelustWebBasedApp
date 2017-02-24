@@ -2,7 +2,7 @@ import { UserService } from './../../providers/user-service';
 import { MediaService } from './../../providers/media-service';
 import { Component, OnInit} from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { DetailViewPage } from './../detail-view/detail-view';
+import { JournalPage } from './../journal/journal';
 import Rx from 'rxjs/Rx';
 
 @Component({
@@ -20,7 +20,6 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit () {
-    localStorage.setItem("lastMedia", "229");
     this.getMedia();
   }
 
@@ -70,8 +69,8 @@ export class HomePage implements OnInit {
     }, 1000);
   }
 
-  navigateToDetail = (fileId: any) => {
-    this.navCtrl.push(DetailViewPage, {fileId: fileId});
+  navigateToJournal = (media: any) => {
+    this.navCtrl.push(JournalPage, {media: media});
   }
 
 }
