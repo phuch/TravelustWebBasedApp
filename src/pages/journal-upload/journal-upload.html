@@ -24,7 +24,7 @@
           </div>
           <img *ngIf="imageSrc" id="img-preview" [src]="imageSrc">
         </div>
-        <form #uploadForm="ngForm" (ngSubmit) = "uploadMedia(uploadForm.value)">
+        <form #uploadForm="ngForm">
             <ion-list>
               <ion-item>
                   <ion-label><strong>Journal title:</strong></ion-label>
@@ -40,7 +40,7 @@
 
             <ion-row>
                 <ion-col text-center>
-                    <button ion-button class="button" type="submit" [disabled]="!uploadForm.valid">Create</button>
+                    <button ion-button class="button" (click)="uploadMedia(uploadForm.value)" [disabled]="!uploadForm.valid">Create</button>
                 </ion-col>
             </ion-row>
         </form>

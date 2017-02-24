@@ -10,7 +10,6 @@ import { Camera, File } from 'ionic-native';
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
-declare var cordova: any;
 declare var window: any;
 @Component({
   selector: 'page-journal-upload',
@@ -43,12 +42,23 @@ export class JournalUploadPage {
                               formData.append('description', value.description);
 
                               this.mediaService.uploadMedia(formData).subscribe(
-                                data => {
-                                  console.log(data);
-                                  this.navCtrl.push(HomePage);
-                                }
+                                  resp => {
+                                      console.log(resp);
+                                      const tag = {
+                                          file_id: resp.file_id,
+                                          tag: "#travelust_journal_beta_" + resp.file_id
+                                      }
+                                      this.mediaService.createFileTag(tag).subscribe(
+                                          respTag => {
+                                              console.log(respTag)
+                                              this.navCtrl.push(HomePage);
+                                          },
+                                          errTag => console.log("Create tag error: " + errTag)  
+                                      )
+                                  },
+                                  err => console.log("Upload media error: " + err)
                               )
-                          }
+                          };
                           reader.readAsArrayBuffer(success);
                       },
           err => console.log("get file "+ err))
