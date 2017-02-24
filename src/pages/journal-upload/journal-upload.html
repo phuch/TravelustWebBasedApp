@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Travelust</ion-title>
+    <ion-title>Share journal</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -17,25 +17,30 @@
 
   <ion-row>
       <ion-col>
-        <form #uploadForm="ngForm" (ngSubmit) = "uploadMedia($event, uploadForm.value)">
+        <div class="file-upload" (click)="openGallery()">
+          <div *ngIf="!imageSrc">
+            <img id="camera-icon" src='././assets/img/picture.png' width="80px">
+            <p>Choose cover photo</p>
+          </div>
+          <img *ngIf="imageSrc" id="img-preview" [src]="imageSrc">
+        </div>
+        <form #uploadForm="ngForm" (ngSubmit) = "uploadMedia(uploadForm.value)">
             <ion-list>
               <ion-item>
-                  <label>File:</label>
-                  <input type="file" name="file" accept="image/*" ngModel>
-              </ion-item>
-
-              <ion-item>
-                  <ion-label>Title:</ion-label>
+                  <ion-label><strong>Journal title:</strong></ion-label>
                   <ion-input type="text" name="title" ngModel required></ion-input>
               </ion-item>
 
               <ion-item>
-                  <ion-textarea type="text" name="description" rows="6" placeholder="Description..." ngModel ></ion-textarea>
+                  <ion-label><strong>Description: </strong></ion-label>
+                  <ion-textarea type="text" name="description" ngModel required></ion-textarea>
               </ion-item>
+
             </ion-list>
+
             <ion-row>
-                <ion-col>
-                    <button ion-button class="button" type="submit" [disabled]="!uploadForm.valid">Upload</button>
+                <ion-col text-center>
+                    <button ion-button class="button" type="submit" [disabled]="!uploadForm.valid">Create</button>
                 </ion-col>
             </ion-row>
         </form>
