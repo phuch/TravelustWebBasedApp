@@ -84,17 +84,25 @@ export class JournalPage implements OnInit {
       this.mediaService.getFileFavorite(fileId)
       .subscribe(
           resFav => {
-              //Get number of favourites
-              this.media.numberOfLikes = resFav.length;
-              //Check whether number of likes = 0
-              if (this.media.numberOfLikes <= 0){
-                  this.isLiked = false;
-                  this.heartIcon = "heart-outline";
-              }
-              else{
-                  this.isLiked = true;
-                  this.heartIcon = "heart";
-              }
+                //Get number of favourites
+                this.media.numberOfLikes = resFav.length;
+                //Check whether current user is the author
+                let exist: any;
+                for (var i = 0; i < resFav.length; i++){
+                    if (resFav[i].user_id ===  this.userService.getUserFromLocal().user_id){
+                        exist = true;
+                        break;
+                    }
+                }
+                //Check whether number of likes = 0
+                if (!exist){
+                    this.isLiked = false;
+                    this.heartIcon = "heart-outline";
+                }
+                else{
+                    this.isLiked = true;
+                    this.heartIcon = "heart";
+                }
           }
       );
   }
