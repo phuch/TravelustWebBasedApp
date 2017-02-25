@@ -16,8 +16,7 @@ export class TabsPage {
   tab1Root: any = HomePage;
   tab2Root: any = JournalUploadPage;
   tab3Root: any = UserAccountPage;
-  tab4Root: any = JournalPage;
-
+ 
   constructor() {
 
   }
