@@ -79,6 +79,7 @@ export class MediaService {
       );
   }
 
+  /*-------------------- TAG --------------------*/
   //Create tag for a file
   createFileTag = (tag: any) => {
       const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
@@ -90,9 +91,8 @@ export class MediaService {
       );
   }
 
-  /*-------------------- TAG --------------------*/
-  //Get tag by file id
-  getTagByFileId = (fileId: any) => {
+  //Get tags by file id
+  getTagsByFileId = (fileId: any) => {
       return this.http.get(this.url + '/tags/file/' + fileId)
         .map(
           res =>
@@ -100,12 +100,44 @@ export class MediaService {
         );
   }
 
-  //Get file by tag
-  getFileByTag = (tag: any) => {
+  //Get files by tag
+  getFilesByTag = (tag: any) => {
       return this.http.get(this.url + '/tags/' + tag)
         .map(
           res =>
             res.json()
         );
+  }
+
+  /*-------------------- COMMENT --------------------*/
+  //Create comment for a file
+  createComment = (comment: any) => {
+      const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
+      const options = new RequestOptions({headers: headers})
+      return this.http.post(this.url + '/comments', comment, options)
+      .map(
+        res =>
+          res.json()
+      );
+  }
+
+  //Get comments by file id
+  getCommentsByFileId = (fileId: any) => {
+      return this.http.get(this.url + '/comments/file/' + fileId)
+          .map(
+            res =>
+              res.json()
+          );
+  }
+
+  //Delete comment by comment id
+  deleteCommentByCommentId = (commentId: any) => {
+      const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
+      const options = new RequestOptions({headers : headers})
+      return this.http.delete(this.url + '/comments/' + commentId, options)
+      .map(
+        res =>
+          res.json()
+      );
   }
 }

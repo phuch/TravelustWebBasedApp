@@ -31,7 +31,7 @@ export class HomePage implements OnInit {
           source.subscribe(
               (data:any) => {
                   //Check whether this file is a journal and belongs to Travelust
-                  this.mediaService.getTagByFileId(data.file_id).subscribe(
+                  this.mediaService.getTagsByFileId(data.file_id).subscribe(
                       respTag => {
                           var check: boolean = false;
                           for (let tag of respTag){
