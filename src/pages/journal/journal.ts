@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, PopoverController} from 'ionic-angular';
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
+import Rx from 'rxjs';
 
 /*
   Generated class for the Journal page.
@@ -35,7 +36,8 @@ export class JournalPage implements OnInit {
   ngOnInit () {
       //Get file id passed from old page
       this.media = this.navParams.get("media");
-      this.favouriteDisplay(this.media.file_id);
+      const timer = Rx.Observable.timer(0, 1000).subscribe(x => this.favouriteDisplay(this.media.file_id))
+      //this.favouriteDisplay(this.media.file_id);
   }
 
   likeJournal = () => {
