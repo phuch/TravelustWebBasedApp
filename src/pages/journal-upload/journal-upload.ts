@@ -3,7 +3,7 @@ import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Camera, File } from 'ionic-native';
+import { Camera } from 'ionic-native';
 
 /*
   Generated class for the JournalUpload page.
@@ -25,14 +25,18 @@ export class JournalUploadPage {
   }
 
   uploadMedia = (value: any) => {
-    window.resolveLocalFileSystemURL("file://" + this.imageSrc,
+    window.resolveLocalFileSystemURL(this.imageSrc,
     fileEntry => {
       console.log(fileEntry);
       fileEntry.file(
           success => {
+
+                          success.type = "image/jpeg";
                           console.log(success);
                           var reader = new FileReader();
+                          console.log(success.name)
                           reader.onloadend = (e: any) => {
+                              console.log("DMM1<................")
                               console.log(e.target.result);
                               var imgBlob = new Blob([ e.target.result ], { type: success.type } );
                               console.log(imgBlob)
@@ -53,13 +57,15 @@ export class JournalUploadPage {
                                               console.log(respTag)
                                               this.navCtrl.push(HomePage);
                                           },
-                                          errTag => console.log("Create tag error: " + errTag)  
+                                          errTag => console.log("Create tag error: " + errTag)
                                       )
                                   },
                                   err => console.log("Upload media error: " + err)
                               )
                           };
+                          console.log("DMM1<................")
                           reader.readAsArrayBuffer(success);
+                          console.log("DMM2<................" + reader.readyState)
                       },
           err => console.log("get file "+ err))
         },
@@ -76,7 +82,10 @@ export class JournalUploadPage {
       targetHeight: 1000
     }
     Camera.getPicture(cameraOptions)
-          .then(file_uri => this.imageSrc = file_uri,
+          .then(file_uri => {
+            this.imageSrc = file_uri
+            console.log(file_uri + "testing")
+          },
                 err => console.log(err));
   }
 
