@@ -33,10 +33,12 @@ export class JournalUploadPage {
 
                           success.type = "image/jpeg";
                           console.log(success);
+
                           var reader = new FileReader();
+
                           console.log(success.name)
-                          reader.onloadend = (e: any) => {
-                              console.log("DMM1<................")
+                          reader.onload = (e: any) => {
+                              console.log("DMM3<................")
                               console.log(e.target.result);
                               var imgBlob = new Blob([ e.target.result ], { type: success.type } );
                               console.log(imgBlob)
@@ -56,6 +58,7 @@ export class JournalUploadPage {
                                           respTag => {
                                               console.log(respTag)
                                               this.navCtrl.push(HomePage);
+                                              value.resetForm();
                                           },
                                           errTag => console.log("Create tag error: " + errTag)
                                       )
@@ -84,7 +87,7 @@ export class JournalUploadPage {
     Camera.getPicture(cameraOptions)
           .then(file_uri => {
             this.imageSrc = file_uri
-            console.log(file_uri + "testing")
+            console.log(file_uri + " testing")
           },
                 err => console.log(err));
   }
