@@ -50,6 +50,7 @@ export class JournalUploadPage {
                               this.mediaService.uploadMedia(formData).subscribe(
                                   resp => {
                                       console.log(resp);
+                                      this.navCtrl.parent.select(0)
                                       const tag = {
                                           file_id: resp.file_id,
                                           tag: "#travelust_journal_beta_" + resp.file_id
@@ -57,8 +58,7 @@ export class JournalUploadPage {
                                       this.mediaService.createFileTag(tag).subscribe(
                                           respTag => {
                                               console.log(respTag)
-                                              this.navCtrl.push(HomePage);
-                                              value.resetForm();
+                                              //this.navCtrl.parent.select(0)
                                           },
                                           errTag => console.log("Create tag error: " + errTag)
                                       )
