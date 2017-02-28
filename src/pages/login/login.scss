@@ -20,9 +20,11 @@ $text-font: 'Source Code Pro', monospace;
       font-family: $title-font;
       margin-bottom: 20px;
     }
+    ion-content {
+      background: linear-gradient(to left, #4CB8C4 , #3CD3AD);
+    }
 
     #login-form {
-      background: linear-gradient(to left, #4CB8C4 , #3CD3AD);
       width: 100%;
       height: 100%;
       padding-top: 70px;
