@@ -1,7 +1,7 @@
 import { UserService } from './../../providers/user-service';
 import { MediaService } from './../../providers/media-service';
 import { Component, OnInit} from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { App, NavController } from 'ionic-angular';
 import { JournalPage } from './../journal/journal';
 import Rx from 'rxjs/Rx';
 
@@ -16,7 +16,7 @@ export class HomePage implements OnInit {
   private medias: any = [];
 
   url: string = 'http://media.mw.metropolia.fi/wbma/uploads/'
-  constructor(public navCtrl: NavController, private mediaService: MediaService, private userService: UserService) {
+  constructor(public app: App, public navCtrl: NavController, private mediaService: MediaService, private userService: UserService) {
   }
 
   ngOnInit () {
@@ -41,7 +41,7 @@ export class HomePage implements OnInit {
                                   break;
                               }
                           }
-                        
+
                           //If it is, add to list of media files
                           if (check){
                               this.medias.push(data);
@@ -70,7 +70,7 @@ export class HomePage implements OnInit {
   }
 
   navigateToJournal = (media: any) => {
-    this.navCtrl.push(JournalPage, {media: media});
+    this.app.getRootNav().push(JournalPage, {media: media});
   }
 
 }
