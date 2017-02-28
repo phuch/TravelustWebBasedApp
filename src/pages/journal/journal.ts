@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, PopoverController} from 'ionic-angular';
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
+import Rx from 'rxjs';
 
 /*
   Generated class for the Journal page.
@@ -35,7 +36,8 @@ export class JournalPage implements OnInit {
   ngOnInit () {
       //Get file id passed from old page
       this.media = this.navParams.get("media");
-      this.favouriteDisplay(this.media.file_id);
+      const timer = Rx.Observable.timer(0, 1000).subscribe(x => this.favouriteDisplay(this.media.file_id))
+      //this.favouriteDisplay(this.media.file_id);
   }
 
   likeJournal = () => {
@@ -84,17 +86,25 @@ export class JournalPage implements OnInit {
       this.mediaService.getFileFavorite(fileId)
       .subscribe(
           resFav => {
-              //Get number of favourites
-              this.media.numberOfLikes = resFav.length;
-              //Check whether number of likes = 0
-              if (this.media.numberOfLikes <= 0){
-                  this.isLiked = false;
-                  this.heartIcon = "heart-outline";
-              }
-              else{
-                  this.isLiked = true;
-                  this.heartIcon = "heart";
-              }
+                //Get number of favourites
+                this.media.numberOfLikes = resFav.length;
+                //Check whether current user is the author
+                let exist: any;
+                for (var i = 0; i < resFav.length; i++){
+                    if (resFav[i].user_id ===  this.userService.getUserFromLocal().user_id){
+                        exist = true;
+                        break;
+                    }
+                }
+                //Check whether number of likes = 0
+                if (!exist){
+                    this.isLiked = false;
+                    this.heartIcon = "heart-outline";
+                }
+                else{
+                    this.isLiked = true;
+                    this.heartIcon = "heart";
+                }
           }
       );
   }
