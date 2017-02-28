@@ -1,4 +1,3 @@
-import { JournalPage } from './../journal/journal';
 import { UserAccountPage } from './../user-account/user-account';
 import { LoginService } from './../../providers/login-service';
 import { JournalUploadPage } from './../journal-upload/journal-upload';
@@ -16,7 +15,7 @@ export class TabsPage {
   tab1Root: any = HomePage;
   tab2Root: any = JournalUploadPage;
   tab3Root: any = UserAccountPage;
- 
+  
   constructor() {
 
   }

@@ -1,3 +1,32 @@
 page-journal-upload {
 
+  .file-upload {
+    width: 200px;
+    height: 150px;
+    margin: 20px auto;
+    text-align: center;
+    border: 1px dashed grey;
+    border-radius: 10px;
+  }
+
+  #camera-icon {
+    margin-top: 15px;
+  }
+
+  #img-preview {
+    width: 200px;
+    height: 150px;
+    border-radius: 10px;
+
+  }
+
+  .list-ios > .item-block:last-child .item-inner, .list-ios > .item-wrapper:last-child .item-block .item-inner {
+    border-bottom: 0.55px solid #c8c7cc;
+  }
+
+  .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
+    border: none;
+  }
+
+
 }
