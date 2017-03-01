@@ -22,11 +22,12 @@
 
 <ion-content padding>
   <h1>{{ media.title }}</h1>
-  <p>by {{ media.author }}</p>
-  <p>
+  <h4><span>by</span> {{ media.author }}</h4>
+  <!--<p>
     <ion-icon name='pin'></ion-icon>
     Location
-  </p>
+  </p>-->
+  <p>{{media.description}}</p>
 
   <button ion-button clear icon-left [class.liked-button] = "isLiked" (click) = "likeJournal()">
     <ion-icon name={{heartIcon}}></ion-icon>

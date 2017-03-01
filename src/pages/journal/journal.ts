@@ -16,7 +16,7 @@ import Rx from 'rxjs';
   templateUrl: 'journal.html',
   providers: [MediaService, UserService]
 })
-export class JournalPage implements OnInit {
+export class JournalPage {
 
   private isLiked: boolean = false;
   private heartIcon: string = "heart-outline";
@@ -31,13 +31,13 @@ export class JournalPage implements OnInit {
 
   ionViewDidLoad() {
       console.log('ionViewDidLoad JournalPage');
+      //this.media = this.navParams.get("media");
   }
 
-  ngOnInit () {
+  ionViewWillEnter () {
       //Get file id passed from old page
       this.media = this.navParams.get("media");
-      const timer = Rx.Observable.timer(0, 1000).subscribe(x => this.favouriteDisplay(this.media.file_id))
-      //this.favouriteDisplay(this.media.file_id);
+      //const timer = Rx.Observable.timer(0, 1000).subscribe(x => this.favouriteDisplay(this.media.file_id))
   }
 
   likeJournal = () => {
@@ -75,7 +75,7 @@ export class JournalPage implements OnInit {
   }
 
   presentPopover = (ev) => {
-      let popover = this.popoverCtrl.create(PopoverPage);
+      let popover = this.popoverCtrl.create(PopoverPage, {media: this.media});
       popover.present({
         ev: ev
       });

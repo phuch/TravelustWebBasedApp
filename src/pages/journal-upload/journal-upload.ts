@@ -21,10 +21,13 @@ export class JournalUploadPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
 
   ionViewDidLoad() {
+
     console.log('ionViewDidLoad JournalUploadPage');
   }
 
-  uploadMedia = (value: any) => {
+
+  uploadMedia = (form: any) => {
+    let value = form.value;
     window.resolveLocalFileSystemURL(this.imageSrc,
     fileEntry => {
       console.log(fileEntry);
@@ -57,8 +60,9 @@ export class JournalUploadPage {
                                       this.mediaService.createFileTag(tag).subscribe(
                                           respTag => {
                                               console.log(respTag)
-                                              this.navCtrl.push(HomePage);
-                                              value.resetForm();
+                                              this.navCtrl.parent.select(0);
+                                              this.imageSrc = '';
+                                              form.resetForm();
                                           },
                                           errTag => console.log("Create tag error: " + errTag)
                                       )

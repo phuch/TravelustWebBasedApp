@@ -21,7 +21,7 @@ export class MediaService {
   /*-------------------- MEDIA --------------------*/
   //Get number of media files providing a starting number
   getMedia = (start: any) => {
-    return this.http.get(this.url + '/media?start=' + start + '&limit=10')
+    return this.http.get(this.url + '/media?start=' + start + '&limit=50')
       .map(
         resp => resp.json()
       );
@@ -139,5 +139,16 @@ export class MediaService {
         res =>
           res.json()
       );
+  }
+
+  /*-------------------- EDIT --------------------*/
+
+  editJournalInfo = (fileId: any, body: any) => {this.http.put
+      const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
+      const options = new RequestOptions({headers : headers})
+      return this.http.put(this.url + '/media/' + fileId, body, options)
+        .map(
+          res => res.json()
+        )
   }
 }

@@ -1,5 +1,6 @@
+import { EditJournalInfoPage } from './../../edit-journal-info/edit-journal-info';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { App, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /*
   Generated class for the Popover page.
@@ -13,10 +14,17 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class PopoverPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  private media: any;
+
+  constructor(public viewCtrl: ViewController,public app: App, public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
+    this.media = this.navParams.get("media");
+    console.log(this.media)
     console.log('ionViewDidLoad PopoverPage');
   }
 
+  goToEditInfo = (media: any) => {
+    this.app.getRootNav().push(EditJournalInfoPage, {media: this.media}).then(() => this.viewCtrl.dismiss());
+  }
 }
