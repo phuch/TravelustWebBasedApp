@@ -11,7 +11,7 @@ import Rx from 'rxjs/Rx';
   providers: [MediaService]
 })
 export class HomePage implements OnInit {
-  private shouldEnable: boolean = true;
+  //private shouldEnable: boolean = true;
   private start: number = 0;
   private medias: any = [];
 
