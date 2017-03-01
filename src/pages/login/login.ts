@@ -33,6 +33,7 @@ export class LoginPage implements OnInit {
           //save user data to local storage
           this.user = resp.user;
           this.user.token = resp.token;
+          console.log(this.user.token);
           console.log(this.user);
           localStorage.setItem('user', JSON.stringify(this.user));
           this.navCtrl.push(TabsPage);

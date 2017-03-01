@@ -10,7 +10,7 @@ import Rx from 'rxjs/Rx';
   templateUrl: 'home.html',
   providers: [MediaService]
 })
-export class HomePage implements OnInit {
+export class HomePage {
   private shouldEnable: boolean = true;
   private start: number = 0;
   private medias: any = [];
@@ -19,7 +19,7 @@ export class HomePage implements OnInit {
   constructor(public app: App, public navCtrl: NavController, private mediaService: MediaService, private userService: UserService) {
   }
 
-  ngOnInit () {
+  ionViewWillEnter() {
     this.getMedia();
   }
 
@@ -63,7 +63,7 @@ export class HomePage implements OnInit {
 
   doInfinite (infiniteScroll: any) {
     setTimeout(() => {
-      this.start += 10;
+      this.start += 50;
       this.getMedia();
       infiniteScroll.complete();
     }, 1000);
