@@ -54,9 +54,18 @@ export class JournalUploadPage {
                                       this.mediaService.createFileTag(tag).subscribe(
                                           respTag => {
                                               console.log(respTag)
-                                              this.navCtrl.parent.select(0);
-                                              this.mediaSrc = '';
-                                              form.resetForm();
+                                              const tag_owner = {
+                                                  file_id: resp.file_id,
+                                                  tag: "#travelust_myjournal_beta_" + resp.file_id
+                                              }
+                                              this.mediaService.createFileTag(tag_owner).subscribe(
+                                                  respTagOwner => {
+                                                      console.log(respTagOwner)
+                                                      this.navCtrl.parent.select(0);
+                                                      this.mediaSrc = '';
+                                                      form.resetForm();
+                                                  }
+                                              )
                                           },
                                           errTag => console.log("Create tag error: " + errTag)
                                       )
