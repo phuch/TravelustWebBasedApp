@@ -10,12 +10,13 @@ import Rx from 'rxjs/Rx';
   templateUrl: 'home.html',
   providers: [MediaService]
 })
+
 export class HomePage {
   private shouldEnable: boolean = true;
   private start: number = 0;
   private medias: any = [];
+  private url: string = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
-  url: string = 'http://media.mw.metropolia.fi/wbma/uploads/'
   constructor(public app: App, public navCtrl: NavController, private mediaService: MediaService, private userService: UserService) {
   }
 

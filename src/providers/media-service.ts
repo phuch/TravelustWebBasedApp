@@ -153,7 +153,10 @@ export class MediaService {
   }
 
   /*-------------------- EDIT --------------------*/
+<<<<<<< HEAD
 
+=======
+>>>>>>> abf302455d4edcead12c38de1ae5b5c033600b32
   editJournalInfo = (fileId: any, body: any) => {
       const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
       const options = new RequestOptions({headers : headers})

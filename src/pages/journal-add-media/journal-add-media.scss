@@ -1,0 +1,44 @@
+$uploader: #3EC6A7;
+
+page-journal-add-media {
+
+  #file-upload{
+    width: 90px;
+    height: 90px;
+    border: 1px dashed $uploader;
+    border-radius: 3px;
+    text-align: center;
+    color: $uploader;
+    margin-top: 10px;
+  }
+
+  #image-icon {
+    margin-top: 5px;
+  }
+
+  .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .inputfile + label {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+  }
+  .info {
+    margin-left: 10px;
+  }
+
+  .form-element {
+    border-bottom: 1px solid grey;
+    margin-bottom: 3px;
+    padding-left: 3px;
+  }
+
+
+}

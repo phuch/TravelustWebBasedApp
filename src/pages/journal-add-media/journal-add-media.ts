@@ -1,4 +1,3 @@
-import { HomePage } from './../home/home';
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
 import { Component } from '@angular/core';
@@ -6,23 +5,26 @@ import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Camera } from 'ionic-native';
 
 /*
-  Generated class for the JournalUpload page.
+  Generated class for the JournalAddMedia page.
+
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
 declare var window: any;
 @Component({
-  selector: 'page-journal-upload',
-  templateUrl: 'journal-upload.html',
+  selector: 'page-journal-add-media',
+  templateUrl: 'journal-add-media.html',
   providers: [MediaService, UserService]
 })
-export class JournalUploadPage {
+export class JournalAddMediaPage {
   private mediaSrc: string;
+  private media: any;
 
   constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad JournalUploadPage');
+    this.media = this.navParams.get("media");
+    console.log('ionViewDidLoad JournalAddMediaPage');
   }
 
   uploadMedia = (form: any) => {
@@ -49,23 +51,14 @@ export class JournalUploadPage {
                                       console.log(resp);
                                       const tag = {
                                           file_id: resp.file_id,
-                                          tag: "#travelust_journal_beta_" + resp.file_id
+                                          tag: "#travelust_subjournal_beta_" + this.media.file_id
                                       }
                                       this.mediaService.createFileTag(tag).subscribe(
                                           respTag => {
                                               console.log(respTag)
-                                              const tag_owner = {
-                                                  file_id: resp.file_id,
-                                                  tag: "#travelust_myjournal_beta_" + resp.file_id
-                                              }
-                                              this.mediaService.createFileTag(tag_owner).subscribe(
-                                                  respTagOwner => {
-                                                      console.log(respTagOwner)
-                                                      this.navCtrl.parent.select(0);
-                                                      this.mediaSrc = '';
-                                                      form.resetForm();
-                                                  }
-                                              )
+                                              this.navCtrl.pop();
+                                              this.mediaSrc = '';
+                                              form.resetForm();
                                           },
                                           errTag => console.log("Create tag error: " + errTag)
                                       )
