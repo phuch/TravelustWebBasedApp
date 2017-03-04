@@ -1,7 +1,8 @@
-import { WelcomePage } from './../welcome/welcome';
-import { LoginService } from './../../providers/login-service';
+import { MediaService } from './../../providers/media-service';
+import { UserService } from './../../providers/user-service';
+import { AccountSettingPage } from './../account-setting/account-setting';
 import { Component } from '@angular/core';
-import { NavController, NavParams, App, AlertController } from 'ionic-angular';
+import { NavController, NavParams, App } from 'ionic-angular';
 
 /*
   Generated class for the UserAccount page.
@@ -11,43 +12,32 @@ import { NavController, NavParams, App, AlertController } from 'ionic-angular';
 */
 @Component({
   selector: 'page-user-account',
-  templateUrl: 'user-account.html'
+  templateUrl: 'user-account.html',
+  providers: [UserService, MediaService]
 })
 export class UserAccountPage {
+  private user: any = {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private loginService: LoginService,private app: App, private alertCtrl: AlertController) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, public app: App, public userService: UserService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserAccountPage');
+    this.getCurrentUser();
   }
 
-
-
-  logout = () => {
-    this.loginService.logout();
-    this.app.getRootNav().setRoot(WelcomePage);
+  goToSetting = () => {
+    this.app.getRootNav().push(AccountSettingPage);
   }
 
-  showConfirm() {
-    let confirm = this.alertCtrl.create({
-      title: 'Log out of Travelust?',
-      message: 'Are you sure to logout of this app?',
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: () => {
-            console.log('Disagree clicked');
-          }
-        },
-        {
-          text: 'Logout',
-          handler: () => {
-            this.logout();
-          }
-        }
-      ]
-    });
-    confirm.present();
+  getCurrentUser = () => {
+    this.userService.getCurrentUser().subscribe(
+      res => {
+        console.log(res);
+        this.user.username = res.username
+      }
+    )
   }
+
 
 }
+

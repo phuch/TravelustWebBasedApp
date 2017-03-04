@@ -8,13 +8,27 @@
 
   <ion-navbar>
     <ion-title>Travelust</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goToSetting()">
+        <ion-icon name="ios-settings-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
-    <button ion-button block outline color="danger" (click)="showConfirm()">Logout</button>
+  <ion-row>
+    <ion-col text-center>
+      <img id="cover-pic" src="././assets/img/cover.jpg"><br>
+        <ion-avatar>
+          <img id="profile-pic" [src]="'https://api.adorable.io/avatars/80/' + user.username + 'oo.png'">
+        </ion-avatar>
+    </ion-col>
+
+  </ion-row>
+
 
 </ion-content>
