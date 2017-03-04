@@ -1,10 +1,12 @@
 $dim: #808181;
 
 page-user-account {
+
   #cover-pic {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
   }
+
   ion-navbar {
     ion-icon {
       color: $dim;
@@ -17,6 +19,10 @@ page-user-account {
     position: absolute;
     top: 28%;
     left: 38%;
+  }
+
+  #username {
+    margin-top: 20px;
   }
 
 }
