@@ -41,10 +41,7 @@ export class JournalUploadPage {
 
                           console.log(success.name)
                           reader.onload = (e: any) => {
-                              console.log("DMM3<................")
-                              console.log(e.target.result);
                               var imgBlob = new Blob([ e.target.result ], { type: success.type } );
-                              console.log(imgBlob)
                               const formData = new FormData();
                               formData.append('file', imgBlob);
                               formData.append('title', value.title);
@@ -53,6 +50,7 @@ export class JournalUploadPage {
                               this.mediaService.uploadMedia(formData).subscribe(
                                   resp => {
                                       console.log(resp);
+                                      this.navCtrl.parent.select(0)
                                       const tag = {
                                           file_id: resp.file_id,
                                           tag: "#travelust_journal_beta_" + resp.file_id
@@ -70,9 +68,7 @@ export class JournalUploadPage {
                                   err => console.log("Upload media error: " + err)
                               )
                           };
-                          console.log("DMM1<................")
                           reader.readAsArrayBuffer(success);
-                          console.log("DMM2<................" + reader.readyState)
                       },
           err => console.log("get file "+ err))
         },

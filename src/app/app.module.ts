@@ -1,4 +1,5 @@
 import { EditJournalInfoPage } from './../pages/edit-journal-info/edit-journal-info';
+import { JournalAddMediaPage } from './../pages/journal-add-media/journal-add-media';
 import { PopoverPage } from './../pages/journal/popover/popover';
 import { JournalPage } from './../pages/journal/journal';
 import { UserAccountPage } from './../pages/user-account/user-account';
@@ -27,7 +28,8 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     UserAccountPage,
     JournalPage,
     PopoverPage,
-    EditJournalInfoPage
+    EditJournalInfoPage,
+    JournalAddMediaPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -52,7 +54,8 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     UserAccountPage,
     JournalPage,
     PopoverPage,
-    EditJournalInfoPage
+    EditJournalInfoPage,
+    JournalAddMediaPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

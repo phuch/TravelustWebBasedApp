@@ -10,6 +10,7 @@ import Rx from 'rxjs/Rx';
   templateUrl: 'home.html',
   providers: [MediaService]
 })
+<<<<<<< HEAD
 export class HomePage {
   private shouldEnable: boolean = true;
   private start: number = 0;
