@@ -16,12 +16,12 @@
       <form #uploadForm="ngForm">
         <ion-row>
           <ion-col width-33>
-              <div id="file-upload">
-                <input type="file" name="file" id="file" accept="video/*|image/*|audio/*" class="inputfile" multiple ngModel/>
-                <label for="file">
-                  <img id="image-icon" src='././assets/img/image.png' width="35px"><br>
-                  Choose a file
-                </label>
+              <div class="file-upload" (click)="openGallery()">
+                <div *ngIf="!mediaSrc">
+                  <img id="camera-icon" src='././assets/img/picture.png' width="80px">
+                  <p>Choose a file</p>
+                </div>
+                <img *ngIf="mediaSrc" id="img-preview" [src]="mediaSrc">
               </div>
           </ion-col>
           <ion-col width-66 class="info">
@@ -38,7 +38,7 @@
 
         <ion-row>
             <ion-col text-center>
-                <button ion-button class="button" [disabled]="!uploadForm.valid">Submit</button>
+                <button ion-button class="button" (click)="uploadMedia(uploadForm)" [disabled]="!uploadForm.valid">Submit</button>
             </ion-col>
         </ion-row>
       </form>

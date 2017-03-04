@@ -10,7 +10,7 @@
 
     <ion-title>Journal</ion-title>
 
-    <ion-buttons end>
+    <ion-buttons *ngIf="isOwner" end>
       <button ion-button icon-only (click)="presentPopover($event)">
         <ion-icon name="more"></ion-icon>
       </button>
@@ -42,30 +42,17 @@
 
   <div class="dynamic-grid">
 
-    <article class="grid-item">
-      <img src="././assets/img/tokyo.jpg">
-    </article>
+    <article *ngFor="let file of mediaList" class="grid-item">
+      <div (click)="navigateToJournal(file)">
+        <img *ngIf="file.media_type == 'image'" [src]="url + file.filename">
 
-    <article class="grid-item">
-      <img src="././assets/img/helsinki.jpg">
-    </article>
+        <video *ngIf="file.media_type == 'video'" width="320" height="240" controls>
+          <source [src]="url + file.filename" type="video/mp4">
+        </video>
 
-    <article class="grid-item">
-      <img src="././assets/img/vienna.jpg">
+        <img *ngIf="file.media_type == 'audio'" src="././assets/img/audio_icon.jpg" width="300px" type="audio/mpeg">
+      </div>
     </article>
-
-    <article class="grid-item">
-      <img src="././assets/img/newyork.jpg">
-    </article>
-
-    <article class="grid-item">
-      <img src="././assets/img/venice.jpg">
-    </article>
-
-    <article class="grid-item">
-      <img src="././assets/img/santorini.jpg">
-    </article>
-
 
   </div>
 

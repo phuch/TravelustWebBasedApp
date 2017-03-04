@@ -142,8 +142,7 @@ export class MediaService {
   }
 
   /*-------------------- EDIT --------------------*/
-
-  editJournalInfo = (fileId: any, body: any) => {this.http.put
+  editJournalInfo = (fileId: any, body: any) => {
       const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
       const options = new RequestOptions({headers : headers})
       return this.http.put(this.url + '/media/' + fileId, body, options)

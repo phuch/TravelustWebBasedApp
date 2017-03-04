@@ -18,11 +18,11 @@
   <ion-row>
       <ion-col>
         <div class="file-upload" (click)="openGallery()">
-          <div *ngIf="!imageSrc">
+          <div *ngIf="!mediaSrc">
             <img id="camera-icon" src='././assets/img/picture.png' width="80px">
             <p>Choose cover photo</p>
           </div>
-          <img *ngIf="imageSrc" id="img-preview" [src]="imageSrc">
+          <img *ngIf="mediaSrc" id="img-preview" [src]="mediaSrc">
         </div>
         <form #uploadForm="ngForm">
             <ion-list>

@@ -2,7 +2,7 @@ import { HomePage } from './../home/home';
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Camera } from 'ionic-native';
 
 /*
@@ -17,29 +17,26 @@ declare var window: any;
   providers: [MediaService, UserService]
 })
 export class JournalUploadPage {
-  private imageSrc: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
+  private mediaSrc: string;
+
+  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
 
   ionViewDidLoad() {
-
     console.log('ionViewDidLoad JournalUploadPage');
   }
 
-
   uploadMedia = (form: any) => {
     let value = form.value;
-    window.resolveLocalFileSystemURL(this.imageSrc,
+    //Check platform to get the correct file path
+    if (this.platform.is("android"))
+        this.mediaSrc = "file://" + this.mediaSrc;
+    window.resolveLocalFileSystemURL(this.mediaSrc,
     fileEntry => {
       console.log(fileEntry);
       fileEntry.file(
           success => {
-
-                          success.type = "image/jpeg";
-                          console.log(success);
-
                           var reader = new FileReader();
 
-                          console.log(success.name)
                           reader.onload = (e: any) => {
                               var imgBlob = new Blob([ e.target.result ], { type: success.type } );
                               const formData = new FormData();
@@ -50,7 +47,6 @@ export class JournalUploadPage {
                               this.mediaService.uploadMedia(formData).subscribe(
                                   resp => {
                                       console.log(resp);
-                                      this.navCtrl.parent.select(0)
                                       const tag = {
                                           file_id: resp.file_id,
                                           tag: "#travelust_journal_beta_" + resp.file_id
@@ -59,7 +55,7 @@ export class JournalUploadPage {
                                           respTag => {
                                               console.log(respTag)
                                               this.navCtrl.parent.select(0);
-                                              this.imageSrc = '';
+                                              this.mediaSrc = '';
                                               form.resetForm();
                                           },
                                           errTag => console.log("Create tag error: " + errTag)
@@ -86,8 +82,7 @@ export class JournalUploadPage {
     }
     Camera.getPicture(cameraOptions)
           .then(file_uri => {
-            this.imageSrc = file_uri
-            console.log(file_uri + " testing")
+            this.mediaSrc = file_uri
           },
                 err => console.log(err));
   }

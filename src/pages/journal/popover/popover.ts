@@ -29,7 +29,7 @@ export class PopoverPage {
   }
 
   goToAddPhoto = () => {
-    this.app.getRootNav().push(JournalAddMediaPage).then(() => this.viewCtrl.dismiss());
+    this.app.getRootNav().push(JournalAddMediaPage, {media: this.media}).then(() => this.viewCtrl.dismiss());
   }
 
 }

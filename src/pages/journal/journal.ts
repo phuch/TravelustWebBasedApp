@@ -17,7 +17,8 @@ import Rx from 'rxjs';
   providers: [MediaService, UserService]
 })
 export class JournalPage {
-
+  private mediaList: any = [];
+  private isOwner: boolean = false;
   private isLiked: boolean = false;
   private heartIcon: string = "heart-outline";
   private likes:number;
@@ -26,6 +27,7 @@ export class JournalPage {
   private saveIcon: string = "bookmark";
   private media: any = {};
   private users: any = [];
+  private url: string = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService, private popoverCtrl: PopoverController) {}
 
@@ -37,7 +39,13 @@ export class JournalPage {
   ionViewWillEnter () {
       //Get file id passed from old page
       this.media = this.navParams.get("media");
-      //const timer = Rx.Observable.timer(0, 1000).subscribe(x => this.favouriteDisplay(this.media.file_id))
+      //Get media of this journal
+      this.loadMedia(encodeURIComponent("#travelust_subjournal_beta_" + this.media.file_id));
+      //Check whether the current user is the owner
+      if (this.media.user_id == this.userService.getUserFromLocal().user_id)
+          this.isOwner = true;
+      else
+          this.isOwner = false;
   }
 
   likeJournal = () => {
@@ -107,6 +115,16 @@ export class JournalPage {
                 }
           }
       );
+  }
+
+  loadMedia = (tag: any) => {
+      this.mediaService.getFilesByTag(tag)
+      .subscribe(
+            resp => {
+                console.log(resp)
+                this.mediaList = resp;
+            }
+      )
   }
 
 }
