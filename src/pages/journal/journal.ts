@@ -83,7 +83,6 @@ export class JournalPage {
   }
 
   presentPopover = (ev) => {
-      console.log("DCMMMMMMMMMMMMMMM THAGLOZZZZZZZZZZZZZZZZZZZZZZZZZ")
       let popover = this.popoverCtrl.create(PopoverPage, {media: this.media});
       popover.present({
         ev: ev
