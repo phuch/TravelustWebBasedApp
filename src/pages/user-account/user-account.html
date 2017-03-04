@@ -30,9 +30,35 @@
   </ion-row>
   <ion-row id="username">
     <ion-col text-center>
-      <h2>{{user.username}}</h2>
+      <h2>{{user.fullname}}</h2>
     </ion-col>
+  </ion-row>
 
+  <ion-item>
+    <ion-icon name='md-images' item-left style="color: #d03e84"></ion-icon>
+    Journals
+    <ion-badge item-right>{{journals}}</ion-badge>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name='md-star' item-left style="color: #FFEB4F"></ion-icon>
+      Saved journals
+    <ion-badge item-right>5</ion-badge>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name='md-happy' item-left style="color: #55acee"></ion-icon>
+      Friends
+    <ion-badge item-right>260k</ion-badge>
+  </ion-item>
+
+  <ion-row>
+    <ion-col text-center>
+        <button ion-button icon-left class="button" outline round small (click)="addUser()" [class.user-added]="isAdded">
+          <ion-icon [class.user-added]="isAdded" name={{addIcon}}></ion-icon>
+          {{addText}}
+        </button>
+    </ion-col>
   </ion-row>
 
 

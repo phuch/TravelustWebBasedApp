@@ -1,5 +1,5 @@
 $dim: #808181;
-
+$button: #3EC6A7;
 page-user-account {
 
   #cover-pic {
@@ -23,6 +23,19 @@ page-user-account {
 
   #username {
     margin-top: 20px;
+  }
+  .item-ios.item-block .item-inner {
+    border: none;
+  }
+  .button-ios {
+    -webkit-transition: all 0.2s linear;
+	  -o-transition: all 0.2s linear;
+	  transition: all 0.2s linear;
+  }
+
+  .user-added {
+    background-color: $button;
+    color: white;
   }
 
 }

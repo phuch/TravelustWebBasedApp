@@ -17,12 +17,17 @@ import { NavController, NavParams, App } from 'ionic-angular';
 })
 export class UserAccountPage {
   private user: any = {};
+  private journals: number = 0;
+  private addIcon : string = "md-add";
+  private addText : string = "Add user";
+  private isAdded : boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public app: App, public userService: UserService) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, public app: App, public userService: UserService, public mediaService: MediaService) {}
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     console.log('ionViewDidLoad UserAccountPage');
     this.getCurrentUser();
+    this.getJournalOfCurrentUser();
   }
 
   goToSetting = () => {
@@ -34,8 +39,43 @@ export class UserAccountPage {
       res => {
         console.log(res);
         this.user.username = res.username
+        this.user.fullname = res.full_name
+        this.user.id = res.user_id
       }
     )
+  }
+
+  getJournalOfCurrentUser = () => {
+    let coverTag: string = "travelust_myjournal_beta_" + this.user.id;
+    this.mediaService.getFilesByTag(coverTag).subscribe(
+      res => {
+        console.log(res);
+        this.journals = res.length;
+      }
+    );
+
+  }
+
+
+
+  // getFilesOfCurrentUser = () => {
+  //   this.mediaService.getFilesOfCurrentUser().subscribe(
+  //     res => {
+  //       console.log(res);
+  //       this.journals = res.length;
+  //     }
+  //   );
+  // }
+
+  addUser = () => {
+    this.isAdded = !this.isAdded;
+    if(this.isAdded) {
+      this.addIcon = "md-checkmark"
+      this.addText = "User added"
+    }else {
+      this.addIcon = "md-add";
+      this.addText = "Add user"
+    }
   }
 
 
