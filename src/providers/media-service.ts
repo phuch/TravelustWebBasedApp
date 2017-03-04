@@ -46,6 +46,16 @@ export class MediaService {
     );
   }
 
+  //Delete media file
+  deleteMedia = (fileId: any) => {
+    const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
+    const options = new RequestOptions({headers : headers})
+    return this.http.delete(this.url + '/media/' + fileId, options)
+      .map(
+        resp => resp.json()
+        )
+  }
+
   /*-------------------- FAVOURITE --------------------*/
   //Get all favourites of a file based on file id
   getFileFavorite = (fileId: any) => {
