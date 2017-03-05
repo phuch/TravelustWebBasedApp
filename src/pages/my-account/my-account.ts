@@ -1,3 +1,4 @@
+import { JournalsOfUserPage } from './../journals-of-user/journals-of-user';
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
 import { AccountSettingPage } from './../account-setting/account-setting';
@@ -5,28 +6,38 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, App } from 'ionic-angular';
 
 /*
-  Generated class for the UserAccount page.
+  Generated class for the MyAccount page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-user-account',
-  templateUrl: 'user-account.html',
+  selector: 'page-my-account',
+  templateUrl: 'my-account.html',
   providers: [UserService, MediaService]
 })
-export class UserAccountPage {
+export class MyAccountPage {
+
   private user: any = {};
-  private journals: number = 0;
+  private isOwner: boolean = false;
+  private journals: any = [];
   private addIcon : string = "md-add";
   private addText : string = "Add user";
   private isAdded : boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public app: App, public userService: UserService, public mediaService: MediaService) {}
 
-  ionViewWillEnter() {
-    console.log('ionViewDidLoad UserAccountPage');
-    this.getCurrentUser();
+  ionViewDidLoad() {
+
+     this.user.fullname = this.userService.getUserFromLocal().full_name;
+     this.user.id = this.userService.getUserFromLocal().user_id;
+     if(this.user.id === this.userService.getUserFromLocal().user_id)
+        this.isOwner = true;
+     else
+        this.isOwner = false;
+  }
+  ionViewDidEnter() {
+    console.log('ionViewDidLoad MyAccountPage');
     this.getJournalOfCurrentUser();
   }
 
@@ -34,14 +45,8 @@ export class UserAccountPage {
     this.app.getRootNav().push(AccountSettingPage);
   }
 
-  getCurrentUser = () => {
-    this.userService.getCurrentUser().subscribe(
-      res => {
-        console.log(res);
-        this.user.username = res.username
-        this.user.fullname = res.full_name
-      }
-    )
+  goToJournals = () => {
+    this.app.getRootNav().push(JournalsOfUserPage, {journals: this.journals});
   }
 
   getJournalOfCurrentUser = () => {
@@ -50,22 +55,11 @@ export class UserAccountPage {
     this.mediaService.getFilesByTag(encodeURIComponent(coverTag)).subscribe(
       res => {
         console.log(res);
-        this.journals = res.length;
+        this.journals = res;
       }
     );
 
   }
-
-
-
-  // getFilesOfCurrentUser = () => {
-  //   this.mediaService.getFilesOfCurrentUser().subscribe(
-  //     res => {
-  //       console.log(res);
-  //       this.journals = res.length;
-  //     }
-  //   );
-  // }
 
   addUser = () => {
     this.isAdded = !this.isAdded;
@@ -79,5 +73,5 @@ export class UserAccountPage {
   }
 
 
-}
 
+}

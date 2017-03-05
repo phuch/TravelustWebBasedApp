@@ -1,5 +1,5 @@
 <!--
-  Generated template for the UserAccount page.
+  Generated template for the MyAccount page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
@@ -8,7 +8,7 @@
 
   <ion-navbar>
     <ion-title>Travelust</ion-title>
-    <ion-buttons end>
+    <ion-buttons end *ngIf="isOwner">
       <button ion-button icon-only (click)="goToSetting()">
         <ion-icon name="ios-settings-outline"></ion-icon>
       </button>
@@ -35,24 +35,31 @@
   </ion-row>
 
   <ion-item>
-    <ion-icon name='md-images' item-left style="color: #d03e84"></ion-icon>
-    Journals
-    <ion-badge item-right>{{journals}}</ion-badge>
+    <button ion-button clear (click)="goToJournals()">
+      <ion-icon name='md-images' item-left style="color: #d03e84"></ion-icon>
+      Journals
+    </button>
+      <ion-badge item-right>{{journals.length}}</ion-badge>
+
   </ion-item>
 
   <ion-item>
-    <ion-icon name='md-star' item-left style="color: #FFEB4F"></ion-icon>
-      Saved journals
+    <button ion-button clear>
+      <ion-icon name='md-star' item-left style="color: #FFEB4F"></ion-icon>
+        Saved journals
+    </button>
     <ion-badge item-right>5</ion-badge>
   </ion-item>
 
   <ion-item>
-    <ion-icon name='md-happy' item-left style="color: #55acee"></ion-icon>
-      Friends
+    <button ion-button clear>
+      <ion-icon name='md-happy' item-left style="color: #55acee"></ion-icon>
+        Friends
+    </button>
     <ion-badge item-right>260k</ion-badge>
   </ion-item>
 
-  <ion-row>
+  <ion-row *ngIf="!isOwner">
     <ion-col text-center>
         <button ion-button icon-left class="button" outline round small (click)="addUser()" [class.user-added]="isAdded">
           <ion-icon [class.user-added]="isAdded" name={{addIcon}}></ion-icon>

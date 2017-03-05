@@ -1,7 +1,6 @@
 $dim: #808181;
 $button: #3EC6A7;
-page-user-account {
-
+page-my-account {
   #cover-pic {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -23,10 +22,20 @@ page-user-account {
 
   #username {
     margin-top: 20px;
+    margin-bottom: 15px;
   }
   .item-ios.item-block .item-inner {
     border: none;
   }
+
+  ion-item {
+    height: 30px;
+  }
+  .item-ios .item-button {
+    font-size: 18px;
+    color: black;
+  }
+
   .button-ios {
     -webkit-transition: all 0.2s linear;
 	  -o-transition: all 0.2s linear;
@@ -37,5 +46,6 @@ page-user-account {
     background-color: $button;
     color: white;
   }
+
 
 }
