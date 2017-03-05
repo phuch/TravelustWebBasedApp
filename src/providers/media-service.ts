@@ -46,8 +46,16 @@ export class MediaService {
     );
   }
 
-  //get a list of file of current user
-
+  //Delete media file
+  deleteMedia = (fileId: any) => {
+    const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
+    const options = new RequestOptions({headers : headers})
+    return this.http.delete(this.url + '/media/' + fileId, options)
+      .map(
+        resp => resp.json()
+        )
+    
+  //Get a list of file of current user
   getFilesOfCurrentUser = () => {
     const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
     const options = new RequestOptions({headers : headers})
