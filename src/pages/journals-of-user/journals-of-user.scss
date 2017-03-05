@@ -1,0 +1,21 @@
+$dim: #808181;
+page-journals-of-user {
+  .description {
+    color:#000000;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .time-posted {
+    margin-top: 10px;
+    font-size: 10px;
+    color: $dim;
+  }
+  .journal-img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover
+  }
+}

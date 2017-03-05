@@ -36,7 +36,7 @@ export class JournalUploadPage {
       fileEntry.file(
           success => {
                           var reader = new FileReader();
-
+                          success.type = "image/jpeg";
                           reader.onload = (e: any) => {
                               var imgBlob = new Blob([ e.target.result ], { type: success.type } );
                               const formData = new FormData();
@@ -54,9 +54,21 @@ export class JournalUploadPage {
                                       this.mediaService.createFileTag(tag).subscribe(
                                           respTag => {
                                               console.log(respTag)
-                                              this.navCtrl.parent.select(0);
-                                              this.mediaSrc = '';
-                                              form.resetForm();
+                                              const tag_owner = {
+                                                  file_id: resp.file_id,
+                                                  tag: "#travelust_myjournal_beta_" + this.userService.getUserFromLocal().user_id
+                                              }
+                                              console.log(tag_owner);
+                                              this.mediaService.createFileTag(tag_owner).subscribe(
+                                                  respTagOwner => {
+                                                      console.log(respTagOwner)
+                                                      this.navParams.data.isUploaded = true;
+                                                      this.navCtrl.pop();
+                                                      this.navCtrl.parent.select(0);
+                                                      this.mediaSrc = '';
+                                                      form.resetForm();
+                                                  }
+                                              )
                                           },
                                           errTag => console.log("Create tag error: " + errTag)
                                       )
