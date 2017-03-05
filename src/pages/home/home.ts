@@ -60,35 +60,6 @@ export class HomePage {
              }
           )
           const source = Rx.Observable.from(resp).concatMap(val => promiseLoadMedia(val)).subscribe();
-          // source.subscribe(
-          //     (data:any) => {
-          //         //Check whether this file is a journal and belongs to Travelust
-          //         this.mediaService.getTagsByFileId(data.file_id).subscribe(
-          //             respTag => {
-          //                 var check: boolean = false;
-          //                 for (let tag of respTag){
-          //                     var correctTag = "#travelust_journal_beta_" + data.file_id;
-          //                     if (tag.tag === correctTag){
-          //                         check = true;
-          //                         break;
-          //                     }
-          //                 }
-
-          //                 //If it is, add to list of media files
-          //                 if (check){
-          //                     this.medias.push(data);
-          //                     data.dayPosted = data.time_added.substring(0, data.time_added.indexOf('T'));
-          //                     this.userService.getUserInfo(data.user_id).subscribe(
-          //                       resp => {
-          //                         data.author = resp.username;
-          //                       }
-          //                     );
-          //                 }
-          //                 console.log(this.medias);
-          //             }
-          //         )
-          //     }
-          // )
         }
     );
   }
