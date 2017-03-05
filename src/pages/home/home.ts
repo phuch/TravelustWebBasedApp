@@ -1,14 +1,16 @@
 import { UserService } from './../../providers/user-service';
 import { MediaService } from './../../providers/media-service';
+import { PostTimePipe } from './../../pipes/post-time-pipe';
 import { Component, OnInit} from '@angular/core';
 import { App, NavController, NavParams } from 'ionic-angular';
+import { DatePipe } from '@angular/common'
 import { JournalPage } from './../journal/journal';
 import Rx from 'rxjs/Rx';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [MediaService]
+  providers: [MediaService, UserService, PostTimePipe, DatePipe]
 })
 
 export class HomePage {
@@ -17,8 +19,8 @@ export class HomePage {
   private medias: any = [];
   private url: string = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
-  constructor(public app: App, public navParams: NavParams, public navCtrl: NavController, private mediaService: MediaService, private userService: UserService) {
-  }
+  constructor(public app: App, public navParams: NavParams, public navCtrl: NavController, private mediaService: MediaService, private userService: UserService,
+              public postTimePipe: PostTimePipe, public datePipe: DatePipe) {}
 
   ionViewDidEnter() {
     console.log(this.navParams.data.isUploaded);
@@ -34,9 +36,8 @@ export class HomePage {
     this.mediaService.getMedia(this.start).subscribe(
         resp => {
           //Create an observable from response
-          const source = Rx.Observable.from(resp);
-          source.subscribe(
-              (data:any) => {
+          const promiseLoadMedia = data => new Promise(
+             (resolve, reject) => {
                   //Check whether this file is a journal and belongs to Travelust
                   this.mediaService.getTagsByFileId(data.file_id).subscribe(
                       respTag => {
@@ -51,19 +52,27 @@ export class HomePage {
 
                           //If it is, add to list of media files
                           if (check){
+                              //Add accepted journal
                               this.medias.push(data);
-                              data.dayPosted = data.time_added.substring(0, data.time_added.indexOf('T'));
+                              //Display posting time
+                              let timeAdded = new Date(data.time_added);
+                              data.postTime = this.postTimePipe.transform(timeAdded.getTime())
+                              if (data.postTime == "false")
+                                  data.postTime = this.datePipe.transform(timeAdded.getTime(), 'medium')
+                              //Display author of the journal
                               this.userService.getUserInfo(data.user_id).subscribe(
                                 resp => {
                                   data.author = resp.username;
                                 }
                               );
                           }
-                          //console.log(this.medias);
-                      }
+                          resolve("Check whether media file belongs to Travelust succeeded")
+                      },
+                      err => reject("Check whether media file belongs to Travelust failed")
                   )
-              }
+             }
           )
+          const source = Rx.Observable.from(resp).concatMap(val => promiseLoadMedia(val)).subscribe();
         }
     );
   }
