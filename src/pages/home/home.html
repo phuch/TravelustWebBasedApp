@@ -11,7 +11,7 @@
         <img [src]="'https://api.adorable.io/avatars/285/' + media.author + '.png'">
       </ion-avatar>
       <h2>{{media.author}}</h2>
-      <p>Location . hours ago</p>
+      <p>Location . {{ media.postTime }}</p>
     </ion-item>
 
     <div (click)="navigateToJournal(media)">
