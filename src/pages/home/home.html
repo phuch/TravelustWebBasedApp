@@ -6,48 +6,28 @@
 
 <ion-content class="cards-bg">
   <ion-card *ngFor="let media of medias">
+
+    <div (click)="navigateToJournal(media)">
+      <img class="journal-img" *ngIf="media.media_type == 'image'" [src]="url + media.filename">
+      <ion-card-content>
+        <ion-card-title>
+          <h1>{{media.title}}</h1>
+        </ion-card-title>
+        <div class="description">
+          <p>
+            {{media.description}}
+          </p>
+        </div>
+      </ion-card-content>
+    </div>
+
     <ion-item>
       <ion-avatar item-left>
-        <img [src]="'https://api.adorable.io/avatars/285/' + media.author + '.png'">
+        <img [src]="'https://api.adorable.io/avatars/100/' + media.author + 'oo.png'">
       </ion-avatar>
       <h2>{{media.author}}</h2>
       <p>Location . {{ media.postTime }}</p>
     </ion-item>
-
-    <div (click)="navigateToJournal(media)">
-      <img *ngIf="media.media_type == 'image'" [src]="url + media.filename">
-
-      <video *ngIf="media.media_type == 'video'" width="320" height="240" controls>
-        <source [src]="url + media.filename" type="video/mp4">
-      </video>
-
-      <img *ngIf="media.media_type == 'audio'" src="././assets/img/audio_icon.jpg" width="300px" type="audio/mpeg">
-    </div>
-
-    <!--<ion-card-content>
-      <ion-card-title>
-        {{media.title}}
-      </ion-card-title>
-      <p>
-        {{media.description}}
-      </p>
-    </ion-card-content>-->
-
-    <!--<ion-row no-padding>
-      <ion-col>
-        <button ion-button clear small color="danger" icon-left>
-          <ion-icon name='heart'></ion-icon>
-          Like
-        </button>
-      </ion-col>
-      <ion-col text-right>
-        <button ion-button clear small color="primary" icon-left>
-          <ion-icon name='pin'></ion-icon>
-          Vienna
-        </button>
-      </ion-col>
-    </ion-row>-->
-
   </ion-card>
 
   <ion-infinite-scroll *ngIf="shouldEnable" (ionInfinite)="doInfinite($event)">

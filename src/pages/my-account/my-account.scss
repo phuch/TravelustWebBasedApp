@@ -1,0 +1,51 @@
+$dim: #808181;
+$button: #3EC6A7;
+page-my-account {
+  #cover-pic {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  ion-navbar {
+    ion-icon {
+      color: $dim;
+    }
+  }
+
+  #profile-pic {
+    border: 3px solid white;
+    border-radius: 50%;
+    position: absolute;
+    top: 28%;
+    left: 38%;
+  }
+
+  #username {
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+  .item-ios.item-block .item-inner {
+    border: none;
+  }
+
+  ion-item {
+    height: 30px;
+  }
+  .item-ios .item-button {
+    font-size: 18px;
+    color: black;
+  }
+
+  .button-ios {
+    -webkit-transition: all 0.2s linear;
+	  -o-transition: all 0.2s linear;
+	  transition: all 0.2s linear;
+  }
+
+  .user-added {
+    background-color: $button;
+    color: white;
+  }
+
+
+}

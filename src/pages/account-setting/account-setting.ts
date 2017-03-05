@@ -1,27 +1,25 @@
-import { WelcomePage } from './../welcome/welcome';
-import { LoginService } from './../../providers/login-service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, App, AlertController } from 'ionic-angular';
-
+import { LoginService } from './../../providers/login-service';
+import { WelcomePage } from './../welcome/welcome';
 /*
-  Generated class for the UserAccount page.
+  Generated class for the AccountSetting page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-user-account',
-  templateUrl: 'user-account.html'
+  selector: 'page-account-setting',
+  templateUrl: 'account-setting.html',
+  providers: [LoginService]
 })
-export class UserAccountPage {
+export class AccountSettingPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private loginService: LoginService,private app: App, private alertCtrl: AlertController) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UserAccountPage');
+    console.log('ionViewDidLoad AccountSettingPage');
   }
-
-
 
   logout = () => {
     this.loginService.logout();

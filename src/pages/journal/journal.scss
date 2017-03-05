@@ -25,11 +25,6 @@ page-journal {
           column-gap: 5px;
   }
 
-  span {
-    font-size: 16px;
-    font-weight: 400;
-  }
-
   .grid-item {
     position: relative;
     display: inline-block;
@@ -38,6 +33,10 @@ page-journal {
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
     break-inside: avoid;
+  }
+  span {
+    font-size: 16px;
+    font-weight: 400;
   }
 
   img {

@@ -46,6 +46,17 @@ export class MediaService {
     );
   }
 
+  //get a list of file of current user
+
+  getFilesOfCurrentUser = () => {
+    const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
+    const options = new RequestOptions({headers : headers})
+    return this.http.get(this.url + '/media/user', options)
+      .map(
+        res => res.json()
+      );
+  }
+
   /*-------------------- FAVOURITE --------------------*/
   //Get all favourites of a file based on file id
   getFileFavorite = (fileId: any) => {
@@ -150,4 +161,5 @@ export class MediaService {
           res => res.json()
         )
   }
+
 }
