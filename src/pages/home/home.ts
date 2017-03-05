@@ -1,7 +1,7 @@
 import { UserService } from './../../providers/user-service';
 import { MediaService } from './../../providers/media-service';
 import { Component, OnInit} from '@angular/core';
-import { App, NavController } from 'ionic-angular';
+import { App, NavController, NavParams } from 'ionic-angular';
 import { JournalPage } from './../journal/journal';
 import Rx from 'rxjs/Rx';
 
@@ -17,10 +17,16 @@ export class HomePage {
   private medias: any = [];
   private url: string = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
-  constructor(public app: App, public navCtrl: NavController, private mediaService: MediaService, private userService: UserService) {
+  constructor(public app: App, public navParams: NavParams, public navCtrl: NavController, private mediaService: MediaService, private userService: UserService) {
   }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
+    console.log(this.navParams.data.isUploaded);
+    if (this.navParams.data.isUploaded){
+        this.medias = [];
+        this.start = 0;
+        this.navParams.data.isUploaded = false;
+    }
     this.getMedia();
   }
 
@@ -53,7 +59,7 @@ export class HomePage {
                                 }
                               );
                           }
-                          console.log(this.medias);
+                          //console.log(this.medias);
                       }
                   )
               }

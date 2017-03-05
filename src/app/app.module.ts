@@ -30,11 +30,8 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     JournalPage,
     PopoverPage,
     EditJournalInfoPage,
-<<<<<<< HEAD
-    AccountSettingPage
-=======
+    AccountSettingPage,
     JournalAddMediaPage
->>>>>>> abf302455d4edcead12c38de1ae5b5c033600b32
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -60,11 +57,8 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     JournalPage,
     PopoverPage,
     EditJournalInfoPage,
-<<<<<<< HEAD
-    AccountSettingPage
-=======
+    AccountSettingPage,
     JournalAddMediaPage
->>>>>>> abf302455d4edcead12c38de1ae5b5c033600b32
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

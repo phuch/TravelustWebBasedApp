@@ -40,14 +40,14 @@ export class UserAccountPage {
         console.log(res);
         this.user.username = res.username
         this.user.fullname = res.full_name
-        this.user.id = res.user_id
       }
     )
   }
 
   getJournalOfCurrentUser = () => {
-    let coverTag: string = "travelust_myjournal_beta_" + this.user.id;
-    this.mediaService.getFilesByTag(coverTag).subscribe(
+    let coverTag: string = "#travelust_myjournal_beta_" + this.userService.getUserFromLocal().user_id;
+    console.log(coverTag);
+    this.mediaService.getFilesByTag(encodeURIComponent(coverTag)).subscribe(
       res => {
         console.log(res);
         this.journals = res.length;
