@@ -54,6 +54,7 @@ export class MediaService {
       .map(
         resp => resp.json()
         )
+  }
     
   //Get a list of file of current user
   getFilesOfCurrentUser = () => {

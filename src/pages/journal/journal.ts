@@ -25,7 +25,7 @@ export class JournalPage {
   private isSaved: boolean = false;
   private saveText: string = "Save journal";
   private saveIcon: string = "bookmark";
-  private media: any = {};
+  private journal: any = {};
   private users: any = [];
   private url: string = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
@@ -38,34 +38,36 @@ export class JournalPage {
 
   ionViewWillEnter () {
       //Get file id passed from old page
-      this.media = this.navParams.get("media");
+      this.journal = this.navParams.get("media");
       //Get media of this journal
-      this.loadMedia(encodeURIComponent("#travelust_subjournal_beta_" + this.media.file_id));
+      this.loadMedia(encodeURIComponent("#travelust_subjournal_beta_" + this.journal.file_id));
       //Check whether the current user is the owner
-      if (this.media.user_id == this.userService.getUserFromLocal().user_id)
+      if (this.journal.user_id == this.userService.getUserFromLocal().user_id)
           this.isOwner = true;
       else
           this.isOwner = false;
+      //Display like
+      this.favouriteDisplay(this.journal.file_id)
   }
 
   likeJournal = () => {
       this.isLiked = !this.isLiked;
       if(this.isLiked){
           this.heartIcon = "heart";
-          this.mediaService.createFileFavourite(this.media.file_id)
+          this.mediaService.createFileFavourite(this.journal.file_id)
           .subscribe(
               res => {
                   console.log(res);
-                  this.favouriteDisplay(this.media.file_id);
+                  this.favouriteDisplay(this.journal.file_id);
               }
           );
       }else {
           this.heartIcon = "heart-outline";
-          this.mediaService.deleteFileFavourite(this.media.file_id)
+          this.mediaService.deleteFileFavourite(this.journal.file_id)
           .subscribe(
               res => {
                   console.log(res);
-                  this.favouriteDisplay(this.media.file_id);
+                  this.favouriteDisplay(this.journal.file_id);
               }
           );
       }
@@ -83,7 +85,7 @@ export class JournalPage {
   }
 
   presentPopover = (ev) => {
-      let popover = this.popoverCtrl.create(PopoverPage, {media: this.media});
+      let popover = this.popoverCtrl.create(PopoverPage, {media: this.journal});
       popover.present({
         ev: ev
       });
@@ -95,7 +97,7 @@ export class JournalPage {
       .subscribe(
           resFav => {
                 //Get number of favourites
-                this.media.numberOfLikes = resFav.length;
+                this.journal.numberOfLikes = resFav.length;
                 //Check whether current user is the author
                 let exist: any;
                 for (var i = 0; i < resFav.length; i++){
