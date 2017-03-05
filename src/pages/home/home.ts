@@ -89,4 +89,8 @@ export class HomePage {
     this.app.getRootNav().push(JournalPage, {media: media});
   }
 
+  trackByMedia(index, media){
+    return index;
+  }
+
 }
