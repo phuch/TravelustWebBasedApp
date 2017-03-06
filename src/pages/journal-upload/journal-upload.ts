@@ -2,7 +2,7 @@ import { HomePage } from './../home/home';
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
 import { Camera } from 'ionic-native';
 
 /*
@@ -19,7 +19,7 @@ declare var window: any;
 export class JournalUploadPage {
   private mediaSrc: string;
 
-  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
+  constructor(public loadingCtrl: LoadingController, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad JournalUploadPage');
@@ -63,8 +63,7 @@ export class JournalUploadPage {
                                                   respTagOwner => {
                                                       console.log(respTagOwner)
                                                       this.navParams.data.isUploaded = true;
-                                                      this.navCtrl.pop();
-                                                      this.navCtrl.parent.select(0);
+                                                      // this.navCtrl.parent.select(0);
                                                       this.mediaSrc = '';
                                                       form.resetForm();
                                                   }
@@ -81,6 +80,17 @@ export class JournalUploadPage {
           err => console.log("get file "+ err))
         },
         err => console.log(err))
+  }
+
+  goToHomepage = () => {
+    let loader = this.loadingCtrl.create({
+      content: "Journal creating...",
+      duration: 3000
+    });
+    loader.present();
+    setTimeout(() => {
+      this.navCtrl.parent.select(0);
+    }, 3000);
   }
 
   openGallery = () => {

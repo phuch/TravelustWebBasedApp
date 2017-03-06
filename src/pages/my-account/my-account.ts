@@ -31,6 +31,7 @@ export class MyAccountPage {
 
      this.user.fullname = this.userService.getUserFromLocal().full_name;
      this.user.id = this.userService.getUserFromLocal().user_id;
+     this.user.username = this.userService.getUserFromLocal().username;
      if(this.user.id === this.userService.getUserFromLocal().user_id)
         this.isOwner = true;
      else
