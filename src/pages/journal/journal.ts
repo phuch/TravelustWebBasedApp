@@ -48,6 +48,9 @@ export class JournalPage {
           this.isOwner = false;
       //Display like
       this.favouriteDisplay(this.journal.file_id)
+      //Display save journal
+      const saveTag: string = "#travelust_savejournal_beta_" + this.userService.getUserFromLocal().user_id;
+      this.saveJournalDisplay(this.journal.file_id, encodeURIComponent(saveTag));
   }
 
   likeJournal = () => {
@@ -75,9 +78,19 @@ export class JournalPage {
 
   saveJournal = () => {
       this.isSaved = !this.isSaved;
-      if(this.isSaved){
-          this.saveIcon = "md-checkmark";
-          this.saveText = "Journal saved";
+      if(this.isSaved){       
+          const tag = {
+                file_id: this.journal.file_id,
+                tag: "#travelust_savejournal_beta_" + this.userService.getUserFromLocal().user_id
+          }
+          this.mediaService.createFileTag(tag)
+          .subscribe(
+                resp => {
+                    console.log(resp)
+                    this.saveIcon = "md-checkmark";
+                    this.saveText = "Journal saved";
+                }
+           )
       }else {
           this.saveIcon = "bookmark";
           this.saveText = "Save journal";
@@ -106,7 +119,7 @@ export class JournalPage {
                         break;
                     }
                 }
-                //Check whether number of likes = 0
+                //Display whether current user has liked or not
                 if (!exist){
                     this.isLiked = false;
                     this.heartIcon = "heart-outline";
@@ -114,9 +127,31 @@ export class JournalPage {
                 else{
                     this.isLiked = true;
                     this.heartIcon = "heart";
+                    this.isSaved = false;
                 }
           }
       );
+  }
+
+  //Configure display for save journal section
+  saveJournalDisplay = (fileId:any, tag:any) => {
+      this.mediaService.getFilesByTag(tag)
+      .subscribe(
+          resp => {
+              for (let data of resp){
+                  if (data.file_id == this.journal.file_id){
+                      this.isSaved = true;
+                      this.saveIcon = "md-checkmark";
+                      this.saveText = "Journal saved";
+                      break;
+                  }
+              }
+              if (!this.isSaved){
+                  this.saveIcon = "bookmark";
+                  this.saveText = "Save journal";
+              }
+          }
+      )
   }
 
   loadMedia = (tag: any) => {
@@ -128,5 +163,4 @@ export class JournalPage {
             }
       )
   }
-
 }
