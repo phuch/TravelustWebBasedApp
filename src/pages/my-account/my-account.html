@@ -31,6 +31,7 @@
   <ion-row id="username">
     <ion-col text-center>
       <h2>{{user.fullname}}</h2>
+      <h2 *ngIf="!user.fullname">{{user.username}}</h2>
     </ion-col>
   </ion-row>
 
