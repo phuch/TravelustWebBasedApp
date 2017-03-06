@@ -34,7 +34,7 @@
     {{ journal.numberOfLikes }}
   </button>
 
-  <button ion-button clear icon-left [class.saved-journal]= "isSaved" (click)= "saveJournal()">
+  <button ion-button clear icon-left [class.saved-journal]= "isSaved" (click)= "saveJournal()" *ngIf="!isOwner">
     <ion-icon name={{saveIcon}}></ion-icon>
     {{saveText}}
   </button>
