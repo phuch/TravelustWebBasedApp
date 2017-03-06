@@ -1,3 +1,5 @@
+import { DatePipe } from '@angular/common';
+import { PostTimePipe } from './../../pipes/post-time-pipe';
 import { JournalPage } from './../journal/journal';
 import { UserService } from './../../providers/user-service';
 import { MediaService } from './../../providers/media-service';
@@ -12,7 +14,7 @@ import { App, NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-journals-of-user',
   templateUrl: 'journals-of-user.html',
-  providers: [MediaService, UserService]
+  providers: [MediaService, UserService, PostTimePipe, DatePipe]
 })
 export class JournalsOfUserPage {
 
@@ -20,12 +22,19 @@ export class JournalsOfUserPage {
   private url: string = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
 
-  constructor(public app: App, public navCtrl: NavController, public navParams: NavParams, public mediaService: MediaService, public userService: UserService) {}
+  constructor(public app: App, public navCtrl: NavController, public navParams: NavParams, public mediaService: MediaService, public userService: UserService, public postTimePipe: PostTimePipe, public datePipe: DatePipe) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad JournalsOfUserPage');
     this.journals = this.navParams.get("journals");
     console.log(this.journals);
+    for (var journal of this.journals){
+
+      let timeAdded = new Date(journal.time_added);
+      journal.postTime = this.postTimePipe.transform(timeAdded.getTime())
+      if (journal.postTime == "false")
+          journal.postTime = this.datePipe.transform(timeAdded.getTime(), 'medium')
+    }
   }
 
   navigateToJournal = (journal: any) => {
