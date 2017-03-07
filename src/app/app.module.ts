@@ -1,3 +1,4 @@
+import { OtherAccountPage } from './../pages/other-account/other-account';
 import { MyAccountPage } from './../pages/my-account/my-account';
 import { JournalsOfUserPage } from './../pages/journals-of-user/journals-of-user';
 import { AccountSettingPage } from './../pages/account-setting/account-setting';
@@ -33,7 +34,8 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     AccountSettingPage,
     JournalAddMediaPage,
     JournalsOfUserPage,
-    MyAccountPage
+    MyAccountPage,
+    OtherAccountPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -61,7 +63,8 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     AccountSettingPage,
     JournalAddMediaPage,
     JournalsOfUserPage,
-    MyAccountPage
+    MyAccountPage,
+    OtherAccountPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

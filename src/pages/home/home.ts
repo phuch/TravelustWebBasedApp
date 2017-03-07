@@ -1,3 +1,4 @@
+import { OtherAccountPage } from './../other-account/other-account';
 import { UserService } from './../../providers/user-service';
 import { MediaService } from './../../providers/media-service';
 import { PostTimePipe } from './../../pipes/post-time-pipe';
@@ -17,6 +18,7 @@ export class HomePage {
   private shouldEnable: boolean = true;
   private start: number = 0;
   private medias: any = [];
+  private user_id: string = '';
   private url: string = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
   constructor(public app: App, public navParams: NavParams, public navCtrl: NavController, private mediaService: MediaService, private userService: UserService,
@@ -87,6 +89,10 @@ export class HomePage {
 
   navigateToJournal = (media: any) => {
     this.app.getRootNav().push(JournalPage, {media: media});
+  }
+
+  goToOtherAccount = (media: any) => {
+    this.app.getRootNav().push(OtherAccountPage, {media: media});
   }
 
 }
