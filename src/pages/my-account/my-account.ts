@@ -21,9 +21,6 @@ export class MyAccountPage {
   private user: any = {};
   private isOwner: boolean = false;
   private journals: any = [];
-  private addIcon : string = "md-add";
-  private addText : string = "Add user";
-  private isAdded : boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public app: App, public userService: UserService, public mediaService: MediaService) {}
 
@@ -61,18 +58,5 @@ export class MyAccountPage {
     );
 
   }
-
-  addUser = () => {
-    this.isAdded = !this.isAdded;
-    if(this.isAdded) {
-      this.addIcon = "md-checkmark"
-      this.addText = "User added"
-    }else {
-      this.addIcon = "md-add";
-      this.addText = "Add user"
-    }
-  }
-
-
 
 }

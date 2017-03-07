@@ -8,11 +8,6 @@
 
   <ion-navbar>
     <ion-title>Travelust</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="goToSetting()">
-        <ion-icon name="ios-settings-outline"></ion-icon>
-      </button>
-    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -60,14 +55,14 @@
     <ion-badge item-right>260k</ion-badge>
   </ion-item>
 
-  <!--<ion-row *ngIf="!isOwner">
+  <ion-row *ngIf="!isOwner">
     <ion-col text-center>
-        <button ion-button icon-left class="button" outline round small (click)="addUser()" [class.user-added]="isAdded">
+        <button ion-button icon-left id="add-btn" outline round small (click)="addUser()" [class.user-added]="isAdded">
           <ion-icon [class.user-added]="isAdded" name={{addIcon}}></ion-icon>
           {{addText}}
         </button>
     </ion-col>
-  </ion-row>-->
+  </ion-row>
 
 
 </ion-content>
