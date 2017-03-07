@@ -1,4 +1,11 @@
-import { UserAccountPage } from './../pages/user-account/user-account';
+import { OtherAccountPage } from './../pages/other-account/other-account';
+import { MyAccountPage } from './../pages/my-account/my-account';
+import { JournalsOfUserPage } from './../pages/journals-of-user/journals-of-user';
+import { AccountSettingPage } from './../pages/account-setting/account-setting';
+import { EditJournalInfoPage } from './../pages/edit-journal-info/edit-journal-info';
+import { JournalAddMediaPage } from './../pages/journal-add-media/journal-add-media';
+import { PopoverPage } from './../pages/journal/popover/popover';
+import { JournalPage } from './../pages/journal/journal';
 import { JournalUploadPage } from './../pages/journal-upload/journal-upload';
 import { RegisterPage } from './../pages/register/register';
 import { WelcomePage } from './../pages/welcome/welcome';
@@ -21,7 +28,14 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     RegisterPage,
     JournalUploadPage,
     DetailViewPage,
-    UserAccountPage
+    JournalPage,
+    PopoverPage,
+    EditJournalInfoPage,
+    AccountSettingPage,
+    JournalAddMediaPage,
+    JournalsOfUserPage,
+    MyAccountPage,
+    OtherAccountPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -43,7 +57,14 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     RegisterPage,
     JournalUploadPage,
     DetailViewPage,
-    UserAccountPage
+    JournalPage,
+    PopoverPage,
+    EditJournalInfoPage,
+    AccountSettingPage,
+    JournalAddMediaPage,
+    JournalsOfUserPage,
+    MyAccountPage,
+    OtherAccountPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

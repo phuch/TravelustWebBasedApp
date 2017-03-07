@@ -1,0 +1,59 @@
+<!--
+  Generated template for the Journal page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-title>Journal</ion-title>
+
+    <ion-buttons *ngIf="isOwner" end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <h1>{{ journal.title }}</h1>
+  <h4><span>by</span> {{ journal.author }}</h4>
+  <!--<p>
+    <ion-icon name='pin'></ion-icon>
+    Location
+  </p>-->
+  <p>{{journal.description}}</p>
+
+  <button ion-button clear icon-left [class.liked-button] = "isLiked" (click) = "likeJournal()">
+    <ion-icon name={{heartIcon}}></ion-icon>
+    {{ journal.numberOfLikes }}
+  </button>
+
+  <button ion-button clear icon-left [class.saved-journal]= "isSaved" (click)= "saveJournal()">
+    <ion-icon name={{saveIcon}}></ion-icon>
+    {{saveText}}
+  </button>
+
+
+  <div class="dynamic-grid">
+
+    <article *ngFor="let file of mediaList" class="grid-item">
+      <div (click)="navigateToJournal(file)">
+        <img *ngIf="file.media_type == 'image'" [src]="url + file.filename">
+
+        <video *ngIf="file.media_type == 'video'" width="320" height="240" controls>
+          <source [src]="url + file.filename" type="video/mp4">
+        </video>
+
+        <img *ngIf="file.media_type == 'audio'" src="././assets/img/audio_icon.jpg" width="300px" type="audio/mpeg">
+      </div>
+    </article>
+
+  </div>
+
+</ion-content>

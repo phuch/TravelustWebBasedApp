@@ -1,0 +1,47 @@
+<!--
+  Generated template for the JournalAddMedia page.
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add photos/ videos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+      <form #uploadForm="ngForm">
+        <ion-row>
+          <ion-col width-33>
+              <div class="file-upload" (click)="openGallery()">
+                <div *ngIf="!mediaSrc">
+                  <img id="camera-icon" src='././assets/img/picture.png' width="80px">
+                  <p>Choose a file</p>
+                </div>
+                <img *ngIf="mediaSrc" id="img-preview" [src]="mediaSrc">
+              </div>
+          </ion-col>
+          <ion-col width-66 class="info">
+                <div class="form-element">
+                    <ion-input type="text" name="title" placeholder="Title" ngModel required></ion-input>
+                </div>
+                <div class="form-element">
+                    <ion-textarea type="text" name="description" placeholder="Description" ngModel required></ion-textarea>
+                </div>
+
+
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col text-center>
+                <button ion-button class="button" (click)="uploadMedia(uploadForm)" [disabled]="!uploadForm.valid">Submit</button>
+            </ion-col>
+        </ion-row>
+      </form>
+
+
+</ion-content>

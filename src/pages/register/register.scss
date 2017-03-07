@@ -21,11 +21,14 @@ $text-font: 'Source Code Pro', monospace;
       margin-bottom: 20px;
     }
 
-    #signup-form {
+    ion-content {
       background: linear-gradient(to left, #4CB8C4 , #3CD3AD);
+    }
+
+    #signup-form {
       width: 100%;
       height: 100%;
-      padding-top: 50px;
+      padding-top: 30px;
     }
 
     ion-row {

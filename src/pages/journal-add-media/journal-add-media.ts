@@ -1,28 +1,30 @@
-import { HomePage } from './../home/home';
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Camera } from 'ionic-native';
 
 /*
-  Generated class for the JournalUpload page.
+  Generated class for the JournalAddMedia page.
+
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
 declare var window: any;
 @Component({
-  selector: 'page-journal-upload',
-  templateUrl: 'journal-upload.html',
+  selector: 'page-journal-add-media',
+  templateUrl: 'journal-add-media.html',
   providers: [MediaService, UserService]
 })
-export class JournalUploadPage {
+export class JournalAddMediaPage {
   private mediaSrc: string;
+  private media: any;
 
-  constructor(public loadingCtrl: LoadingController, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
+  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad JournalUploadPage');
+    this.media = this.navParams.get("media");
+    console.log('ionViewDidLoad JournalAddMediaPage');
   }
 
   uploadMedia = (form: any) => {
@@ -36,7 +38,7 @@ export class JournalUploadPage {
       fileEntry.file(
           success => {
                           var reader = new FileReader();
-                          success.type = "image/jpeg";
+
                           reader.onload = (e: any) => {
                               var imgBlob = new Blob([ e.target.result ], { type: success.type } );
                               const formData = new FormData();
@@ -49,25 +51,14 @@ export class JournalUploadPage {
                                       console.log(resp);
                                       const tag = {
                                           file_id: resp.file_id,
-                                          tag: "#travelust_journal_beta_" + resp.file_id
+                                          tag: "#travelust_subjournal_beta_" + this.media.file_id
                                       }
                                       this.mediaService.createFileTag(tag).subscribe(
                                           respTag => {
                                               console.log(respTag)
-                                              const tag_owner = {
-                                                  file_id: resp.file_id,
-                                                  tag: "#travelust_myjournal_beta_" + this.userService.getUserFromLocal().user_id
-                                              }
-                                              console.log(tag_owner);
-                                              this.mediaService.createFileTag(tag_owner).subscribe(
-                                                  respTagOwner => {
-                                                      console.log(respTagOwner)
-                                                      this.navParams.data.isUploaded = true;
-                                                      // this.navCtrl.parent.select(0);
-                                                      this.mediaSrc = '';
-                                                      form.resetForm();
-                                                  }
-                                              )
+                                              this.navCtrl.pop();
+                                              this.mediaSrc = '';
+                                              form.resetForm();
                                           },
                                           errTag => console.log("Create tag error: " + errTag)
                                       )
@@ -80,17 +71,6 @@ export class JournalUploadPage {
           err => console.log("get file "+ err))
         },
         err => console.log(err))
-  }
-
-  goToHomepage = () => {
-    let loader = this.loadingCtrl.create({
-      content: "Journal creating...",
-      duration: 3000
-    });
-    loader.present();
-    setTimeout(() => {
-      this.navCtrl.parent.select(0);
-    }, 3000);
   }
 
   openGallery = () => {

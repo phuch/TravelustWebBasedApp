@@ -1,0 +1,44 @@
+<!--
+  Generated template for the EditJournalInfo page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Edit</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row>
+    <ion-col>
+      <form #updateInfoForm = "ngForm" (ngSubmit)="editJournalInfo(updateInfoForm.value)">
+        <ion-list>
+
+          <ion-item>
+              <ion-label floating>New title</ion-label>
+              <ion-input type="text" name="title" [(ngModel)] = "title" ngModel></ion-input>
+          </ion-item>
+
+            <ion-item>
+                <ion-label floating>New description</ion-label>
+                <ion-textarea type="text" name="description" [(ngModel)] = "description" ngModel></ion-textarea>
+            </ion-item>
+
+        </ion-list>
+        <ion-row text-center>
+            <ion-col>
+                <button ion-button class="button" type="submit">Update</button>
+            </ion-col>
+        </ion-row>
+      </form>
+    </ion-col>
+
+  </ion-row>
+
+
+</ion-content>

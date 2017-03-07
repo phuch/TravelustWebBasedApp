@@ -1,0 +1,60 @@
+$image-height: 120px;
+$liked-button: #FF4F4F;
+$saved-button: #3EC6A7;
+$dim: #808181;
+
+page-journal {
+  ion-navbar {
+    ion-icon {
+      color: $dim
+    }
+  };
+  ion-content {
+    text-align: center;
+  }
+
+  .dynamic-grid {
+    margin-top: 30px;
+    position: relative;
+  z-index: 1;
+  -webkit-columns: 120px 2;
+     -moz-columns: 120px 2;
+          columns: 120px 2;
+  -webkit-column-gap: 5px;
+     -moz-column-gap: 5px;
+          column-gap: 5px;
+  }
+
+  .grid-item {
+    position: relative;
+    display: inline-block;
+    margin: 0.5rem;
+    max-width: 100%;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  span {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  img {
+    border-radius: 5px;
+  }
+
+  .button-ios {
+    color: $dim;
+    -webkit-transition: all 0.2s linear;
+	  -o-transition: all 0.2s linear;
+	  transition: all 0.2s linear;
+  }
+
+  .liked-button {
+    color: $liked-button;
+  }
+
+  .saved-journal {
+    color: $saved-button;
+  }
+}

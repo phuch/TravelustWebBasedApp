@@ -18,17 +18,20 @@ export class MediaService {
     console.log('Hello MediaService Provider');
   }
 
+  /*-------------------- MEDIA --------------------*/
   //Get number of media files providing a starting number
   getMedia = (start: any) => {
-    return this.http.get(this.url + '/media?start=' + start + '&limit=10')
+    return this.http.get(this.url + '/media?start=' + start + '&limit=50')
       .map(
         resp => resp.json()
       );
   }
 
-
+  //Upload a media file
   uploadMedia = (image: any) => {
-    return this.http.post(this.url + '/media?token=' + this.userService.getUserFromLocal().token, image)
+    const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
+    const options = new RequestOptions({headers : headers})
+    return this.http.post(this.url + '/media', image, options)
       .map(
         resp => resp.json()
         )
@@ -43,6 +46,28 @@ export class MediaService {
     );
   }
 
+  //Delete media file
+  deleteMedia = (fileId: any) => {
+    console.log(this.userService.getUserFromLocal().token)
+    const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
+    const options = new RequestOptions({headers : headers})
+    return this.http.delete(this.url + '/media/' + fileId, options)
+      .map(
+        resp => resp.json()
+        )
+  }
+
+  //Get a list of file of current user
+  getFilesOfCurrentUser = () => {
+    const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
+    const options = new RequestOptions({headers : headers})
+    return this.http.get(this.url + '/media/user', options)
+      .map(
+        res => res.json()
+      );
+  }
+
+  /*-------------------- FAVOURITE --------------------*/
   //Get all favourites of a file based on file id
   getFileFavorite = (fileId: any) => {
       return this.http.get(this.url + '/favourites/file/' + fileId)
@@ -73,6 +98,78 @@ export class MediaService {
         res =>
           res.json()
       );
+  }
+
+  /*-------------------- TAG --------------------*/
+  //Create tag for a file
+  createFileTag = (tag: any) => {
+      const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
+      const options = new RequestOptions({headers: headers})
+      return this.http.post(this.url + '/tags', tag, options)
+      .map(
+        res =>
+          res.json()
+      );
+  }
+
+  //Get tags by file id
+  getTagsByFileId = (fileId: any) => {
+      return this.http.get(this.url + '/tags/file/' + fileId)
+        .map(
+          res =>
+            res.json()
+        );
+  }
+
+  //Get files by tag
+  getFilesByTag = (tag: any) => {
+      return this.http.get(this.url + '/tags/' + tag)
+        .map(
+          res =>
+            res.json()
+        );
+  }
+
+  /*-------------------- COMMENT --------------------*/
+  //Create comment for a file
+  createComment = (comment: any) => {
+      const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
+      const options = new RequestOptions({headers: headers})
+      return this.http.post(this.url + '/comments', comment, options)
+      .map(
+        res =>
+          res.json()
+      );
+  }
+
+  //Get comments by file id
+  getCommentsByFileId = (fileId: any) => {
+      return this.http.get(this.url + '/comments/file/' + fileId)
+          .map(
+            res =>
+              res.json()
+          );
+  }
+
+  //Delete comment by comment id
+  deleteCommentByCommentId = (commentId: any) => {
+      const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
+      const options = new RequestOptions({headers : headers})
+      return this.http.delete(this.url + '/comments/' + commentId, options)
+      .map(
+        res =>
+          res.json()
+      );
+  }
+
+  /*-------------------- EDIT --------------------*/
+  editJournalInfo = (fileId: any, body: any) => {
+      const headers = new Headers({'x-access-token': this.userService.getUserFromLocal().token})
+      const options = new RequestOptions({headers : headers})
+      return this.http.put(this.url + '/media/' + fileId, body, options)
+        .map(
+          res => res.json()
+        )
   }
 
 }
