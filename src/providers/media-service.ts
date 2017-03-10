@@ -21,7 +21,7 @@ export class MediaService {
   /*-------------------- MEDIA --------------------*/
   //Get number of media files providing a starting number
   getMedia = (start: any) => {
-    return this.http.get(this.url + '/media?start=' + start + '&limit=50')
+    return this.http.get(this.url + '/media?start=' + start + '&limit=150')
       .map(
         resp => resp.json()
       );
