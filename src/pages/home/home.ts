@@ -16,7 +16,7 @@ import Rx from 'rxjs/Rx';
 
 export class HomePage {
   private shouldEnable: boolean = true;
-  private start: number = 100;
+  private start: number = 0;
   private medias: any = [];
   private user_id: string = '';
   private url: string = 'http://media.mw.metropolia.fi/wbma/uploads/';
@@ -31,7 +31,7 @@ export class HomePage {
     console.log("Did enter..." + this.mediaService.shouldReload)
     if (this.mediaService.shouldReload){
         this.medias = [];
-        this.start = 100;
+        this.start = 0;
         this.mediaService.shouldReload = false;
     }
     this.getMedia();
