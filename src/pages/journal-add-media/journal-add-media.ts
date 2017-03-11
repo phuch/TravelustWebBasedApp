@@ -38,7 +38,7 @@ export class JournalAddMediaPage {
       fileEntry.file(
           success => {
                           var reader = new FileReader();
-
+                          success.type = "image/jpeg";
                           reader.onload = (e: any) => {
                               var imgBlob = new Blob([ e.target.result ], { type: success.type } );
                               const formData = new FormData();
