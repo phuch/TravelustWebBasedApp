@@ -11,18 +11,15 @@ import { UserService } from './../../providers/user-service';
   providers: [UserService, LoginService]
 })
 export class TabsPage {
-  // this tells the tabs component which Pages
-  // should be each tab's root Page
-  tab1Root: any = HomePage;
-  tab2Root: any = JournalUploadPage;
-  tab3Root: any = MyAccountPage;
-
-  //Tab params
-  upload = {
-    isUploaded : false
-  }
+  tab1Root: any;
+  tab2Root: any;
+  tab3Root: any;
 
   constructor() {
-
+  // this tells the tabs component which Pages
+  // should be each tab's root Page
+    this.tab1Root = HomePage;
+    this.tab2Root  = JournalUploadPage;
+    this.tab3Root = MyAccountPage;
   }
 }

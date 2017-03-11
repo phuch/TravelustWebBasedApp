@@ -38,6 +38,10 @@ export class JournalsOfUserPage {
   }
 
   navigateToJournal = (journal: any) => {
-    this.app.getRootNav().push(JournalPage, {media: journal});
+    this.app.getRootNav().push(JournalPage, {media: journal, onMyJournalDelete: this.deleteJournal});
+  }
+
+  deleteJournal = (journal: any) => {
+    this.journals.splice(this.journals.indexOf(journal), 1)
   }
 }

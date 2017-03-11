@@ -62,7 +62,7 @@ export class JournalUploadPage {
                                               this.mediaService.createFileTag(tag_owner).subscribe(
                                                   respTagOwner => {
                                                       console.log(respTagOwner)
-                                                      this.navParams.data.isUploaded = true;
+                                                      this.mediaService.shouldReload = true;
                                                       // this.navCtrl.parent.select(0);
                                                       this.mediaSrc = '';
                                                       form.resetForm();

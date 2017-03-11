@@ -11,6 +11,8 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class MediaService {
+  //determine whether homepage should reload
+  public shouldReload: boolean = false;
   //base url
   private url: string = 'http://media.mw.metropolia.fi/wbma';
 
