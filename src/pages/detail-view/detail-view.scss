@@ -1,3 +1,26 @@
-page-detail-view {
+$dim: #808181;
+$liked-button: #FF4F4F;
 
+page-detail-view {
+  img {
+    border-radius: 10px;
+  }
+  .header-ios .toolbar-ios:last-child .toolbar-background-ios {
+    border: none;
+  }
+
+  .start-btn {
+    font-size: 30px;
+    color: $dim;
+  }
+
+  .end-btn {
+    font-size: 15px;
+    margin-left: 10px;
+    color: $dim;
+  }
+
+  .liked-button {
+    color: $liked-button;
+  }
 }

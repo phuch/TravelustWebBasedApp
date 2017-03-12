@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
 
@@ -18,7 +18,9 @@ export class DetailViewPage implements OnInit{
   //fields to display info
   private file_id: number;
   private file:any = {};
-  private owner: string = "";
+  private isOwner: boolean = false;
+  private isLiked: boolean = false;
+  private heartIcon: string = "heart-outline";
   private likes:number;
   private likeStr: string = "";
   private users: any = [];
@@ -26,7 +28,7 @@ export class DetailViewPage implements OnInit{
   //func responses to click on LIKE button
   private onClick: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
+  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailViewPage');
@@ -37,88 +39,71 @@ export class DetailViewPage implements OnInit{
     this.file_id = this.navParams.get("fileId");
     console.log(this.file_id + " testttt")
     this.mediaService.getSingleMedia(this.file_id)
-      .subscribe( 
+      .subscribe(
         res => {
           this.file = res;
-          //Get chosen file owner
-          this.userService.getUserInfo(this.file.user_id).subscribe(resUser => this.owner = resUser.username);
+           if (this.file.user_id == this.userService.getUserFromLocal().user_id)
+              this.isOwner = true;
+           else
+              this.isOwner = false;
           //Set up display for favourites
           this.favouriteDisplay(this.file_id);
         }
       );
   }
 
-  //like a post
-  likePost = () => {
-      this.mediaService.createFileFavourite(this.file_id)
-      .subscribe(
-          res => {
-            console.log(res)
-            if (res.message === "Favourite added"){
-              this.button = "Unlike";
-              this.onClick = this.unlikePost;
-              this.favouriteDisplay(this.file_id);
-            }
-          }
-      );
-  }
-
-  //unlike a post
-  unlikePost = () => {
-      this.mediaService.deleteFileFavourite(this.file_id)
-      .subscribe(
-          res => {
-            console.log(res)
-            if (res.message === "Favourite deleted"){
-              this.button = "Like";
-              this.onClick = this.likePost;
-              this.favouriteDisplay(this.file_id);
-            }
-          }
-      );
-  }
-
-  //Configure display for favourite section
-  favouriteDisplay = (fileId:any) => {
-    this.mediaService.getFileFavorite(fileId)
-    .subscribe(
-        resFav => {
-          //Re-init users' list
-          this.users = [];
-          //Get number of favourites
-          this.likes = resFav.length;
-          //Set like display
-          if (this.likes > 1)
-              this.likeStr = "likes from";
-          else if (this.likes == 0)
-              this.likeStr = "like";
-          else
-              this.likeStr = "like from";
-          //Set button display and function
-          let exist: any;
-          for (var i = 0; i < resFav.length; i++){
-              if (resFav[i].user_id ===  this.userService.getUserFromLocal().user_id){
-                  exist = true;
-                  break;
+  likeImage = () => {
+      this.isLiked = !this.isLiked;
+      if(this.isLiked){
+          this.heartIcon = "heart";
+          this.mediaService.createFileFavourite(this.file_id)
+          .subscribe(
+              res => {
+                  console.log(res);
+                  this.favouriteDisplay(this.file_id);
               }
-          }
-          if (exist){
-              this.button = "Unlike";
-              this.onClick = this.unlikePost;
-          }else{
-              this.button = "Like"
-              this.onClick = this.likePost;
-          }
-
-          //Get users who like the post
-          for (var i = 0; i < resFav.length; i++){
-            this.userService.getUserInfo(resFav[i].user_id).subscribe(resUser => this.users.push(resUser.username));
-          }
+          );
+      }else {
+          this.heartIcon = "heart-outline";
+          this.mediaService.deleteFileFavourite(this.file_id)
+          .subscribe(
+              res => {
+                  console.log(res);
+                  this.favouriteDisplay(this.file_id);
+              }
+          );
       }
-    );
   }
 
-  trackByUsers = (index: number, user: string) => {
-    return user;
+    favouriteDisplay = (fileId:any) => {
+      this.mediaService.getFileFavorite(fileId)
+      .subscribe(
+          resFav => {
+                //Get number of favourites
+                //this.journal.numberOfLikes = resFav.length;
+                //Check whether current user is the author
+                let exist: any;
+                for (var i = 0; i < resFav.length; i++){
+                    if (resFav[i].user_id ===  this.userService.getUserFromLocal().user_id){
+                        exist = true;
+                        break;
+                    }
+                }
+                //Display whether current user has liked or not
+                if (!exist){
+                    this.isLiked = false;
+                    this.heartIcon = "heart-outline";
+                }
+                else{
+                    this.isLiked = true;
+                    this.heartIcon = "heart";
+                    //this.isSaved = false;
+                }
+          }
+      );
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 }

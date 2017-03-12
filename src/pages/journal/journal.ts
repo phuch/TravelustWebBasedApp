@@ -1,6 +1,7 @@
+import { DetailViewPage } from './../detail-view/detail-view';
 import { PopoverPage } from './popover/popover';
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, PopoverController} from 'ionic-angular';
+import { NavController, NavParams, PopoverController, ModalController} from 'ionic-angular';
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
 import Rx from 'rxjs';
@@ -29,7 +30,7 @@ export class JournalPage {
   private users: any = [];
   private url: string = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService, private popoverCtrl: PopoverController) {}
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService, private popoverCtrl: PopoverController) {}
 
   ionViewDidLoad() {
       console.log('ionViewDidLoad JournalPage');
@@ -78,7 +79,7 @@ export class JournalPage {
 
   saveJournal = () => {
       this.isSaved = !this.isSaved;
-      if(this.isSaved){       
+      if(this.isSaved){
           const tag = {
                 file_id: this.journal.file_id,
                 tag: "#travelust_savejournal_beta_" + this.userService.getUserFromLocal().user_id
@@ -162,5 +163,10 @@ export class JournalPage {
                 this.mediaList = resp;
             }
       )
+  }
+
+  presentImage = (file_id:any) => {
+    let modal = this.modalCtrl.create(DetailViewPage, {fileId: file_id});
+    modal.present();
   }
 }
