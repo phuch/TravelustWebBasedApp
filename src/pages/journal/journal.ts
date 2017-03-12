@@ -99,7 +99,7 @@ export class JournalPage {
   }
 
   presentPopover = (ev) => {
-      let popover = this.popoverCtrl.create(PopoverPage, {media: this.journal});
+      let popover = this.popoverCtrl.create(PopoverPage, {media: this.journal, onMyJournalDelete: this.navParams.get("onMyJournalDelete")});
       popover.present({
         ev: ev
       });

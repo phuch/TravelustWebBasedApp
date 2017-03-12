@@ -19,6 +19,14 @@ declare var window: any;
 export class JournalAddMediaPage {
   private mediaSrc: string;
   private media: any;
+  private imageMIME: any = {
+    'jpeg' : 'image/jpeg',
+    'jpg'  : 'image/jpeg',
+    'png'  : 'image/png'
+  }
+  private videoMIME: any = {
+    'mp4' : 'video/mp4'
+  }
 
   constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
 
@@ -38,7 +46,20 @@ export class JournalAddMediaPage {
       fileEntry.file(
           success => {
                           var reader = new FileReader();
-                          success.type = "image/jpeg";
+                          //Update type for media got from ios
+                          if (this.platform.is("ios")){
+                              let mediaType = success.name.substring(success.name.indexOf('.') + 1);
+                              if (this.imageMIME[mediaType])
+                                  success.type = this.imageMIME[mediaType]
+                              else if (this.videoMIME[mediaType])
+                                  success.type = this.videoMIME[mediaType]
+                              else{
+                                //Not support! Do sth
+                                this.mediaSrc = '';
+                                form.resetForm();
+                                return
+                              }
+                          }
                           reader.onload = (e: any) => {
                               var imgBlob = new Blob([ e.target.result ], { type: success.type } );
                               const formData = new FormData();

@@ -3,8 +3,8 @@ import { UserService } from './../../providers/user-service';
 import { MediaService } from './../../providers/media-service';
 import { PostTimePipe } from './../../pipes/post-time-pipe';
 import { Component, OnInit} from '@angular/core';
-import { App, NavController, NavParams } from 'ionic-angular';
-import { DatePipe } from '@angular/common';
+import { App, NavController, NavParams, Tabs } from 'ionic-angular';
+import { DatePipe } from '@angular/common'
 import { JournalPage } from './../journal/journal';
 import Rx from 'rxjs/Rx';
 
@@ -23,17 +23,22 @@ export class HomePage {
 
   constructor(public app: App, public navParams: NavParams, public navCtrl: NavController, private mediaService: MediaService, private userService: UserService,
               public postTimePipe: PostTimePipe, public datePipe: DatePipe) {}
-
+  ionViewDidLoad() {
+    console.log("Did load..." + this.mediaService.shouldReload)
+    console.log((this.navCtrl.parent instanceof Tabs) + "..checking")
+  }
   ionViewDidEnter() {
-    console.log(this.navParams.data.isUploaded);
-    if (this.navParams.data.isUploaded){
+    console.log("Did enter..." + this.mediaService.shouldReload)
+    if (this.mediaService.shouldReload){
         this.medias = [];
         this.start = 0;
-        this.navParams.data.isUploaded = false;
+        this.mediaService.shouldReload = false;
     }
     this.getMedia();
   }
-
+  ionViewWillEnter() {
+    console.log("will enter..." + this.mediaService.shouldReload)
+  }
   getMedia = () =>{
     console.log(this.start);
     this.mediaService.getMedia(this.start).subscribe(

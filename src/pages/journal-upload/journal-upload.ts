@@ -18,6 +18,14 @@ declare var window: any;
 })
 export class JournalUploadPage {
   private mediaSrc: string;
+  private imageMIME: any = {
+    'jpeg' : 'image/jpeg',
+    'jpg'  : 'image/jpeg',
+    'png'  : 'image/png'
+  }
+  private videoMIME: any = {
+    'mp4' : 'video/mp4'
+  }
 
   constructor(public loadingCtrl: LoadingController, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
 
@@ -36,13 +44,26 @@ export class JournalUploadPage {
       fileEntry.file(
           success => {
                           var reader = new FileReader();
-                          success.type = "image/jpeg";
+                          console.log(success.name.substring(success.name.indexOf('.') + 1))
+                          //Update type for media got from ios
+                          if (this.platform.is("ios")){
+                              let mediaType = success.name.substring(success.name.indexOf('.') + 1);
+                              if (this.imageMIME[mediaType])
+                                  success.type = this.imageMIME[mediaType]
+                              else{
+                                //Not support! Do sth
+                                this.mediaSrc = '';
+                                form.resetForm();
+                                return
+                              }
+                          }
                           reader.onload = (e: any) => {
                               var imgBlob = new Blob([ e.target.result ], { type: success.type } );
                               const formData = new FormData();
                               formData.append('file', imgBlob);
                               formData.append('title', value.title);
                               formData.append('description', value.description);
+
 
                               this.mediaService.uploadMedia(formData).subscribe(
                                   resp => {
@@ -62,7 +83,7 @@ export class JournalUploadPage {
                                               this.mediaService.createFileTag(tag_owner).subscribe(
                                                   respTagOwner => {
                                                       console.log(respTagOwner)
-                                                      this.navParams.data.isUploaded = true;
+                                                      this.mediaService.shouldReload = true;
                                                       // this.navCtrl.parent.select(0);
                                                       this.mediaSrc = '';
                                                       form.resetForm();
@@ -97,7 +118,7 @@ export class JournalUploadPage {
     let cameraOptions = {
       sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: Camera.DestinationType.FILE_URI,
-      mediaType: Camera.MediaType.ALLMEDIA,
+      mediaType: Camera.MediaType.PICTURE,
       quality: 100,
       targetWidth: 1000,
       targetHeight: 1000

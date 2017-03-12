@@ -1,7 +1,8 @@
 import { EditJournalInfoPage } from './../../edit-journal-info/edit-journal-info';
 import { JournalAddMediaPage } from './../../journal-add-media/journal-add-media';
+import { TabsPage } from './../../tabs/tabs';
 import { Component } from '@angular/core';
-import { App, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
+import { App, NavController, NavParams, ViewController, LoadingController,Tabs } from 'ionic-angular';
 import { MediaService } from './../../../providers/media-service';
 import { UserService } from './../../../providers/user-service';
 
@@ -17,11 +18,12 @@ import { UserService } from './../../../providers/user-service';
 })
 export class PopoverPage {
   private media: any;
-
-  constructor(public alertCtrl: AlertController, public viewCtrl: ViewController,public app: App, public navCtrl: NavController, public navParams: NavParams, public mediaService: MediaService) {}
+  private onMyJournalDelete: any;
+  constructor(public loadingCtrl: LoadingController, public alertCtrl: AlertController, public viewCtrl: ViewController,public app: App, public navCtrl: NavController, public navParams: NavParams, public mediaService: MediaService) {}
 
   ionViewDidLoad() {
     this.media = this.navParams.get("media");
+    this.onMyJournalDelete = this.navParams.get("onMyJournalDelete")
     console.log(this.media)
     console.log('ionViewDidLoad PopoverPage');
   }
@@ -36,16 +38,35 @@ export class PopoverPage {
   }
 
   deleteJournal = () => {
+    let loader = this.loadingCtrl.create({
+      content: "Journal deleting...",
+    });
+    loader.present();
+    
+    //this.app.getRootNav().pop().then(() => this.viewCtrl.dismiss())
     this.mediaService.deleteMedia(this.media.file_id)
     .subscribe(
       resp => {
         console.log(resp)
-        this.app.getRootNav().pop();
+        this.mediaService.shouldReload = true;
+        loader.dismiss();
+        this.viewCtrl.dismiss().then(
+          () => this.app.getRootNav().pop().then(
+            () => {
+              if (this.app.getRootNav().last().name == "TabsPage")
+                  this.app.getRootNav().setRoot(TabsPage)
+              else{
+                if (this.onMyJournalDelete)
+                    this.onMyJournalDelete(this.media)
+              }
+            }
+          )
+        )
       }
     )
   }
 
-    showConfirm() {
+  showConfirm() {
     this.viewCtrl.dismiss();
     let confirm = this.alertCtrl.create({
       title: 'Delete this journal?',
