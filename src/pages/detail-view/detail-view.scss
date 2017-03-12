@@ -9,6 +9,10 @@ page-detail-view {
     border: none;
   }
 
+  .postTime {
+    color: $dim;
+  }
+
   .start-btn {
     font-size: 30px;
     color: $dim;
@@ -23,4 +27,18 @@ page-detail-view {
   .liked-button {
     color: $liked-button;
   }
+
+  .username {
+    font-weight: 500;
+  }
+
+  .comment {
+    color: black;
+  }
+  .avatar {
+    border-radius: 50%;
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+
 }

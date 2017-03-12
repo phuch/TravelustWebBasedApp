@@ -1,3 +1,5 @@
+import { PopoverDetailViewPage } from './../pages/detail-view/popover-detail-view/popover-detail-view';
+import { CommentPage } from './../pages/detail-view/comment/comment';
 import { OtherAccountPage } from './../pages/other-account/other-account';
 import { MyAccountPage } from './../pages/my-account/my-account';
 import { JournalsOfUserPage } from './../pages/journals-of-user/journals-of-user';
@@ -35,7 +37,9 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     JournalAddMediaPage,
     JournalsOfUserPage,
     MyAccountPage,
-    OtherAccountPage
+    OtherAccountPage,
+    CommentPage,
+    PopoverDetailViewPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -64,7 +68,9 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     JournalAddMediaPage,
     JournalsOfUserPage,
     MyAccountPage,
-    OtherAccountPage
+    OtherAccountPage,
+    CommentPage,
+    PopoverDetailViewPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

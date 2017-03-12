@@ -13,13 +13,13 @@
     </ion-buttons>
 
     <ion-buttons end>
-      <button ion-button icon-only class="end-btn" (click)="likeImage()" [class.liked-button] = "isLiked">
+      <button ion-button icon-only class="end-btn" (click)="likeMedia()" [class.liked-button] = "isLiked">
         <ion-icon name={{heartIcon}}></ion-icon>
       </button>
-      <button ion-button icon-only class="end-btn">
+      <button ion-button icon-only class="end-btn" (click)="presentComment($event)">
         <ion-icon name="ios-text-outline"></ion-icon>
       </button>
-      <button ion-button icon-only *ngIf="isOwner" class="end-btn">
+      <button ion-button icon-only *ngIf="isOwner" class="end-btn" (click)="presentPopover($event)">
         <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
@@ -33,6 +33,7 @@
        <ion-col>
         <h1>{{file.title}}</h1>
         <p>{{file.description}}</p>
+        <p class="postTime"> Added {{file.postTime}}</p>
        </ion-col>
     </ion-row>
     <div>
@@ -41,6 +42,28 @@
       <video *ngIf="file.media_type == 'video'" width="320" height="240" controls>
         <source [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + file.filename" type="video/mp4">
       </video>
-  </div>
+    </div>
+
+    <h6>{{comments.length}} Comment</h6>
+
+    <div class="comment-area" *ngFor="let comment of comments">
+
+      <ion-row>
+        <ion-col width-20>
+          <ion-avatar item-left>
+            <img class="avatar" [src]="'https://api.adorable.io/avatars/20/' + comment.username + 'oo.png'">
+          </ion-avatar>
+        </ion-col>
+        <ion-col width-80>
+          <ion-item text-wrap (click)="presentActionSheet(comment)">
+              <h2 class="username">{{comment.username}}</h2>
+              <p class="comment">{{comment.comment}}</p>
+              <p item-right>{{comment.postTime}}</p>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </div>
+
+
 </ion-content>
 

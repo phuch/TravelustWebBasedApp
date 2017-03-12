@@ -4,7 +4,7 @@ import { MediaService } from './../../providers/media-service';
 import { PostTimePipe } from './../../pipes/post-time-pipe';
 import { Component, OnInit} from '@angular/core';
 import { App, NavController, NavParams } from 'ionic-angular';
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
 import { JournalPage } from './../journal/journal';
 import Rx from 'rxjs/Rx';
 
@@ -35,6 +35,7 @@ export class HomePage {
   }
 
   getMedia = () =>{
+    console.log(this.start);
     this.mediaService.getMedia(this.start).subscribe(
         resp => {
           //Create an observable from response
@@ -81,7 +82,7 @@ export class HomePage {
 
   doInfinite (infiniteScroll: any) {
     setTimeout(() => {
-      this.start += 50;
+      this.start += 500;
       this.getMedia();
       infiniteScroll.complete();
     }, 1000);
