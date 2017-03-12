@@ -19,7 +19,7 @@ import { UserService } from './../../../providers/user-service';
 export class PopoverPage {
   private media: any;
   private onMyJournalDelete: any;
-  constructor(public loadingCtrl: LoadingController, public viewCtrl: ViewController,public app: App, public navCtrl: NavController, public navParams: NavParams, public mediaService: MediaService) {}
+  constructor(public loadingCtrl: LoadingController, public alertCtrl: AlertController, public viewCtrl: ViewController,public app: App, public navCtrl: NavController, public navParams: NavParams, public mediaService: MediaService) {}
 
   ionViewDidLoad() {
     this.media = this.navParams.get("media");
@@ -29,7 +29,7 @@ export class PopoverPage {
   }
 
 
-  goToEditInfo = (media: any) => {
+  goToEditInfo = () => {
     this.app.getRootNav().push(EditJournalInfoPage, {media: this.media}).then(() => this.viewCtrl.dismiss());
   }
 
@@ -66,15 +66,27 @@ export class PopoverPage {
     )
   }
 
-  // goToHomepage = () => {
-  //   let loader = this.loadingCtrl.create({
-  //     content: "Journal creating...",
-  //     duration: 3000
-  //   });
-  //   loader.present();
-  //   setTimeout(() => {
-  //     this.navCtrl.parent.select(0);
-  //   }, 3000);
-  // }
+  showConfirm() {
+    this.viewCtrl.dismiss();
+    let confirm = this.alertCtrl.create({
+      title: 'Delete this journal?',
+      message: 'Are you sure to delete this journal?',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            this.deleteJournal();
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
 
 }

@@ -1,7 +1,11 @@
+import { PopoverDetailViewPage } from './popover-detail-view/popover-detail-view';
+import { CommentPage } from './comment/comment';
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { App, NavController, NavParams, ViewController, PopoverController, ActionSheetController } from 'ionic-angular';
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
+import { DatePipe } from '@angular/common';
+import { PostTimePipe } from './../../pipes/post-time-pipe';
 
 /*
   Generated class for the DetailView page.
@@ -12,21 +16,18 @@ import { UserService } from './../../providers/user-service';
 @Component({
   selector: 'page-detail-view',
   templateUrl: 'detail-view.html',
-  providers: [MediaService, UserService]
+  providers: [MediaService, UserService, PostTimePipe, DatePipe]
 })
 export class DetailViewPage implements OnInit{
   //fields to display info
   private file_id: number;
   private file:any = {};
-  private owner: string = "";
-  private likes:number;
-  private likeStr: string = "";
-  private users: any = [];
-  private button:string = "";
-  //func responses to click on LIKE button
-  private onClick: any;
+  private isOwner: boolean = false;
+  private isLiked: boolean = false;
+  private heartIcon: string = "heart-outline";
+  private comments: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
+  constructor(public actionSheetCtrl: ActionSheetController, public popoverCtrl: PopoverController,public app: App,public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService, public postTimePipe: PostTimePipe, public datePipe: DatePipe) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailViewPage');
@@ -37,88 +38,150 @@ export class DetailViewPage implements OnInit{
     this.file_id = this.navParams.get("fileId");
     console.log(this.file_id + " testttt")
     this.mediaService.getSingleMedia(this.file_id)
-      .subscribe( 
+      .subscribe(
         res => {
           this.file = res;
-          //Get chosen file owner
-          this.userService.getUserInfo(this.file.user_id).subscribe(resUser => this.owner = resUser.username);
+           let timeAdded = new Date(this.file.time_added);
+            this.file.postTime = this.postTimePipe.transform(timeAdded.getTime())
+            if (this.file.postTime == "false")
+                this.file.postTime = this.datePipe.transform(timeAdded.getTime(), 'medium')
+           if (this.file.user_id == this.userService.getUserFromLocal().user_id)
+              this.isOwner = true;
+           else
+              this.isOwner = false;
           //Set up display for favourites
           this.favouriteDisplay(this.file_id);
         }
       );
   }
 
-  //like a post
-  likePost = () => {
-      this.mediaService.createFileFavourite(this.file_id)
-      .subscribe(
-          res => {
-            console.log(res)
-            if (res.message === "Favourite added"){
-              this.button = "Unlike";
-              this.onClick = this.unlikePost;
-              this.favouriteDisplay(this.file_id);
-            }
-          }
-      );
+  ionViewWillEnter () {
+    console.log("Enterrrr")
+    this.getComment();
   }
 
-  //unlike a post
-  unlikePost = () => {
-      this.mediaService.deleteFileFavourite(this.file_id)
-      .subscribe(
-          res => {
-            console.log(res)
-            if (res.message === "Favourite deleted"){
-              this.button = "Like";
-              this.onClick = this.likePost;
-              this.favouriteDisplay(this.file_id);
-            }
-          }
-      );
-  }
-
-  //Configure display for favourite section
-  favouriteDisplay = (fileId:any) => {
-    this.mediaService.getFileFavorite(fileId)
-    .subscribe(
-        resFav => {
-          //Re-init users' list
-          this.users = [];
-          //Get number of favourites
-          this.likes = resFav.length;
-          //Set like display
-          if (this.likes > 1)
-              this.likeStr = "likes from";
-          else if (this.likes == 0)
-              this.likeStr = "like";
-          else
-              this.likeStr = "like from";
-          //Set button display and function
-          let exist: any;
-          for (var i = 0; i < resFav.length; i++){
-              if (resFav[i].user_id ===  this.userService.getUserFromLocal().user_id){
-                  exist = true;
-                  break;
+  likeMedia = () => {
+      this.isLiked = !this.isLiked;
+      if(this.isLiked){
+          this.heartIcon = "heart";
+          this.mediaService.createFileFavourite(this.file_id)
+          .subscribe(
+              res => {
+                  console.log(res);
+                  this.favouriteDisplay(this.file_id);
               }
-          }
-          if (exist){
-              this.button = "Unlike";
-              this.onClick = this.unlikePost;
-          }else{
-              this.button = "Like"
-              this.onClick = this.likePost;
-          }
-
-          //Get users who like the post
-          for (var i = 0; i < resFav.length; i++){
-            this.userService.getUserInfo(resFav[i].user_id).subscribe(resUser => this.users.push(resUser.username));
-          }
+          );
+      }else {
+          this.heartIcon = "heart-outline";
+          this.mediaService.deleteFileFavourite(this.file_id)
+          .subscribe(
+              res => {
+                  console.log(res);
+                  this.favouriteDisplay(this.file_id);
+              }
+          );
       }
-    );
   }
 
-  trackByUsers = (index: number, user: string) => {
-    return user;
+  favouriteDisplay = (fileId:any) => {
+      this.mediaService.getFileFavorite(fileId)
+      .subscribe(
+          resFav => {
+                //Check whether current user is the author
+                let exist: any;
+                for (var i = 0; i < resFav.length; i++){
+                    if (resFav[i].user_id ===  this.userService.getUserFromLocal().user_id){
+                        exist = true;
+                        break;
+                    }
+                }
+                //Display whether current user has liked or not
+                if (!exist){
+                    this.isLiked = false;
+                    this.heartIcon = "heart-outline";
+                }
+                else{
+                    this.isLiked = true;
+                    this.heartIcon = "heart";
+                    //this.isSaved = false;
+                }
+          }
+      );
+  }
+
+  presentComment = (ev) => {
+      let popover = this.popoverCtrl.create(CommentPage, {fileId: this.file_id, callback: this.getComment});
+      popover.present({
+        ev: ev
+      });
+  }
+
+  presentPopover = (ev) => {
+      let popover = this.popoverCtrl.create(PopoverDetailViewPage, {file: this.file});
+      popover.present({
+        ev: ev
+      });
+  }
+
+  getComment = () => {
+    this.mediaService.getCommentsByFileId(this.file_id).subscribe(
+        res => {
+          this.comments = res;
+          console.log(this.comments);
+
+          for(let comment of this.comments){
+            //get time added of comment
+            let timeAdded = new Date(comment.time_added);
+            comment.postTime = this.postTimePipe.transform(timeAdded.getTime(), "displayForComment")
+            if (comment.postTime == "false")
+                comment.postTime = this.datePipe.transform(timeAdded.getTime(), 'medium')
+            //get author of comment
+            this.userService.getUserInfo(comment.user_id).subscribe(
+               userRes => {
+                  comment.username = userRes.username;
+                  console.log(comment.username);
+               }
+            )
+          }
+        }
+    )
+  }
+
+  presentActionSheet(comment: any) {
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            this.deleteComment(comment);
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+
+  deleteComment = (comment: any) => {
+    //for (let comment of this.comments){
+      this.mediaService.deleteCommentByCommentId(comment.comment_id).subscribe(
+        res => {
+          console.log(res)
+          this.comments.splice(this.comments.indexOf(comment), 1)
+        }
+      )
+    //}
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 }

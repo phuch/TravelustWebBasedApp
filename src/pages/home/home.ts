@@ -40,6 +40,7 @@ export class HomePage {
     console.log("will enter..." + this.mediaService.shouldReload)
   }
   getMedia = () =>{
+    console.log(this.start);
     this.mediaService.getMedia(this.start).subscribe(
         resp => {
           //Create an observable from response
@@ -86,7 +87,7 @@ export class HomePage {
 
   doInfinite (infiniteScroll: any) {
     setTimeout(() => {
-      this.start += 50;
+      this.start += 500;
       this.getMedia();
       infiniteScroll.complete();
     }, 1000);

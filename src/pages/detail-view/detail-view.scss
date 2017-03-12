@@ -1,3 +1,44 @@
+$dim: #808181;
+$liked-button: #FF4F4F;
+
 page-detail-view {
+  img {
+    border-radius: 10px;
+  }
+  .header-ios .toolbar-ios:last-child .toolbar-background-ios {
+    border: none;
+  }
+
+  .postTime {
+    color: $dim;
+  }
+
+  .start-btn {
+    font-size: 30px;
+    color: $dim;
+  }
+
+  .end-btn {
+    font-size: 15px;
+    margin-left: 10px;
+    color: $dim;
+  }
+
+  .liked-button {
+    color: $liked-button;
+  }
+
+  .username {
+    font-weight: 500;
+  }
+
+  .comment {
+    color: black;
+  }
+  .avatar {
+    border-radius: 50%;
+    margin-top: 10px;
+    margin-left: 20px;
+  }
 
 }

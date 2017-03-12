@@ -43,8 +43,8 @@
   <div class="dynamic-grid">
 
     <article *ngFor="let file of mediaList" class="grid-item">
-      <div (click)="navigateToJournal(file)">
-        <img *ngIf="file.media_type == 'image'" [src]="url + file.filename">
+      <div>
+        <img *ngIf="file.media_type == 'image'" [src]="url + file.filename" (click)="presentImage(file.file_id)">
 
         <video *ngIf="file.media_type == 'video'" width="320" height="240" controls>
           <source [src]="url + file.filename" type="video/mp4">
