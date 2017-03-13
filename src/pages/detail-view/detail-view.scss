@@ -1,7 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
+$ion-title: 'Pacifico', cursive;
+$title-font: 'Quicksand', sans-serif;
+$text-font: 'Quicksand', sans-serif;
 $dim: #808181;
 $liked-button: #FF4F4F;
 
 page-detail-view {
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $title-font;
+    font-weight: 900;
+  }
+
+  p, ion-input, ion-label, span, button, ion-textarea {
+    font-family: $text-font;
+    font-weight: 500;
+    font-size: 18px;
+  }
+
   img {
     border-radius: 10px;
   }
@@ -11,6 +29,7 @@ page-detail-view {
 
   .postTime {
     color: $dim;
+    font-size: 13px;
   }
 
   .start-btn {

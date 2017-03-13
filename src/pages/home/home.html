@@ -5,6 +5,16 @@
 </ion-header>
 
 <ion-content class="cards-bg">
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="ios-arrow-up-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <ion-card *ngFor="let media of medias">
 
     <div (click)="navigateToJournal(media)">

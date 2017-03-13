@@ -1,9 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
+$ion-title: 'Pacifico', cursive;
+$title-font: 'Quicksand', sans-serif;
+$text-font: 'Quicksand', sans-serif;
 $image-height: 120px;
 $liked-button: #FF4F4F;
 $saved-button: #3EC6A7;
 $dim: #808181;
 
 page-journal {
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $title-font;
+    font-weight: 900;
+  }
+
+  p, ion-input, ion-label, span, button, ion-textarea {
+    font-family: $text-font;
+    font-weight: 500;
+  }
+
   ion-navbar {
     ion-icon {
       color: $dim
