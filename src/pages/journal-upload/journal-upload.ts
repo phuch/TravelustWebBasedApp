@@ -1,9 +1,9 @@
-import { HomePage } from './../home/home';
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform, LoadingController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, Platform, LoadingController, ToastController, App } from 'ionic-angular';
 import { Camera } from 'ionic-native';
+import { TabsPage } from './../tabs/tabs'
 
 /*
   Generated class for the JournalUpload page.
@@ -24,11 +24,8 @@ export class JournalUploadPage {
     'jpg'  : 'image/jpeg',
     'png'  : 'image/png'
   }
-  private videoMIME: any = {
-    'mp4' : 'video/mp4'
-  }
 
-  constructor(public toastCtrl: ToastController, public loadingCtrl: LoadingController, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
+  constructor(public app: App, public toastCtrl: ToastController, public loadingCtrl: LoadingController, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad JournalUploadPage');
@@ -86,6 +83,7 @@ export class JournalUploadPage {
                                                       console.log(respTagOwner)
                                                       this.mediaService.shouldReload = true;
                                                       // this.navCtrl.parent.select(0);
+                                                      this.app.getRootNav().setRoot(TabsPage);
                                                       this.mediaSrc = '';
                                                       form.resetForm();
                                                   }
@@ -111,7 +109,7 @@ export class JournalUploadPage {
     });
     loader.present();
     setTimeout(() => {
-      this.navCtrl.parent.select(0);
+      //this.navCtrl.parent.select(0);
     }, 3000);
   }
 

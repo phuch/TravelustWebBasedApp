@@ -25,20 +25,18 @@ export class HomePage {
               public postTimePipe: PostTimePipe, public datePipe: DatePipe) {}
   ionViewDidLoad() {
     console.log("Did load..." + this.mediaService.shouldReload)
-    console.log((this.navCtrl.parent instanceof Tabs) + "..checking")
+    this.getMedia();
   }
   ionViewDidEnter() {
     console.log("Did enter..." + this.mediaService.shouldReload)
     if (this.mediaService.shouldReload){
         this.medias = [];
         this.start = 0;
+        this.getMedia();
         this.mediaService.shouldReload = false;
     }
-    this.getMedia();
   }
-  ionViewWillEnter() {
-    console.log("will enter..." + this.mediaService.shouldReload)
-  }
+
   getMedia = () =>{
     console.log(this.start);
     this.mediaService.getMedia(this.start).subscribe(
@@ -99,6 +97,10 @@ export class HomePage {
 
   goToOtherAccount = (media: any) => {
     this.app.getRootNav().push(OtherAccountPage, {media: media});
+  }
+
+  trackByMedia(index, media){
+    return media.file_id;
   }
 
 }
