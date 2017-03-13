@@ -1,7 +1,7 @@
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, Platform, LoadingController, ToastController } from 'ionic-angular';
 import { Camera } from 'ionic-native';
 
 /*
@@ -19,16 +19,19 @@ declare var window: any;
 export class JournalAddMediaPage {
   private mediaSrc: string;
   private media: any;
+  private toast: any;
   private imageMIME: any = {
     'jpeg' : 'image/jpeg',
     'jpg'  : 'image/jpeg',
     'png'  : 'image/png'
   }
   private videoMIME: any = {
-    'mp4' : 'video/mp4'
+    'mp4' : 'video/mp4',
+    'mov' : 'video/quicktime',
+    'MOV' : 'video/quicktime'
   }
 
-  constructor(public loadingCtrl: LoadingController,public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
+  constructor(public toastCtrl: ToastController, public loadingCtrl: LoadingController,public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
 
   ionViewDidLoad() {
     this.media = this.navParams.get("media");
@@ -48,13 +51,15 @@ export class JournalAddMediaPage {
                           var reader = new FileReader();
                           //Update type for media got from ios
                           if (this.platform.is("ios")){
-                              let mediaType = success.name.substring(success.name.indexOf('.') + 1);
+                              let mediaType = success.name.substring(success.name.lastIndexOf('.') + 1);
                               if (this.imageMIME[mediaType])
                                   success.type = this.imageMIME[mediaType]
-                              else if (this.videoMIME[mediaType])
+                              else if (this.videoMIME[mediaType]){
                                   success.type = this.videoMIME[mediaType]
+                              }
                               else{
                                 //Not support! Do sth
+                                this.presentToast("File format not supported")
                                 this.mediaSrc = '';
                                 form.resetForm();
                                 return
@@ -91,7 +96,10 @@ export class JournalAddMediaPage {
                                           errTag => console.log("Create tag error: " + errTag)
                                       )
                                   },
-                                  err => console.log("Upload media error: " + err)
+                                  err => {
+                                    console.log("Upload media error: " + err)
+                                    this.presentToast("Upload failed. Note: Video must be less than 50MB")
+                                  }
                               )
                           };
                           reader.readAsArrayBuffer(success);
@@ -115,6 +123,15 @@ export class JournalAddMediaPage {
             this.mediaSrc = file_uri
           },
                 err => console.log(err));
+  }
+
+  presentToast = (msg: string) => {
+    this.toast = this.toastCtrl.create({
+      message: msg,
+      duration: 4000,
+      position: 'bottom'
+    });
+    this.toast.present();
   }
 
 }
