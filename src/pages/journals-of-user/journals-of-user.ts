@@ -28,12 +28,18 @@ export class JournalsOfUserPage {
     console.log('ionViewDidLoad JournalsOfUserPage');
     this.journals = this.navParams.get("journals");
     console.log(this.journals);
-    for (var journal of this.journals){
 
+    for (var journal of this.journals){
       let timeAdded = new Date(journal.time_added);
       journal.postTime = this.postTimePipe.transform(timeAdded.getTime())
       if (journal.postTime == "false")
           journal.postTime = this.datePipe.transform(timeAdded.getTime(), 'medium')
+
+      this.userService.getUserInfo(journal.user_id).subscribe(
+        resp => {
+          journal.author = resp.username;
+        }
+      );
     }
   }
 

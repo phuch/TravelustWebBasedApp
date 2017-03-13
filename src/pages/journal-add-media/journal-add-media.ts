@@ -1,7 +1,7 @@
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
 import { Camera } from 'ionic-native';
 
 /*
@@ -28,7 +28,7 @@ export class JournalAddMediaPage {
     'mp4' : 'video/mp4'
   }
 
-  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
+  constructor(public loadingCtrl: LoadingController,public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
 
   ionViewDidLoad() {
     this.media = this.navParams.get("media");
@@ -67,8 +67,15 @@ export class JournalAddMediaPage {
                               formData.append('title', value.title);
                               formData.append('description', value.description);
 
+                              let loader = this.loadingCtrl.create({
+                                content: "Photo uploading...",
+                              });
+
+                              loader.present();
+
                               this.mediaService.uploadMedia(formData).subscribe(
                                   resp => {
+                                      loader.dismiss();
                                       console.log(resp);
                                       const tag = {
                                           file_id: resp.file_id,

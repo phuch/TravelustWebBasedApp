@@ -2,7 +2,7 @@ import { EditJournalInfoPage } from './../../edit-journal-info/edit-journal-info
 import { JournalAddMediaPage } from './../../journal-add-media/journal-add-media';
 import { TabsPage } from './../../tabs/tabs';
 import { Component } from '@angular/core';
-import { App, NavController, NavParams, ViewController, LoadingController,Tabs } from 'ionic-angular';
+import { App, NavController, NavParams, ViewController, LoadingController, Tabs, AlertController } from 'ionic-angular';
 import { MediaService } from './../../../providers/media-service';
 import { UserService } from './../../../providers/user-service';
 
@@ -42,7 +42,7 @@ export class PopoverPage {
       content: "Journal deleting...",
     });
     loader.present();
-    
+
     //this.app.getRootNav().pop().then(() => this.viewCtrl.dismiss())
     this.mediaService.deleteMedia(this.media.file_id)
     .subscribe(
