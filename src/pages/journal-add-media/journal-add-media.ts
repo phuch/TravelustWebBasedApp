@@ -129,7 +129,7 @@ export class JournalAddMediaPage {
     this.toast = this.toastCtrl.create({
       message: msg,
       duration: 4000,
-      position: 'bottom'
+      position: 'top'
     });
     this.toast.present();
   }

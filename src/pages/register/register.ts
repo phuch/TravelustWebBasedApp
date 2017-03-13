@@ -1,7 +1,7 @@
 import { TabsPage } from './../tabs/tabs';
 import { LoginService } from './../../providers/login-service';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 
 /*
   Generated class for the Register page.
@@ -16,7 +16,9 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class RegisterPage {
   private user: any = {};
-  constructor(public navCtrl: NavController, public navParams: NavParams, private loginService: LoginService) {}
+  private toast: any;
+
+  constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, private loginService: LoginService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
@@ -39,8 +41,18 @@ export class RegisterPage {
             this.loginService.setLoggedIn(true);
           }
         );
-      }
+      },
+      err => this.presentToast("Username has already existed")
     );
+  }
+
+  presentToast = (msg: string) => {
+    this.toast = this.toastCtrl.create({
+      message: msg,
+      duration: 4000,
+      position: 'top'
+    });
+    this.toast.present();
   }
 
 }
