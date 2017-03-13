@@ -2,7 +2,7 @@ import { HomePage } from './../home/home';
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, Platform, LoadingController, ToastController } from 'ionic-angular';
 import { Camera } from 'ionic-native';
 
 /*
@@ -18,6 +18,7 @@ declare var window: any;
 })
 export class JournalUploadPage {
   private mediaSrc: string;
+  private toast: any;
   private imageMIME: any = {
     'jpeg' : 'image/jpeg',
     'jpg'  : 'image/jpeg',
@@ -27,7 +28,7 @@ export class JournalUploadPage {
     'mp4' : 'video/mp4'
   }
 
-  constructor(public loadingCtrl: LoadingController, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
+  constructor(public toastCtrl: ToastController, public loadingCtrl: LoadingController, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad JournalUploadPage');
@@ -44,14 +45,14 @@ export class JournalUploadPage {
       fileEntry.file(
           success => {
                           var reader = new FileReader();
-                          console.log(success.name.substring(success.name.indexOf('.') + 1))
                           //Update type for media got from ios
                           if (this.platform.is("ios")){
-                              let mediaType = success.name.substring(success.name.indexOf('.') + 1);
+                              let mediaType = success.name.substring(success.name.lastIndexOf('.') + 1);
                               if (this.imageMIME[mediaType])
                                   success.type = this.imageMIME[mediaType]
                               else{
                                 //Not support! Do sth
+                                this.presentToast("File format not supported")
                                 this.mediaSrc = '';
                                 form.resetForm();
                                 return
@@ -128,6 +129,15 @@ export class JournalUploadPage {
             this.mediaSrc = file_uri
           },
                 err => console.log(err));
+  }
+
+  presentToast = (msg: string) => {
+    this.toast = this.toastCtrl.create({
+      message: msg,
+      duration: 4000,
+      position: 'top'
+    });
+    this.toast.present();
   }
 
 }
