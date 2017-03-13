@@ -5,6 +5,7 @@ import { MyAccountPage } from './../pages/my-account/my-account';
 import { JournalsOfUserPage } from './../pages/journals-of-user/journals-of-user';
 import { AccountSettingPage } from './../pages/account-setting/account-setting';
 import { EditJournalInfoPage } from './../pages/edit-journal-info/edit-journal-info';
+import { EditUserInfoPage } from './../pages/edit-user-info/edit-user-info';
 import { JournalAddMediaPage } from './../pages/journal-add-media/journal-add-media';
 import { PopoverPage } from './../pages/journal/popover/popover';
 import { JournalPage } from './../pages/journal/journal';
@@ -39,7 +40,8 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     MyAccountPage,
     OtherAccountPage,
     CommentPage,
-    PopoverDetailViewPage
+    PopoverDetailViewPage,
+    EditUserInfoPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -70,7 +72,8 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     MyAccountPage,
     OtherAccountPage,
     CommentPage,
-    PopoverDetailViewPage
+    PopoverDetailViewPage,
+    EditUserInfoPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

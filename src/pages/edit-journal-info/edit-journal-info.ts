@@ -1,8 +1,7 @@
-import { JournalPage } from './../journal/journal';
 import { UserService } from './../../providers/user-service';
 import { MediaService } from './../../providers/media-service';
 import { Component } from '@angular/core';
-import { App, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 /*
   Generated class for the EditJournalInfo page.
@@ -21,7 +20,7 @@ export class EditJournalInfoPage {
   public title: any;
   public description: any;
 
-  constructor(public app: App, public navCtrl: NavController, public navParams: NavParams, public mediaService: MediaService, public userService: UserService) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, public mediaService: MediaService, public userService: UserService) {}
 
   ionViewDidLoad() {
     this.media = this.navParams.get("media");
@@ -33,14 +32,6 @@ export class EditJournalInfoPage {
   }
 
   editJournalInfo = (value: any) => {
-
-    // let newInfo2: any = {};
-    // if (value.title)
-    //     newInfo2.title = value.title;
-    // if (value.description)
-    //     newInfo2.description = value.description;
-
-    //Option 1
     const newInfo = {
         title: value.title,
         description: value.description
@@ -53,7 +44,6 @@ export class EditJournalInfoPage {
           this.media.title = newInfo.title;
           this.media.description = newInfo.description;
           this.navCtrl.pop();
-          //this.navCtrl.push(JournalPage, { media: this.media });
         }
     );
 
