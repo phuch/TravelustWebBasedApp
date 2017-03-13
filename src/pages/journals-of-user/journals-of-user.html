@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <div class="dynamic-grid">
       <ion-card *ngFor="let journal of journals.slice().reverse()" class="grid-item">
         <div (click)="navigateToJournal(journal)">

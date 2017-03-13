@@ -1,5 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+$title-font: 'Quicksand', sans-serif;
+$text-font: 'Quicksand', sans-serif;
 $dim: #808181;
+
 page-account-setting {
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $title-font;
+    font-weight: 900;
+  }
+
+  p, ion-input, ion-label, span, button, ion-textarea {
+    font-family: $text-font;
+    font-weight: 500;
+  }
 
   .back-button-ios {
     color: $dim;
