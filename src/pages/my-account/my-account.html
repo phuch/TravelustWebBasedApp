@@ -45,11 +45,11 @@
   </ion-item>
 
   <ion-item>
-    <button ion-button clear>
+    <button ion-button clear (click)="goToSaveJournals()">
       <ion-icon name='md-star' item-left style="color: #FFEB4F"></ion-icon>
         Saved journals
     </button>
-    <ion-badge item-right>5</ion-badge>
+    <ion-badge item-right>{{save_journals.length}}</ion-badge>
   </ion-item>
 
   <ion-item>
