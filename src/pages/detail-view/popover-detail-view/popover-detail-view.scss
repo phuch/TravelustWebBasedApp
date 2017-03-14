@@ -5,7 +5,7 @@ $ion-title: 'Pacifico', cursive;
 $title-font: 'Quicksand', sans-serif;
 $text-font: 'Quicksand', sans-serif;
 
-page-popover {
+page-popover-detail-view {
 
   h1, h2, h3, h4, h5, h6 {
     font-family: $title-font;
@@ -20,4 +20,5 @@ page-popover {
   .list-ios {
     margin: 0;
   }
+
 }

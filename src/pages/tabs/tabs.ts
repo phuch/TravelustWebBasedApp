@@ -17,12 +17,5 @@ export class TabsPage {
   tab2Root: any = JournalUploadPage;
   tab3Root: any = MyAccountPage;
 
-  //Tab params
-  upload = {
-    isUploaded : false
-  }
-
-  constructor() {
-
-  }
+  constructor() {}
 }

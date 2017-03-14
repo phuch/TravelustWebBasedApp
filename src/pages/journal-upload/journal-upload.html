@@ -27,12 +27,12 @@
         <form #uploadForm="ngForm">
             <ion-list>
               <ion-item>
-                  <ion-label><strong>Journal title:</strong></ion-label>
+                  <ion-label color="primary"><strong>Journal title:</strong></ion-label>
                   <ion-input type="text" name="title" ngModel required></ion-input>
               </ion-item>
 
               <ion-item>
-                  <ion-label><strong>Description: </strong></ion-label>
+                  <ion-label color="primary"><strong>Description: </strong></ion-label>
                   <ion-textarea type="text" name="description" ngModel required></ion-textarea>
               </ion-item>
 
@@ -40,7 +40,7 @@
 
             <ion-row>
                 <ion-col text-center>
-                    <button ion-button class="button" (click)="uploadMedia(uploadForm); goToHomepage()" [disabled]="!uploadForm.valid">Create</button>
+                    <button ion-button class="button" (click)="uploadMedia(uploadForm)" [disabled]="!uploadForm.valid">Create</button>
                 </ion-col>
             </ion-row>
         </form>

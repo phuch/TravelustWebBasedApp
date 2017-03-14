@@ -1,8 +1,7 @@
 import { LoginService } from './../../providers/login-service';
 import { TabsPage } from './../tabs/tabs';
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { Toast } from 'ionic-native';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 
 /*
   Generated class for the Login page.
@@ -17,7 +16,9 @@ import { Toast } from 'ionic-native';
 })
 export class LoginPage implements OnInit {
   private user: any = {};
-  constructor(public navCtrl: NavController, public navParams: NavParams, private loginService: LoginService) {}
+  private toast: any;
+
+  constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, private loginService: LoginService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -41,14 +42,18 @@ export class LoginPage implements OnInit {
         },
         //error handler
         err => {
-          if(err.statusText == "Unauthorized"){
-            console.log("You haven't registered or your password does not match");
-            Toast.show("You haven't registered or your password does not match", "short", "bottom").subscribe(
-              toast => console.log(toast)
-            )
+            this.presentToast("Username or password does not match");
             this.loginService.setLoggedIn(false);
-          }
         }
       )
+  }
+
+  presentToast = (msg: string) => {
+    this.toast = this.toastCtrl.create({
+      message: msg,
+      duration: 4000,
+      position: 'top'
+    });
+    this.toast.present();
   }
 }

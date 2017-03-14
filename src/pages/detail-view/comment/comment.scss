@@ -5,7 +5,7 @@ $ion-title: 'Pacifico', cursive;
 $title-font: 'Quicksand', sans-serif;
 $text-font: 'Quicksand', sans-serif;
 
-page-popover {
+page-comment {
 
   h1, h2, h3, h4, h5, h6 {
     font-family: $title-font;
@@ -17,7 +17,12 @@ page-popover {
     font-weight: 500;
   }
 
-  .list-ios {
-    margin: 0;
+  ion-textarea {
+    padding: 5px;
   }
+
+  .comment-btn {
+    height: 25px;
+  }
+
 }

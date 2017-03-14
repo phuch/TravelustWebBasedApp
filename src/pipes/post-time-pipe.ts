@@ -17,12 +17,12 @@ export class PostTimePipe {
   transform(postTime: number, args?) {
     let value = Date.now() - postTime;
     //Change mil -> sec
-    value = Math.floor(value /= 1000); // value in secs 
+    value = Math.floor(value /= 1000); // value in secs
     if (value < 1) // time < 1 sec
         return "just now"
-    else if (value >= 1 && value < 60) // 1 sec <= time < 1 minute 
+    else if (value >= 1 && value < 60) // 1 sec <= time < 1 minute
     {
-        return value + "s ago"
+        return args == "displayForComment"? value + "s" : value + "s ago"
         // if (value == 1)
         //     return value + " second ago"
         // else
@@ -30,9 +30,9 @@ export class PostTimePipe {
     }
     //Change sec -> minute
     value = Math.floor(value /= 60); // value in minutes
-    if (value >= 1 && value < 60) // 1 minute <= time < 1 hour 
+    if (value >= 1 && value < 60) // 1 minute <= time < 1 hour
     {
-        return value + "m ago"
+        return args == "displayForComment"? value + "m" : value + "m ago"
         // if (value == 1)
         //     return value + " minute ago"
         // else
@@ -40,9 +40,9 @@ export class PostTimePipe {
     }
     //Change minute -> hour
     value = Math.floor(value /= 60); // value in hours
-    if (value >= 1 && value < 24) // 1 hour <= time < 1 day 
+    if (value >= 1 && value < 24) // 1 hour <= time < 1 day
     {
-        return value + "h ago"
+        return args == "displayForComment"? value + "h" : value + "h ago"
         // if (value == 1)
         //     return value + " hour ago"
         // else
@@ -51,7 +51,7 @@ export class PostTimePipe {
     //Change hour -> day
     value = Math.floor(value /= 24); // value in days
     if (value >= 1 && value < 7){
-        return value + "d ago"
+        return args == "displayForComment"? value + "d" : value + "d ago"
         // if (value == 1)
         //     return value + " day ago"
         // else
@@ -60,7 +60,7 @@ export class PostTimePipe {
     //Change day -> week
     value = Math.floor(value /= 7) // value in week
     if (value == 1){
-        return value + " w ago"
+        return args == "displayForComment"? value + "w" : value + "w ago"
     }
     else {
         return "false"

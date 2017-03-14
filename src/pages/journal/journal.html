@@ -22,7 +22,7 @@
 
 <ion-content padding>
   <h1>{{ journal.title }}</h1>
-  <h4><span>by</span> {{ journal.author }}</h4>
+  <h4><span>by</span>  {{ journal.author }}</h4>
   <!--<p>
     <ion-icon name='pin'></ion-icon>
     Location
@@ -34,7 +34,7 @@
     {{ journal.numberOfLikes }}
   </button>
 
-  <button ion-button clear icon-left [class.saved-journal]= "isSaved" (click)= "saveJournal()">
+  <button ion-button clear icon-left [class.saved-journal]= "isSaved" (click)= "saveJournal()" *ngIf="!isOwner">
     <ion-icon name={{saveIcon}}></ion-icon>
     {{saveText}}
   </button>
@@ -43,14 +43,13 @@
   <div class="dynamic-grid">
 
     <article *ngFor="let file of mediaList" class="grid-item">
-      <div (click)="navigateToJournal(file)">
+      <div (click)="presentImage(file.file_id)">
         <img *ngIf="file.media_type == 'image'" [src]="url + file.filename">
 
-        <video *ngIf="file.media_type == 'video'" width="320" height="240" controls>
+        <video *ngIf="file.media_type == 'video'" width="148" controls>
           <source [src]="url + file.filename" type="video/mp4">
         </video>
 
-        <img *ngIf="file.media_type == 'audio'" src="././assets/img/audio_icon.jpg" width="300px" type="audio/mpeg">
       </div>
     </article>
 

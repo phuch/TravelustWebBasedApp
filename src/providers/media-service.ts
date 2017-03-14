@@ -11,6 +11,8 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class MediaService {
+  //determine whether homepage should reload
+  public shouldReload: boolean = false;
   //base url
   private url: string = 'http://media.mw.metropolia.fi/wbma';
 
@@ -21,7 +23,7 @@ export class MediaService {
   /*-------------------- MEDIA --------------------*/
   //Get number of media files providing a starting number
   getMedia = (start: any) => {
-    return this.http.get(this.url + '/media?start=' + start + '&limit=50')
+    return this.http.get(this.url + '/media?start=' + start + '&limit=500')
       .map(
         resp => resp.json()
       );

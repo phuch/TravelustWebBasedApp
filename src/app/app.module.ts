@@ -1,8 +1,12 @@
+import { PopoverDetailViewPage } from './../pages/detail-view/popover-detail-view/popover-detail-view';
+import { CommentPage } from './../pages/detail-view/comment/comment';
 import { OtherAccountPage } from './../pages/other-account/other-account';
 import { MyAccountPage } from './../pages/my-account/my-account';
 import { JournalsOfUserPage } from './../pages/journals-of-user/journals-of-user';
+import { SavedJournalPage } from './../pages/saved-journal/saved-journal';
 import { AccountSettingPage } from './../pages/account-setting/account-setting';
 import { EditJournalInfoPage } from './../pages/edit-journal-info/edit-journal-info';
+import { EditUserInfoPage } from './../pages/edit-user-info/edit-user-info';
 import { JournalAddMediaPage } from './../pages/journal-add-media/journal-add-media';
 import { PopoverPage } from './../pages/journal/popover/popover';
 import { JournalPage } from './../pages/journal/journal';
@@ -35,7 +39,11 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     JournalAddMediaPage,
     JournalsOfUserPage,
     MyAccountPage,
-    OtherAccountPage
+    OtherAccountPage,
+    CommentPage,
+    PopoverDetailViewPage,
+    EditUserInfoPage,
+    SavedJournalPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -64,7 +72,11 @@ import { DetailViewPage } from '../pages/detail-view/detail-view';
     JournalAddMediaPage,
     JournalsOfUserPage,
     MyAccountPage,
-    OtherAccountPage
+    OtherAccountPage,
+    CommentPage,
+    PopoverDetailViewPage,
+    EditUserInfoPage,
+    SavedJournalPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

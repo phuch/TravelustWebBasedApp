@@ -1,4 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
+$ion-title: 'Pacifico', cursive;
+$title-font: 'Quicksand', sans-serif;
+$text-font: 'Quicksand', sans-serif;
+
 page-edit-journal-info {
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $title-font;
+    font-weight: 900;
+  }
+
+  p, ion-input, ion-label, span, button, ion-textarea {
+    font-family: $text-font;
+    font-weight: 500;
+  }
+
+  ion-label {
+    font-weight: 900;
+  }
+
 
   .list-ios > .item-block:last-child .item-inner, .list-ios > .item-wrapper:last-child .item-block .item-inner {
     border-bottom: 0.55px solid #c8c7cc;
@@ -9,6 +31,14 @@ page-edit-journal-info {
   }
   .list-ios > .item-block:first-child {
     border-top: none;
+  }
+
+  .back-button-ios {
+    color: $dim;
+  }
+
+  .toolbar-title-ios {
+    margin-top: 10px;
   }
 
 }

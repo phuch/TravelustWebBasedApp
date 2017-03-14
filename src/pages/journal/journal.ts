@@ -1,6 +1,7 @@
+import { DetailViewPage } from './../detail-view/detail-view';
 import { PopoverPage } from './popover/popover';
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, PopoverController} from 'ionic-angular';
+import { NavController, NavParams, PopoverController, ModalController} from 'ionic-angular';
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
 import Rx from 'rxjs';
@@ -21,15 +22,13 @@ export class JournalPage {
   private isOwner: boolean = false;
   private isLiked: boolean = false;
   private heartIcon: string = "heart-outline";
-  private likes:number;
   private isSaved: boolean = false;
   private saveText: string = "Save journal";
   private saveIcon: string = "bookmark";
   private journal: any = {};
-  private users: any = [];
   private url: string = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService, private popoverCtrl: PopoverController) {}
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService, private popoverCtrl: PopoverController) {}
 
   ionViewDidLoad() {
       console.log('ionViewDidLoad JournalPage');
@@ -40,7 +39,7 @@ export class JournalPage {
       //Get file id passed from old page
       this.journal = this.navParams.get("media");
       //Get media of this journal
-      this.loadMedia(encodeURIComponent("#travelust_subjournal_beta_" + this.journal.file_id));
+      this.loadMedia(encodeURIComponent("#travelust_subjournal_" + this.journal.file_id));
       //Check whether the current user is the owner
       if (this.journal.user_id == this.userService.getUserFromLocal().user_id)
           this.isOwner = true;
@@ -48,6 +47,9 @@ export class JournalPage {
           this.isOwner = false;
       //Display like
       this.favouriteDisplay(this.journal.file_id)
+      //Display save journal
+      const saveTag: string = "#travelust_savejournal_" + this.userService.getUserFromLocal().user_id;
+      this.saveJournalDisplay(this.journal.file_id, encodeURIComponent(saveTag));
   }
 
   likeJournal = () => {
@@ -76,8 +78,18 @@ export class JournalPage {
   saveJournal = () => {
       this.isSaved = !this.isSaved;
       if(this.isSaved){
-          this.saveIcon = "md-checkmark";
-          this.saveText = "Journal saved";
+          const tag = {
+                file_id: this.journal.file_id,
+                tag: "#travelust_savejournal_" + this.userService.getUserFromLocal().user_id
+          }
+          this.mediaService.createFileTag(tag)
+          .subscribe(
+                resp => {
+                    console.log(resp)
+                    this.saveIcon = "md-checkmark";
+                    this.saveText = "Journal saved";
+                }
+           )
       }else {
           this.saveIcon = "bookmark";
           this.saveText = "Save journal";
@@ -85,7 +97,7 @@ export class JournalPage {
   }
 
   presentPopover = (ev) => {
-      let popover = this.popoverCtrl.create(PopoverPage, {media: this.journal});
+      let popover = this.popoverCtrl.create(PopoverPage, {media: this.journal, onMyJournalDelete: this.navParams.get("onMyJournalDelete")});
       popover.present({
         ev: ev
       });
@@ -106,7 +118,7 @@ export class JournalPage {
                         break;
                     }
                 }
-                //Check whether number of likes = 0
+                //Display whether current user has liked or not
                 if (!exist){
                     this.isLiked = false;
                     this.heartIcon = "heart-outline";
@@ -114,9 +126,31 @@ export class JournalPage {
                 else{
                     this.isLiked = true;
                     this.heartIcon = "heart";
+                    this.isSaved = false;
                 }
           }
       );
+  }
+
+  //Configure display for save journal section
+  saveJournalDisplay = (fileId:any, tag:any) => {
+      this.mediaService.getFilesByTag(tag)
+      .subscribe(
+          resp => {
+              for (let data of resp){
+                  if (data.file_id == this.journal.file_id){
+                      this.isSaved = true;
+                      this.saveIcon = "md-checkmark";
+                      this.saveText = "Journal saved";
+                      break;
+                  }
+              }
+              if (!this.isSaved){
+                  this.saveIcon = "bookmark";
+                  this.saveText = "Save journal";
+              }
+          }
+      )
   }
 
   loadMedia = (tag: any) => {
@@ -129,4 +163,18 @@ export class JournalPage {
       )
   }
 
+  presentImage = (file_id:any) => {
+    let modal = this.modalCtrl.create(DetailViewPage, {fileId: file_id, onDetailMediaDelete: this.deleteDetailMedia});
+    modal.present();
+  }
+
+  deleteDetailMedia = (media: any) => {
+    for (let i of this.mediaList){
+      if (i.file_id == media.file){
+         media = i;
+         break;
+      }
+    }
+    this.mediaList.splice(this.mediaList.indexOf(media), 1)
+  }
 }

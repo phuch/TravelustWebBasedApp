@@ -14,3 +14,8 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.platform-ios .ios-header {
+  // height:calc(56px + 20px);
+  min-height:calc(44px + 20px);
+  padding-top:calc(20px + 4px);
+}

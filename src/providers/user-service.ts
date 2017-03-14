@@ -41,4 +41,14 @@ export class UserService {
        );
   }
 
+  /*-------------------- EDIT --------------------*/
+  editUserInfo = (body: any) => {
+      const headers = new Headers({'x-access-token': this.getUserFromLocal().token})
+      const options = new RequestOptions({headers : headers})
+      return this.http.put(this.url + '/users', body, options)
+        .map(
+          res => res.json()
+        )
+  }
+
 }

@@ -7,24 +7,24 @@
   <ion-row>
       <ion-col>
         <button ion-item detail-none icon-left class="popover-btn" (click)="goToEditInfo()">
-          <ion-icon name="md-create"></ion-icon>
-          Edit journal info
+          <ion-icon name="md-create" color="secondary"></ion-icon>
+          <span color="secondary">Edit journal info</span>
         </button>
       </ion-col>
   </ion-row>
   <ion-row>
       <ion-col>
         <button ion-item detail-none icon-left class="popover-btn" (click)="goToAddPhoto()">
-          <ion-icon name="md-images"></ion-icon>
-          Add photos
+          <ion-icon name="md-images" color="secondary"></ion-icon>
+          <span color="secondary">Add photos</span>
         </button>
       </ion-col>
   </ion-row>
   <ion-row>
       <ion-col>
-        <button ion-item detail-none icon-left class="popover-btn" (click)="deleteJournal()">
-          <ion-icon name="md-trash"></ion-icon>
-          Delete journal
+        <button ion-item detail-none icon-left class="popover-btn" (click)="showConfirm()">
+          <ion-icon name="md-trash" color="danger"></ion-icon>
+          <span color="danger">Delete journal</span>
         </button>
       </ion-col>
   </ion-row>

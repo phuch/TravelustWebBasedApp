@@ -1,4 +1,5 @@
 import { JournalsOfUserPage } from './../journals-of-user/journals-of-user';
+import { SavedJournalPage } from './../saved-journal/saved-journal';
 import { MediaService } from './../../providers/media-service';
 import { UserService } from './../../providers/user-service';
 import { AccountSettingPage } from './../account-setting/account-setting';
@@ -21,6 +22,7 @@ export class MyAccountPage {
   private user: any = {};
   private isOwner: boolean = false;
   private journals: any = [];
+  private save_journals: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public app: App, public userService: UserService, public mediaService: MediaService) {}
 
@@ -37,6 +39,7 @@ export class MyAccountPage {
   ionViewDidEnter() {
     console.log('ionViewDidLoad MyAccountPage');
     this.getJournalOfCurrentUser();
+    this.getSavedJournalOfCurrentUser();
   }
 
   goToSetting = () => {
@@ -47,8 +50,12 @@ export class MyAccountPage {
     this.app.getRootNav().push(JournalsOfUserPage, {journals: this.journals});
   }
 
+  goToSaveJournals = () => {
+    this.app.getRootNav().push(SavedJournalPage, {journals: this.save_journals});
+  }
+
   getJournalOfCurrentUser = () => {
-    let coverTag: string = "#travelust_myjournal_beta_" + this.userService.getUserFromLocal().user_id;
+    let coverTag: string = "#travelust_myjournal_" + this.userService.getUserFromLocal().user_id;
     console.log(coverTag);
     this.mediaService.getFilesByTag(encodeURIComponent(coverTag)).subscribe(
       res => {
@@ -56,7 +63,17 @@ export class MyAccountPage {
         this.journals = res;
       }
     );
+  }
 
+  getSavedJournalOfCurrentUser = () => {
+    let coverTag: string = "#travelust_savejournal_" + this.userService.getUserFromLocal().user_id;
+    console.log(coverTag);
+    this.mediaService.getFilesByTag(encodeURIComponent(coverTag)).subscribe(
+      res => {
+        console.log(res);
+        this.save_journals = res;
+      }
+    );
   }
 
 }

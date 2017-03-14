@@ -52,7 +52,7 @@ export class OtherAccountPage {
   }
 
   getJournalOfCurrentUser = () => {
-    let coverTag: string = "#travelust_myjournal_beta_" + this.user_id;
+    let coverTag: string = "#travelust_myjournal_" + this.user_id;
     console.log(coverTag);
     this.mediaService.getFilesByTag(encodeURIComponent(coverTag)).subscribe(
       res => {

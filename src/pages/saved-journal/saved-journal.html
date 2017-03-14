@@ -15,7 +15,7 @@
 
 <ion-content>
   <div class="dynamic-grid">
-      <ion-card *ngFor="let journal of journals.slice().reverse()" class="grid-item">
+      <ion-card *ngFor="let journal of save_journals.slice().reverse()" class="grid-item">
         <div (click)="navigateToJournal(journal)">
             <img class="journal-img" [src]="url + journal.filename">
             <ion-card-content>
