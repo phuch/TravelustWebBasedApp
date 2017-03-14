@@ -19,6 +19,9 @@
               <div class="file-upload" (click)="openGallery()">
                 <div *ngIf="!mediaSrc">
                   <img id="camera-icon" src='././assets/img/picture.png' width="80px">
+                  <video *ngIf="isVideo" width="148" controls>
+                    <source [src]="url + file.filename" type="video/mp4">
+                  </video>
                   <p>Choose a file</p>
                 </div>
                 <img *ngIf="mediaSrc" id="img-preview" [src]="mediaSrc">

@@ -32,6 +32,10 @@ export class JournalUploadPage {
   }
 
   uploadMedia = (form: any) => {
+    let loader = this.loadingCtrl.create({
+      content: "Journal creating..."
+    });
+    loader.present();
     let value = form.value;
     //Check platform to get the correct file path
     if (this.platform.is("android"))
@@ -83,6 +87,7 @@ export class JournalUploadPage {
                                                       console.log(respTagOwner)
                                                       this.mediaService.shouldReload = true;
                                                       // this.navCtrl.parent.select(0);
+                                                      loader.dismiss();
                                                       this.app.getRootNav().setRoot(TabsPage);
                                                       this.mediaSrc = '';
                                                       form.resetForm();

@@ -29,7 +29,7 @@ export class JournalsOfUserPage {
     this.journals = this.navParams.get("journals");
     console.log(this.journals);
 
-    for (var journal of this.journals){
+    for (let journal of this.journals){
       let timeAdded = new Date(journal.time_added);
       journal.postTime = this.postTimePipe.transform(timeAdded.getTime())
       if (journal.postTime == "false")

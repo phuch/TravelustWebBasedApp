@@ -46,11 +46,10 @@
       <div (click)="presentImage(file.file_id)">
         <img *ngIf="file.media_type == 'image'" [src]="url + file.filename">
 
-        <video *ngIf="file.media_type == 'video'" width="320" controls>
+        <video *ngIf="file.media_type == 'video'" width="148" controls>
           <source [src]="url + file.filename" type="video/mp4">
         </video>
 
-        <img *ngIf="file.media_type == 'audio'" src="././assets/img/audio_icon.jpg" width="300px" type="audio/mpeg">
       </div>
     </article>
 

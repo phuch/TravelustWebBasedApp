@@ -117,10 +117,14 @@ export class DetailViewPage implements OnInit{
   }
 
   presentPopover = (ev) => {
-      let popover = this.popoverCtrl.create(PopoverDetailViewPage, {file: this.file});
+      let popover = this.popoverCtrl.create(PopoverDetailViewPage, {file: this.file, onDetailMediaDelete: this.navParams.get("onDetailMediaDelete"), closeDetailView: this.closeDetailView});
       popover.present({
         ev: ev
       });
+  }
+
+  closeDetailView = () => {
+    this.navCtrl.pop();
   }
 
   getComment = () => {

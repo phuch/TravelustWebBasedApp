@@ -22,12 +22,10 @@ export class JournalPage {
   private isOwner: boolean = false;
   private isLiked: boolean = false;
   private heartIcon: string = "heart-outline";
-  private likes:number;
   private isSaved: boolean = false;
   private saveText: string = "Save journal";
   private saveIcon: string = "bookmark";
   private journal: any = {};
-  private users: any = [];
   private url: string = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
   constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private mediaService: MediaService, private userService: UserService, private popoverCtrl: PopoverController) {}
@@ -166,7 +164,17 @@ export class JournalPage {
   }
 
   presentImage = (file_id:any) => {
-    let modal = this.modalCtrl.create(DetailViewPage, {fileId: file_id});
+    let modal = this.modalCtrl.create(DetailViewPage, {fileId: file_id, onDetailMediaDelete: this.deleteDetailMedia});
     modal.present();
+  }
+
+  deleteDetailMedia = (media: any) => {
+    for (let i of this.mediaList){
+      if (i.file_id == media.file){
+         media = i;
+         break;
+      }
+    }
+    this.mediaList.splice(this.mediaList.indexOf(media), 1)
   }
 }

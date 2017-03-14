@@ -20,6 +20,7 @@ export class JournalAddMediaPage {
   private mediaSrc: string;
   private media: any;
   private toast: any;
+  private isVideo: boolean;
   private imageMIME: any = {
     'jpeg' : 'image/jpeg',
     'jpg'  : 'image/jpeg',
@@ -65,6 +66,8 @@ export class JournalAddMediaPage {
                                 return
                               }
                           }
+                          // if (success.type.substring(0, success.type.indexOf('/')) == 'video')
+                          //     this.isVideo = true;
                           reader.onload = (e: any) => {
                               var imgBlob = new Blob([ e.target.result ], { type: success.type } );
                               const formData = new FormData();
