@@ -39,7 +39,7 @@ export class JournalPage {
       //Get file id passed from old page
       this.journal = this.navParams.get("media");
       //Get media of this journal
-      this.loadMedia(encodeURIComponent("#travelust_subjournal_beta_" + this.journal.file_id));
+      this.loadMedia(encodeURIComponent("#travelust_subjournal_" + this.journal.file_id));
       //Check whether the current user is the owner
       if (this.journal.user_id == this.userService.getUserFromLocal().user_id)
           this.isOwner = true;
@@ -48,7 +48,7 @@ export class JournalPage {
       //Display like
       this.favouriteDisplay(this.journal.file_id)
       //Display save journal
-      const saveTag: string = "#travelust_savejournal_beta_" + this.userService.getUserFromLocal().user_id;
+      const saveTag: string = "#travelust_savejournal_" + this.userService.getUserFromLocal().user_id;
       this.saveJournalDisplay(this.journal.file_id, encodeURIComponent(saveTag));
   }
 
@@ -80,7 +80,7 @@ export class JournalPage {
       if(this.isSaved){
           const tag = {
                 file_id: this.journal.file_id,
-                tag: "#travelust_savejournal_beta_" + this.userService.getUserFromLocal().user_id
+                tag: "#travelust_savejournal_" + this.userService.getUserFromLocal().user_id
           }
           this.mediaService.createFileTag(tag)
           .subscribe(

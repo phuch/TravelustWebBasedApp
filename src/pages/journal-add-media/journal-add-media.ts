@@ -87,7 +87,7 @@ export class JournalAddMediaPage {
                                       console.log(resp);
                                       const tag = {
                                           file_id: resp.file_id,
-                                          tag: "#travelust_subjournal_beta_" + this.media.file_id
+                                          tag: "#travelust_subjournal_" + this.media.file_id
                                       }
                                       this.mediaService.createFileTag(tag).subscribe(
                                           respTag => {

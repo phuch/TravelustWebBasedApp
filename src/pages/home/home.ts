@@ -58,7 +58,7 @@ export class HomePage {
                       respTag => {
                           var check: boolean = false;
                           for (let tag of respTag){
-                              var correctTag = "#travelust_journal_beta_" + data.file_id;
+                              var correctTag = "#travelust_journal_" + data.file_id;
                               if (tag.tag === correctTag){
                                   check = true;
                                   break;

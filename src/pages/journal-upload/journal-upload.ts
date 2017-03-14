@@ -72,14 +72,14 @@ export class JournalUploadPage {
                                       console.log(resp);
                                       const tag = {
                                           file_id: resp.file_id,
-                                          tag: "#travelust_journal_beta_" + resp.file_id
+                                          tag: "#travelust_journal_" + resp.file_id
                                       }
                                       this.mediaService.createFileTag(tag).subscribe(
                                           respTag => {
                                               console.log(respTag)
                                               const tag_owner = {
                                                   file_id: resp.file_id,
-                                                  tag: "#travelust_myjournal_beta_" + this.userService.getUserFromLocal().user_id
+                                                  tag: "#travelust_myjournal_" + this.userService.getUserFromLocal().user_id
                                               }
                                               console.log(tag_owner);
                                               this.mediaService.createFileTag(tag_owner).subscribe(

@@ -55,7 +55,7 @@ export class MyAccountPage {
   }
 
   getJournalOfCurrentUser = () => {
-    let coverTag: string = "#travelust_myjournal_beta_" + this.userService.getUserFromLocal().user_id;
+    let coverTag: string = "#travelust_myjournal_" + this.userService.getUserFromLocal().user_id;
     console.log(coverTag);
     this.mediaService.getFilesByTag(encodeURIComponent(coverTag)).subscribe(
       res => {
@@ -66,7 +66,7 @@ export class MyAccountPage {
   }
 
   getSavedJournalOfCurrentUser = () => {
-    let coverTag: string = "#travelust_savejournal_beta_" + this.userService.getUserFromLocal().user_id;
+    let coverTag: string = "#travelust_savejournal_" + this.userService.getUserFromLocal().user_id;
     console.log(coverTag);
     this.mediaService.getFilesByTag(encodeURIComponent(coverTag)).subscribe(
       res => {
