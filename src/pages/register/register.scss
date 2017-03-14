@@ -74,4 +74,8 @@ $text-font: 'Source Code Pro', monospace;
       background-color: transparent;
     }
 
+    ion-label, ion-input {
+      font-family: $text-font;
+    }
+
   }

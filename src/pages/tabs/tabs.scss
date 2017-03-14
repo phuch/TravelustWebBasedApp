@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+$text-font: 'Quicksand', sans-serif;
+
+page-tabs {
+
+  ion-tab {
+    font-family: $text-font
+  }
+.tabs-ios .tab-button {
+  height: 50px;
+}
+}

@@ -37,6 +37,15 @@ export class HomePage {
     }
   }
 
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
+  }
+
   getMedia = () =>{
     console.log(this.start);
     this.mediaService.getMedia(this.start).subscribe(
